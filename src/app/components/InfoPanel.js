@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useMemo } from "react";
 import { Pin, PinOff } from "lucide-react";
 
 export default function InfoPanel({
@@ -12,6 +12,7 @@ export default function InfoPanel({
   businessData,
   languageLocationData,
   keywordData = [],
+  competitorData = null,   // ⬅️ NEW: full payload from Step 5
   currentStep,
 }) {
   const panelRef = useRef(null);
@@ -44,7 +45,27 @@ export default function InfoPanel({
   const stats = generateRandomStats(websiteData?.website);
   const displayWebsite = websiteData?.website || "yourcompany.com";
 
-  // STEP 1
+  // Utility to make "Comp-1-0" display as "Comp-1"
+  const cleanLabel = (s) => (typeof s === "string" ? s.replace(/-\d+$/, "") : s);
+
+  // Safe competitor buckets
+  const { businessCompetitors, searchCompetitors, totalCompetitors } = useMemo(() => {
+    const empty = { businessCompetitors: [], searchCompetitors: [], totalCompetitors: [] };
+    if (!competitorData) return empty;
+    return {
+      businessCompetitors: Array.isArray(competitorData.businessCompetitors)
+        ? competitorData.businessCompetitors
+        : [],
+      searchCompetitors: Array.isArray(competitorData.searchCompetitors)
+        ? competitorData.searchCompetitors
+        : [],
+      totalCompetitors: Array.isArray(competitorData.totalCompetitors)
+        ? competitorData.totalCompetitors
+        : [],
+    };
+  }, [competitorData]);
+
+  // STEP 1 (unchanged)
   const renderStep1Content = () => (
     <div className="space-y-6">
       <div className="bg-white rounded-lg p-4 shadow-sm border">
@@ -61,10 +82,7 @@ export default function InfoPanel({
             ["Organic Traffic", stats.organicTraffic],
             ["Organic Keyword", stats.organicKeyword],
           ].map(([label, value], idx) => (
-            <div
-              key={idx}
-              className="bg-white px-3 py-3 rounded shadow-sm text-center border"
-            >
+            <div key={idx} className="bg-white px-3 py-3 rounded shadow-sm text-center border">
               <div className="flex items-center justify-center gap-1 mb-1">
                 <div className="text-xl font-bold text-gray-800">{value}</div>
                 <div className="text-gray-400">↓</div>
@@ -85,13 +103,9 @@ export default function InfoPanel({
         <div className="bg-white rounded-lg border shadow-sm p-3 mb-4">
           <div className="flex items-start justify-between mb-2">
             <div>
-              <div className="text-sm font-semibold text-gray-800">
-                Domain Authority ({stats.domainAuthority})
-              </div>
+              <div className="text-sm font-semibold text-gray-800">Domain Authority ({stats.domainAuthority})</div>
               <div className="text-xs text-gray-500">Your site trust score (0–100)</div>
-              <div className="text-xs text-gray-500 mt-1">
-                {stats.domainAuthority} = above average for SMBs
-              </div>
+              <div className="text-xs text-gray-500 mt-1">{stats.domainAuthority} = above average for SMBs</div>
             </div>
             <div className="text-gray-400 cursor-help">?</div>
           </div>
@@ -109,13 +123,9 @@ export default function InfoPanel({
         <div className="bg-white rounded-lg border shadow-sm p-3">
           <div className="flex items-start justify-between mb-2">
             <div>
-              <div className="text-sm font-semibold text-gray-800">
-                Organic Traffic ({stats.organicTraffic})
-              </div>
+              <div className="text-sm font-semibold text-gray-800">Organic Traffic ({stats.organicTraffic})</div>
               <div className="text-xs text-gray-500">Monthly visits from free searches.</div>
-              <div className="text-xs text-gray-500 mt-1">
-                {stats.organicTraffic} = visitors last month.
-              </div>
+              <div className="text-xs text-gray-500 mt-1">{stats.organicTraffic} = visitors last month.</div>
             </div>
             <div className="text-gray-400 cursor-help">?</div>
           </div>
@@ -134,7 +144,7 @@ export default function InfoPanel({
     </div>
   );
 
-  // STEP 2
+  // STEP 2 (unchanged)
   const renderStep2Content = () => (
     <div className="space-y-6">
       <div className="bg-white rounded-lg p-4 shadow-sm border">
@@ -184,7 +194,7 @@ export default function InfoPanel({
           </div>
           <h4 className="text-sm font-bold text-gray-800">FIX THIS</h4>
         </div>
-        {/* Card 1 */}
+        {/* Cards */}
         <div className="bg-white rounded-lg border shadow-sm p-3 mb-4">
           <div className="flex items-start justify-between mb-2">
             <div>
@@ -209,7 +219,7 @@ export default function InfoPanel({
             <div className="text-gray-400">⋯</div>
           </div>
         </div>
-        {/* Card 2 */}
+
         <div className="bg-white rounded-lg border shadow-sm p-3 mb-4">
           <div className="flex items-start justify-between mb-2">
             <div>
@@ -227,7 +237,7 @@ export default function InfoPanel({
             <div className="text-gray-400">⋯</div>
           </div>
         </div>
-        {/* Card 3 */}
+
         <div className="bg-white rounded-lg border shadow-sm p-3 mb-4">
           <div className="flex items-start justify-between mb-2">
             <div>
@@ -245,7 +255,7 @@ export default function InfoPanel({
             <div className="text-gray-400">⋯</div>
           </div>
         </div>
-        {/* Card 4 */}
+
         <div className="bg-white rounded-lg border shadow-sm p-3">
           <div className="flex items-start justify-between mb-2">
             <div>
@@ -268,7 +278,7 @@ export default function InfoPanel({
     </div>
   );
 
-  // STEP 3
+  // STEP 3 (unchanged)
   const renderStep3Content = () => (
     <div className="space-y-6">
       <div className="bg-white rounded-lg p-4 shadow-sm border">
@@ -315,7 +325,7 @@ export default function InfoPanel({
           </div>
           <h4 className="text-sm font-bold text-gray-800">FIX THIS</h4>
         </div>
-        {/* Local SEO Power */}
+        {/* Cards */}
         <div className="bg-white rounded-lg border shadow-sm p-3 mb-4">
           <div className="flex items-start justify-between mb-2">
             <div>
@@ -332,7 +342,7 @@ export default function InfoPanel({
             <div className="text-gray-400">⋯</div>
           </div>
         </div>
-        {/* Language Strategy */}
+
         <div className="bg-white rounded-lg border shadow-sm p-3 mb-4">
           <div className="flex items-start justify-between mb-2">
             <div>
@@ -352,7 +362,7 @@ export default function InfoPanel({
             <div className="text-gray-400">⋯</div>
           </div>
         </div>
-        {/* Location Guide */}
+
         <div className="bg-white rounded-lg border shadow-sm p-3">
           <div className="flex items-start justify-between mb-2">
             <div>
@@ -370,6 +380,7 @@ export default function InfoPanel({
           </div>
         </div>
       </div>
+
       {keywordData.length > 0 && (
         <div className="bg-white rounded-lg p-4 shadow-sm border mt-4">
           <div className="text-xs text-gray-600 font-medium mb-2">
@@ -387,19 +398,239 @@ export default function InfoPanel({
     </div>
   );
 
-  // STEP 4 (unchanged if already working)
+  // STEP 4 (unchanged visual emphasis on keywords)
   const renderStep4Content = () => (
-    <div className="space-y-6">
-      {/* --- Use your previous Step 4 content here. --- */}
+    <div className="space-y-8">
+      <div className="bg-white rounded-lg p-4 shadow-sm border">
+        <div className="flex items-center justify-between mb-4">
+          <div className="text-xs text-gray-600 font-medium">WEBSITE :</div>
+          <div className="flex items-center gap-2">
+            <div className="text-sm font-medium text-gray-800">{displayWebsite}</div>
+            <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded">Good</span>
+          </div>
+        </div>
+
+        {keywordData.length > 0 && (
+          <>
+            <div className="text-xs text-gray-600 font-medium mb-2 mt-2">
+              Selected Keywords ({keywordData.length})
+            </div>
+            <div className="flex flex-wrap gap-2 mb-2">
+              {keywordData.slice(0, 6).map((kw, i) => (
+                <span
+                  key={i}
+                  className="px-4 py-1 bg-white text-gray-900 border border-blue-600 rounded-sm font-medium text-sm"
+                >
+                  {kw}
+                </span>
+              ))}
+              {keywordData.length > 6 && (
+                <span className="bg-gray-200 text-gray-600 text-xs px-2 py-1 rounded">
+                  +{keywordData.length - 6} more
+                </span>
+              )}
+            </div>
+          </>
+        )}
+
+        <div className="grid grid-cols-3 gap-3 mt-6">
+          {[
+            ["Domain Authority", stats.domainAuthority],
+            ["Organic Traffic", stats.organicTraffic],
+            ["Organic Keyword", stats.organicKeyword],
+          ].map(([label, value], idx) => (
+            <div key={idx} className="bg-white px-3 py-3 rounded shadow-sm text-center border">
+              <div className="flex items-center justify-center gap-1 mb-1">
+                <div className="text-xl font-bold text-gray-800">{value}</div>
+                <div className="text-gray-400">&#8595;</div>
+              </div>
+              <div className="text-xs text-gray-500 mb-1">{label}</div>
+              <div className="text-xs text-gray-400">29</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div>
+        <div className="flex items-center gap-2 mb-3">
+          <div className="w-4 h-4 bg-orange-500 rounded-sm flex items-center justify-center">
+            <span className="text-white text-xs">!</span>
+          </div>
+          <h4 className="text-sm font-bold text-gray-800">FIX THIS</h4>
+        </div>
+
+        <div className="bg-white rounded-lg border shadow-sm p-4 mb-4 flex items-center gap-3">
+          <div className="w-9 h-9 flex items-center justify-center rounded bg-blue-600 text-white font-bold">i</div>
+          <div className="flex-1">
+            <div className="font-medium text-gray-900">Keyword Fundamentals</div>
+            <div className="text-xs text-gray-500">What keywords are &amp; why they matter</div>
+            <div className="flex flex-wrap gap-2 mb-2 my-4">
+              {keywordData.slice(0, 6).map((kw, i) => (
+                <span
+                  key={i}
+                  className="px-2 py-1 bg-white text-gray-900 border border-blue-600 rounded-sm font-small text-xs"
+                >
+                  {kw}
+                </span>
+              ))}
+              {keywordData.length > 6 && (
+                <span className="bg-gray-200 text-gray-600 text-xs px-2 py-1 rounded">
+                  +{keywordData.length - 6} more
+                </span>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg border shadow-sm p-4 mb-4 flex items-center gap-3">
+          <div className="w-9 h-9 flex items-center justify-center rounded bg-green-600 text-white font-bold">&#x2261;</div>
+          <div className="flex-1">
+            <div className="font-medium text-gray-900">Volume &amp; Competition</div>
+            <div className="text-xs text-gray-500">
+              Match industry volume &amp; competition<br />
+              <span className="font-bold text-green-600">100–1,000 searches = sweet spot</span>
+            </div>
+          </div>
+        </div>
+
+        <div className="bg-white rounded-lg border shadow-sm p-4 flex items-center gap-3">
+          <div className="w-9 h-9 flex items-center justify-center rounded bg-purple-600 text-white font-bold">&#x270E;</div>
+          <div className="flex-1">
+            <div className="font-medium text-gray-900">Customer Language</div>
+            <div className="text-xs text-gray-500">
+              Use words your customers actually search.<br />
+              Think like your buyer, not like your business.
+            </div>
+            <div className="flex flex-wrap gap-2 mt-2">
+              <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Language #1</span>
+              <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Language #2</span>
+              <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded">Language #3</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
+
+  // STEP 5 (NEW) — shows chosen competitors from StepSlide5
+  const renderStep5Content = () => {
+    const hasAny =
+      (businessCompetitors && businessCompetitors.length > 0) ||
+      (searchCompetitors && searchCompetitors.length > 0) ||
+      (totalCompetitors && totalCompetitors.length > 0);
+
+    return (
+      <div className="space-y-6">
+        <div className="bg-white rounded-lg p-4 shadow-sm border">
+          <div className="flex items-center justify-between mb-4">
+            <div className="text-xs text-gray-600 font-medium">WEBSITE :</div>
+            <div className="flex items-center gap-2">
+              <div className="text-sm font-medium text-gray-800">{displayWebsite}</div>
+              <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded">Good</span>
+            </div>
+          </div>
+          
+
+          <div className="grid grid-cols-3 gap-3">
+            {[
+              ["Domain Authority", stats.domainAuthority],
+              ["Organic Traffic", stats.organicTraffic],
+              ["Organic Keyword", stats.organicKeyword],
+            ].map(([label, value], idx) => (
+              <div key={idx} className="bg-white px-3 py-3 rounded shadow-sm text-center border">
+                <div className="flex items-center justify-center gap-1 mb-1">
+                  <div className="text-xl font-bold text-gray-800">{value}</div>
+                  <div className="text-gray-400">↓</div>
+                </div>
+                <div className="text-xs text-gray-500 mb-1">{label}</div>
+                <div className="text-xs text-gray-400">29</div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {hasAny ? (
+          <>
+            {businessCompetitors?.length > 0 && (
+              <div className="bg-white rounded-lg p-4 shadow-sm border">
+                <div className="text-xs text-gray-600 font-medium mb-2">
+                  Selected Business Competitors ({businessCompetitors.length})
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {businessCompetitors.map((c, i) => (
+                    <span key={`b-${i}`} className="px-3 py-1 bg-white text-gray-900 border border-blue-600 rounded-full text-sm">
+                      {cleanLabel(c)}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {searchCompetitors?.length > 0 && (
+              <div className="bg-white rounded-lg p-4 shadow-sm border">
+                <div className="text-xs text-gray-600 font-medium mb-2">
+                  Selected Search Engine Competitors ({searchCompetitors.length})
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {searchCompetitors.map((c, i) => (
+                    <span key={`s-${i}`} className="px-3 py-1 bg-white text-gray-900 border border-green-600 rounded-full text-sm">
+                      {cleanLabel(c)}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* Fallback / combined list if needed */}
+            {totalCompetitors?.length > 0 && (businessCompetitors.length === 0 && searchCompetitors.length === 0) && (
+              <div className="bg-white rounded-lg p-4 shadow-sm border">
+                <div className="text-xs text-gray-600 font-medium mb-2">
+                  Selected Competitors ({totalCompetitors.length})
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {totalCompetitors.map((c, i) => (
+                    <span key={`t-${i}`} className="px-3 py-1 bg-white text-gray-900 border border-gray-300 rounded-full text-sm">
+                      {cleanLabel(c)}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            )}
+          </>
+        ) : (
+          <div className="bg-yellow-50 border border-yellow-200 text-yellow-800 text-sm rounded p-3">
+            No competitors selected yet. Pick some to see them here.
+          </div>
+        )}
+
+        <div>
+          <div className="flex items-center gap-2 mb-3">
+            <div className="w-4 h-4 bg-orange-500 rounded-sm flex items-center justify-center">
+              <span className="text-white text-xs">!</span>
+            </div>
+            <h4 className="text-sm font-bold text-gray-800">NEXT ACTIONS</h4>
+          </div>
+
+          <div className="bg-white rounded-lg border shadow-sm p-3 mb-3">
+            <div className="text-sm font-semibold text-gray-800 mb-1">Benchmark Against Competitors</div>
+            <div className="text-xs text-gray-500">Compare domain authority and content depth.</div>
+          </div>
+
+          <div className="bg-white rounded-lg border shadow-sm p-3">
+            <div className="text-sm font-semibold text-gray-800 mb-1">Content Gaps</div>
+            <div className="text-xs text-gray-500">Identify topics your competitors rank for that you don’t.</div>
+          </div>
+        </div>
+      </div>
+    );
+  };
 
   return (
     <div
       ref={panelRef}
       aria-hidden={!isOpen}
       className={
-        "fixed left-[80px] top-0 h-screen w-[320px] bg-[#f9fafb] border-r border-gray-200 shadow-md transform transition-transform duration-300 ease-in-out z-40 flex flex-col " +
+        "fixed left-[80px] top-0 h-screen w-[320px] bg-[#f9fafb] border-r border-gray-200 shadow-md transition-transform duration-300 ease-in-out z-40 flex flex-col " +
         (isOpen ? "translate-x-0" : "-translate-x-full")
       }
     >
@@ -412,10 +643,12 @@ export default function InfoPanel({
         <button
           onClick={() => setIsPinned((p) => !p)}
           className="p-2 text-blue-500 hover:text-blue-700 rounded"
+          title={isPinned ? "Unpin panel" : "Pin panel"}
         >
           {isPinned ? <PinOff size={18} /> : <Pin size={18} />}
         </button>
       </div>
+
       {/* Body */}
       <div
         className="flex-1 overflow-y-auto p-4 bg-[#f9fafb]"
@@ -428,7 +661,9 @@ export default function InfoPanel({
           ? renderStep2Content()
           : currentStep === 3
           ? renderStep3Content()
-          : renderStep4Content()}
+          : currentStep === 4
+          ? renderStep4Content()
+          : renderStep5Content()}
       </div>
     </div>
   );

@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
-import { ArrowRight, ArrowLeft, ChevronDown, Plus } from "lucide-react";
+import { ArrowRight, ArrowLeft, ChevronDown, Plus, X } from "lucide-react";
 
 export default function StepSlide4({ onNext, onBack, onKeywordSubmit }) {
   const [selectedKeywords, setSelectedKeywords] = useState([]);
@@ -25,10 +25,13 @@ export default function StepSlide4({ onNext, onBack, onKeywordSubmit }) {
   // Toggle keyword selection
   const handleKeywordToggle = (keyword) => {
     setSelectedKeywords((prev) =>
-      prev.includes(keyword)
-        ? prev.filter((k) => k !== keyword)
-        : [...prev, keyword]
+      prev.includes(keyword) ? prev.filter((k) => k !== keyword) : [...prev, keyword]
     );
+  };
+
+  // Remove specific keyword
+  const handleRemoveKeyword = (keywordToRemove) => {
+    setSelectedKeywords((prev) => prev.filter((k) => k !== keywordToRemove));
   };
 
   // Add custom keyword
@@ -40,8 +43,8 @@ export default function StepSlide4({ onNext, onBack, onKeywordSubmit }) {
     }
   };
 
-  // Handle Enter key for custom keyword
-  const handleKeyPress = (e) => {
+  // Handle Enter key for custom keyword (use onKeyDown instead of deprecated onKeyPress)
+  const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
       handleAddCustom();
@@ -60,8 +63,9 @@ export default function StepSlide4({ onNext, onBack, onKeywordSubmit }) {
       setShowSummary(true);
     } else {
       setShowSummary(false);
+      onKeywordSubmit?.({ keywords: [] });
     }
-  }, [selectedKeywords]);
+  }, [selectedKeywords, onKeywordSubmit]);
 
   // Auto-scroll to top when summary appears
   useEffect(() => {
@@ -73,7 +77,7 @@ export default function StepSlide4({ onNext, onBack, onKeywordSubmit }) {
   }, [showSummary]);
 
   return (
-    <div className="w-full h-screen flex flex-col bg-white transition-colors duration-300">
+    <div className="w-full h-screen flex flex-col bg-gray-100 transition-colors duration-300">
       <div
         ref={containerRef}
         className="flex-1 overflow-y-auto overflow-x-hidden"
@@ -83,18 +87,12 @@ export default function StepSlide4({ onNext, onBack, onKeywordSubmit }) {
         <div className="min-h-full py-12 px-8 pb-96">
           <div className="flex flex-col items-center text-center space-y-8 max-w-4xl mx-auto">
             {/* Step Indicator */}
-            <div className="text-gray-500 text-sm font-medium">
-              Step - 4
-            </div>
+            <div className="text-gray-500 text-sm font-medium">Step - 4</div>
 
             {/* Main Heading */}
             <div className="space-y-4 max-w-2xl">
-              <h1 className="text-3xl font-bold text-gray-900">
-                Unlock high-impact keywords.
-              </h1>
-              <p className="text-gray-600 text-lg">
-                I scanned your site and found these gems.
-              </p>
+              <h1 className="text-3xl font-bold text-gray-900">Unlock high-impact keywords.</h1>
+              <p className="text-gray-600 text-lg">I scanned your site and found these gems.</p>
             </div>
 
             {/* Keyword Selection Area */}
@@ -109,7 +107,7 @@ export default function StepSlide4({ onNext, onBack, onKeywordSubmit }) {
                       onClick={() => handleKeywordToggle(keyword)}
                       className={`px-4 py-2 rounded-full border text-sm font-medium transition-all duration-200 ${
                         isSelected
-                          ? "bg-blue-600 text-white border-blue-600"
+                          ? "bg-white text-gray-900 border-blue-600"
                           : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
                       }`}
                     >
@@ -132,13 +130,14 @@ export default function StepSlide4({ onNext, onBack, onKeywordSubmit }) {
                     placeholder="Add your own keyword"
                     value={customKeyword}
                     onChange={(e) => setCustomKeyword(e.target.value)}
-                    onKeyPress={handleKeyPress}
-                    className="px-4 py-2 border border-gray-300 rounded-lg bg-white text-gray-900 placeholder-gray-500 focus:outline-none focus:border-blue-500"
+                    onKeyDown={handleKeyDown}
+                    className="px-4 py-2 border border-blue-600 rounded-lg bg-white text-gray-900 placeholder-gray-800 focus:outline-none focus:border-blue-500"
                   />
                   <button
                     onClick={handleAddCustom}
                     disabled={!customKeyword.trim()}
-                    className="px-4 py-2 bg-gray-700 text-white rounded-lg hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                    className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
+                    aria-label="Add custom keyword"
                   >
                     <Plus size={16} />
                   </button>
@@ -146,7 +145,7 @@ export default function StepSlide4({ onNext, onBack, onKeywordSubmit }) {
               </div>
             </div>
 
-            {/* Selected Keywords Display */}
+            {/* Selected Keywords Display with hover-reveal remove (matches StepSlide5) */}
             {selectedKeywords.length > 0 && (
               <div className="w-full max-w-4xl">
                 <h3 className="text-lg font-medium text-gray-900 mb-4">
@@ -154,12 +153,25 @@ export default function StepSlide4({ onNext, onBack, onKeywordSubmit }) {
                 </h3>
                 <div className="flex flex-wrap gap-2">
                   {selectedKeywords.map((keyword, idx) => (
-                    <span
+                    <div
                       key={`${keyword}-${idx}`}
-                      className="px-3 py-1 bg-blue-600 text-white rounded-full text-sm font-medium"
+                      className="group relative inline-flex items-center border border-blue-600 text-blue-600 rounded-lg font-medium bg-white text-md transition-all duration-300 px-6 py-3 cursor-default hover:pr-12"
                     >
-                      {keyword}
-                    </span>
+                      <span>{keyword}</span>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleRemoveKeyword(keyword);
+                        }}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 text-gray-400 hover:text-red-500 p-0 h-6 w-6 flex items-center justify-center pointer-events-auto"
+                        title="Remove keyword"
+                        aria-label={`Remove ${keyword}`}
+                        tabIndex={-1}
+                        style={{ background: "transparent", border: "none" }}
+                      >
+                        <X size={16} />
+                      </button>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -171,29 +183,26 @@ export default function StepSlide4({ onNext, onBack, onKeywordSubmit }) {
                 <div className="text-center space-y-6 w-full pt-8">
                   <div>
                     <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                      Here’s your site report — take a quick look on the Info Tab.
+                      Here&apos;s your site report — take a quick look on the Info Tab.
                     </h3>
-                    <p className="text-gray-600 text-base">
-                      You can always view more information in Info Tab
-                    </p>
+                    <p className="text-gray-600 text-base">You can always view more information in Info Tab</p>
                   </div>
                 </div>
 
                 <div className="text-center w-full pt-8 pb-20">
                   <p className="text-gray-600 text-base mb-6">
-                    All set? Click{" "}
-                    <span className="font-bold text-gray-900">Next</span> to continue.
+                    All set? Click <span className="font-bold text-gray-900">Next</span> to continue.
                   </p>
                   <div className="flex justify-center gap-4">
                     <button
                       onClick={onBack}
-                      className="bg-white hover:bg-gray-100 text-gray-700 px-6 py-3 rounded-full flex items-center gap-2 border border-gray-300 transition-colors duration-200"
+                      className="bg-white hover:bg-gray-50 text-gray-700 px-6 py-3 rounded-full flex items-center gap-2 border border-gray-300"
                     >
                       <ArrowLeft size={16} /> Back
                     </button>
                     <button
                       onClick={onNext}
-                      className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full flex items-center gap-2 transition-colors duration-200"
+                      className="bg-gray-700 hover:bg-gray-800 text-white px-8 py-3 rounded-full flex items-center gap-2"
                     >
                       Next <ArrowRight size={16} />
                     </button>
@@ -210,14 +219,14 @@ export default function StepSlide4({ onNext, onBack, onKeywordSubmit }) {
         <div className="max-w-4xl mx-auto flex justify-center gap-4">
           <button
             onClick={onBack}
-            className="bg-white hover:bg-gray-100 text-gray-700 px-6 py-3 rounded-full flex items-center gap-2 border border-gray-300 transition-colors duration-200"
+            className="bg-white hover:bg-gray-50 text-gray-700 px-6 py-3 rounded-full flex items-center gap-2 border border-gray-300"
           >
             <ArrowLeft size={16} /> Back
           </button>
           {showSummary && (
             <button
               onClick={onNext}
-              className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-full flex items-center gap-2 transition-colors duration-200"
+              className="bg-gray-700 hover:bg-gray-800 text-white px-8 py-3 rounded-full flex items-center gap-2"
             >
               Next <ArrowRight size={16} />
             </button>
