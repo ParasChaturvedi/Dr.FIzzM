@@ -630,7 +630,7 @@ export default function InfoPanel({
       ref={panelRef}
       aria-hidden={!isOpen}
       className={
-        "fixed left-[80px] top-0 h-screen w-[320px] bg-[#1f2121] border-r border-gray-200 shadow-md transition-transform duration-300 ease-in-out z-40 flex flex-col " +
+        "fixed left-[80px] top-0 h-screen w-[320px] bg-white border-r border-gray-200 shadow-md transition-transform duration-300 ease-in-out z-40 flex flex-col " +
         (isOpen ? "translate-x-0" : "-translate-x-full")
       }
     >
@@ -651,7 +651,7 @@ export default function InfoPanel({
 
       {/* Body */}
       <div
-        className="flex-1 overflow-y-auto p-4 bg-[#1f2121]"
+        className="flex-1 overflow-y-auto p-4 bg-white"
         style={{ height: "calc(100vh - 60px)", scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         <style jsx>{`div::-webkit-scrollbar{display:none}`}</style>
