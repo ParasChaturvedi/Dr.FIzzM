@@ -630,14 +630,14 @@ export default function InfoPanel({
       ref={panelRef}
       aria-hidden={!isOpen}
       className={
-        "fixed left-[80px] top-0 h-screen w-[320px] bg-[#f9fafb] border-r border-gray-200 shadow-md transition-transform duration-300 ease-in-out z-40 flex flex-col " +
+        "fixed left-[80px] top-0 h-screen w-[320px] bg-[#1f2121] border-r border-gray-200 shadow-md transition-transform duration-300 ease-in-out z-40 flex flex-col " +
         (isOpen ? "translate-x-0" : "-translate-x-full")
       }
     >
       {/* Header */}
       <div className="flex items-center justify-between px-4 py-3 border-b bg-white">
         <div className="flex items-center gap-3">
-          <div className="w-3 h-3 bg-gray-800 rounded-sm" />
+          <div className="w-3 h-3 bg-indigo-50 rounded-sm" />
           <h3 className="text-lg font-semibold text-gray-800">INFO</h3>
         </div>
         <button
@@ -651,7 +651,7 @@ export default function InfoPanel({
 
       {/* Body */}
       <div
-        className="flex-1 overflow-y-auto p-4 bg-[#f9fafb]"
+        className="flex-1 overflow-y-auto p-4 bg-[#1f2121]"
         style={{ height: "calc(100vh - 60px)", scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         <style jsx>{`div::-webkit-scrollbar{display:none}`}</style>
