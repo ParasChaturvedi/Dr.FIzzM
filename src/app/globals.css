@@ -1,25 +1,34 @@
 @import "tailwindcss";
 
 /* ---------- Design Tokens ---------- */
+
 :root {
   /* Light */
-  --app-bg: #f3f4f6;        /* gray-100 */
+  --app-bg: #f3f4f6;
   --panel: #ffffff;
-  --text: #111827;          /* gray-900 */
-  --muted: #4b5563;         /* gray-600 */
-  --border: #e5e7eb;        /* gray-200 */
+  --text: #111827;
+  --muted: #4b5563;
+  --border: #e5e7eb;
   --sidebar: #E9EDF2;
+
+  /* NEW: sidebar hover bubble color (light) */
+  --sb-hover: #ffffff;
+  --profile-hover:#E9652C;
 }
 
 html.dark {
-  /* Dark per design screenshot */
-  --app-bg: #1f2121;        /* deep slate (close to your UI) */
-  --panel: #1f2121;         /* card bg */
-  --text: #e5e7eb;          /* gray-200 */
-  --muted: #9ca3af;         /* gray-400 */
-  --border: #374151;        /* gray-700 */
-  --sidebar: #1f2121;       /* dark sidebar */
+  --app-bg: #1f2121;
+  --panel: #1f2121;
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --border: #374151;
+  --sidebar: #1f2121;
+
+  /* NEW: sidebar hover bubble color (dark) */
+  --sb-hover: #303030;
+   --profile-hover:#3182ce;
 }
+
 
 /* Used by inline theme in app (optional) */
 @theme inline {
