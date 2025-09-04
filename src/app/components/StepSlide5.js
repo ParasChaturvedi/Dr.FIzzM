@@ -1,45 +1,67 @@
 "use client";
+
 import { useState, useEffect, useRef } from "react";
-import { ArrowRight, ArrowLeft, ChevronDown, Plus } from "lucide-react";
+import { ArrowRight, ArrowLeft, ChevronDown, Plus, X } from "lucide-react";
 
 export default function StepSlide5({ onNext, onBack, onCompetitorSubmit }) {
+  // Selected values (store plain strings)
   const [selectedBusinessCompetitors, setSelectedBusinessCompetitors] = useState([]);
   const [selectedSearchCompetitors, setSelectedSearchCompetitors] = useState([]);
+
+  // Inline “More -> input” state
+  const [addingBusiness, setAddingBusiness] = useState(false);
+  const [addingSearch, setAddingSearch] = useState(false);
+  const [bizInput, setBizInput] = useState("");
+  const [searchInput, setSearchInput] = useState("");
+
   const [showSummary, setShowSummary] = useState(false);
   const containerRef = useRef(null);
   const lastSubmittedData = useRef(null);
 
-  // Suggested business competitors
-  const businessCompetitors = ["Comp-1", "Comp-2", "Comp-3", "Comp-4", "More"];
+  // Suggested chips
+  const businessCompetitors = ["Comp-1", "Comp-2", "Comp-3", "Comp-4"];
+  const searchEngineCompetitors = ["Comp-1", "Comp-2", "Comp-3", "Comp-4"];
 
-  // Suggested search engine competitors
-  const searchEngineCompetitors = ["Comp-1", "Comp-2", "Comp-3", "Comp-4", "More"];
-
-  // Toggle business competitor selection
-  const handleBusinessCompetitorToggle = (competitor) => {
+  // --- Toggle helpers ---
+  const toggleBusiness = (label) => {
     setSelectedBusinessCompetitors((prev) =>
-      prev.includes(competitor) ? prev.filter((c) => c !== competitor) : [...prev, competitor]
+      prev.includes(label) ? prev.filter((c) => c !== label) : [...prev, label]
     );
   };
-
-  // Toggle search engine competitor selection
-  const handleSearchCompetitorToggle = (competitor) => {
+  const toggleSearch = (label) => {
     setSelectedSearchCompetitors((prev) =>
-      prev.includes(competitor) ? prev.filter((c) => c !== competitor) : [...prev, competitor]
+      prev.includes(label) ? prev.filter((c) => c !== label) : [...prev, label]
     );
   };
 
-  // Remove specific business competitor
-  const handleRemoveBusinessCompetitor = (competitorToRemove) => {
-    setSelectedBusinessCompetitors((prev) => prev.filter((c) => c !== competitorToRemove));
+  const removeBusiness = (label) => {
+    setSelectedBusinessCompetitors((prev) => prev.filter((c) => c !== label));
+  };
+  const removeSearch = (label) => {
+    setSelectedSearchCompetitors((prev) => prev.filter((c) => c !== label));
   };
 
-  // Remove specific search competitor
-  const handleRemoveSearchCompetitor = (competitorToRemove) => {
-    setSelectedSearchCompetitors((prev) => prev.filter((c) => c !== competitorToRemove));
+  // --- Add custom competitors (unique per category) ---
+  const addCustomBusiness = () => {
+    const v = bizInput.trim();
+    if (!v) return;
+    if (!selectedBusinessCompetitors.includes(v)) {
+      setSelectedBusinessCompetitors((prev) => [...prev, v]);
+    }
+    setBizInput("");
+    setAddingBusiness(false);
+  };
+  const addCustomSearch = () => {
+    const v = searchInput.trim();
+    if (!v) return;
+    if (!selectedSearchCompetitors.includes(v)) {
+      setSelectedSearchCompetitors((prev) => [...prev, v]);
+    }
+    setSearchInput("");
+    setAddingSearch(false);
   };
 
-  // Submit data upwards when competitors change
+  // Submit payload upward when competitors change
   useEffect(() => {
     const totalSelected = selectedBusinessCompetitors.length + selectedSearchCompetitors.length;
 
@@ -47,32 +69,55 @@ export default function StepSlide5({ onNext, onBack, onCompetitorSubmit }) {
       const payload = {
         businessCompetitors: selectedBusinessCompetitors,
         searchCompetitors: selectedSearchCompetitors,
-        totalCompetitors: [...selectedBusinessCompetitors, ...selectedSearchCompetitors],
+        totalCompetitors: [
+          ...selectedBusinessCompetitors,
+          ...selectedSearchCompetitors,
+        ],
       };
+
       const curr = JSON.stringify(payload);
       if (curr !== JSON.stringify(lastSubmittedData.current)) {
         lastSubmittedData.current = payload;
-        onCompetitorSubmit?.(payload);
+        if (typeof onCompetitorSubmit === "function") onCompetitorSubmit(payload);
       }
       setShowSummary(true);
     } else {
       setShowSummary(false);
-      onCompetitorSubmit?.({
-        businessCompetitors: [],
-        searchCompetitors: [],
-        totalCompetitors: [],
-      });
+      if (typeof onCompetitorSubmit === "function") {
+        onCompetitorSubmit({
+          businessCompetitors: [],
+          searchCompetitors: [],
+          totalCompetitors: [],
+        });
+      }
     }
   }, [selectedBusinessCompetitors, selectedSearchCompetitors, onCompetitorSubmit]);
 
-  // Auto-scroll to top when summary appears
+  // Auto-scroll to top when summary appears (client only)
   useEffect(() => {
     if (containerRef.current && showSummary) {
-      setTimeout(() => {
-        containerRef.current.scrollTo({ top: 0, behavior: "smooth" });
+      const id = setTimeout(() => {
+        try {
+          containerRef.current.scrollTo({ top: 0, behavior: "smooth" });
+        } catch {}
       }, 100);
+      return () => clearTimeout(id);
     }
   }, [showSummary]);
+
+  // Focus helpers after showing inline inputs
+  useEffect(() => {
+    if (addingBusiness) {
+      const el = document.getElementById("biz-more-input");
+      if (el && el.focus) el.focus();
+    }
+  }, [addingBusiness]);
+  useEffect(() => {
+    if (addingSearch) {
+      const el = document.getElementById("search-more-input");
+      if (el && el.focus) el.focus();
+    }
+  }, [addingSearch]);
 
   return (
     <div className="w-full h-screen flex flex-col bg-gray-100 transition-colors duration-300">
@@ -81,13 +126,15 @@ export default function StepSlide5({ onNext, onBack, onCompetitorSubmit }) {
         className="flex-1 overflow-y-auto overflow-x-hidden"
         style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
-        <style jsx>{`div::-webkit-scrollbar{display:none}`}</style>
+        {/* hide scrollbar in webkit without styled-jsx */}
+        <style>{`.no-scrollbar::-webkit-scrollbar{display:none}`}</style>
+
         <div className="min-h-full py-12 px-8 pb-96">
           <div className="flex flex-col items-center text-center space-y-8 max-w-4xl mx-auto">
             {/* Step Indicator */}
             <div className="text-gray-500 text-sm font-medium">Step - 5</div>
 
-            {/* Main Heading */}
+            {/* Heading */}
             <div className="space-y-4 max-w-2xl">
               <h1 className="text-3xl font-bold text-gray-900">
                 Here are some suggestions for Business and Search Engine Competitors based on your website.
@@ -95,92 +142,179 @@ export default function StepSlide5({ onNext, onBack, onCompetitorSubmit }) {
               <p className="text-gray-600 text-lg">I scanned your site and found these gems.</p>
             </div>
 
-            {/* Competitor Selection Area */}
-            <div className="w-full max-w-4xl space-y-8">
-              {/* Business Competitors Section */}
+            {/* Selection Area */}
+            <div className="w-full max-w-4xl space-y-10">
+              {/* Business Competitors */}
               <div className="text-left">
                 <h3 className="text-lg font-medium text-gray-900 mb-4">Business Competitors</h3>
-                <div className="flex flex-wrap gap-3">
-                  {businessCompetitors.map((competitor, index) => {
-                    const id = `${competitor}-${index}`;
-                    const isSelected = selectedBusinessCompetitors.includes(id);
+
+                <div className="flex flex-wrap gap-3 items-center">
+                  {businessCompetitors.map((label) => {
+                    const isSelected = selectedBusinessCompetitors.includes(label);
                     return (
                       <button
-                        key={`business-${id}`}
-                        onClick={() => handleBusinessCompetitorToggle(id)}
-                        className={`px-4 py-2 rounded-full border text-sm font-medium transition-all duration-200 ${
+                        key={`biz-${label}`}
+                        onClick={() => toggleBusiness(label)}
+                        className={`px-4 py-2 rounded-full border text-sm font-medium transition-all duration-200
+                        ${
                           isSelected
                             ? "bg-white text-gray-900 border-blue-600"
                             : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
                         }`}
                       >
-                        {competitor}
+                        {label}
                         {isSelected ? (
                           <ChevronDown size={16} className="inline ml-1 -rotate-180" />
-                        ) : competitor !== "More" ? (
+                        ) : (
                           <Plus size={16} className="inline ml-1" />
-                        ) : null}
+                        )}
                       </button>
                     );
                   })}
+
+                  {/* More -> input (Business) */}
+                  {!addingBusiness ? (
+                    <button
+                      onClick={() => setAddingBusiness(true)}
+                      className="px-4 py-2 rounded-full border text-sm font-medium transition-all duration-200 bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+                    >
+                      More <Plus size={16} className="inline ml-1" />
+                    </button>
+                  ) : (
+                    <div className="flex items-center gap-2 border border-blue-600 rounded-full bg-white pl-3 pr-1 py-1">
+                      <input
+                        id="biz-more-input"
+                        value={bizInput}
+                        onChange={(e) => setBizInput(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") addCustomBusiness();
+                          if (e.key === "Escape") {
+                            setBizInput("");
+                            setAddingBusiness(false);
+                          }
+                        }}
+                        placeholder="Add custom"
+                        className="outline-none text-sm text-gray-900 placeholder-gray-400 bg-transparent"
+                      />
+                      <button
+                        onClick={addCustomBusiness}
+                        className="h-7 w-7 grid place-items-center rounded-full bg-gray-800 hover:bg-gray-900 text-white transition-colors"
+                        title="Add"
+                      >
+                        <Plus size={15} />
+                      </button>
+                      <button
+                        onClick={() => {
+                          setBizInput("");
+                          setAddingBusiness(false);
+                        }}
+                        className="h-7 w-7 grid place-items-center rounded-full text-gray-500 hover:text-red-500 transition-colors"
+                        title="Cancel"
+                      >
+                        <X size={15} />
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
 
-              {/* Search Engine Competitors Section */}
+              {/* Search Engine Competitors */}
               <div className="text-left">
                 <h3 className="text-lg font-medium text-gray-900 mb-4">Search Engine Competitors</h3>
-                <div className="flex flex-wrap gap-3">
-                  {searchEngineCompetitors.map((competitor, index) => {
-                    const id = `${competitor}-${index}`;
-                    const isSelected = selectedSearchCompetitors.includes(id);
+
+                <div className="flex flex-wrap gap-3 items-center">
+                  {searchEngineCompetitors.map((label) => {
+                    const isSelected = selectedSearchCompetitors.includes(label);
                     return (
                       <button
-                        key={`search-${id}`}
-                        onClick={() => handleSearchCompetitorToggle(id)}
-                        className={`px-4 py-2 rounded-full border text-sm font-medium transition-all duration-200 ${
+                        key={`search-${label}`}
+                        onClick={() => toggleSearch(label)}
+                        className={`px-4 py-2 rounded-full border text-sm font-medium transition-all duration-200
+                        ${
                           isSelected
                             ? "bg-white text-gray-900 border-blue-600"
                             : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
                         }`}
                       >
-                        {competitor}
+                        {label}
                         {isSelected ? (
                           <ChevronDown size={16} className="inline ml-1 -rotate-180" />
-                        ) : competitor !== "More" ? (
+                        ) : (
                           <Plus size={16} className="inline ml-1" />
-                        ) : null}
+                        )}
                       </button>
                     );
                   })}
+
+                  {/* More -> input (Search) */}
+                  {!addingSearch ? (
+                    <button
+                      onClick={() => setAddingSearch(true)}
+                      className="px-4 py-2 rounded-full border text-sm font-medium transition-all duration-200 bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+                    >
+                      More <Plus size={16} className="inline ml-1" />
+                    </button>
+                  ) : (
+                    <div className="flex items-center gap-2 border border-blue-600 rounded-full bg-white pl-3 pr-1 py-1">
+                      <input
+                        id="search-more-input"
+                        value={searchInput}
+                        onChange={(e) => setSearchInput(e.target.value)}
+                        onKeyDown={(e) => {
+                          if (e.key === "Enter") addCustomSearch();
+                          if (e.key === "Escape") {
+                            setSearchInput("");
+                            setAddingSearch(false);
+                          }
+                        }}
+                        placeholder="Add custom"
+                        className="outline-none text-sm text-gray-900 placeholder-gray-400 bg-transparent"
+                      />
+                      <button
+                        onClick={addCustomSearch}
+                        className="h-7 w-7 grid place-items-center rounded-full bg-gray-800 hover:bg-gray-900 text-white transition-colors"
+                        title="Add"
+                      >
+                        <Plus size={15} />
+                      </button>
+                      <button
+                        onClick={() => {
+                          setSearchInput("");
+                          setAddingSearch(false);
+                        }}
+                        className="h-7 w-7 grid place-items-center rounded-full text-gray-500 hover:text-red-500 transition-colors"
+                        title="Cancel"
+                      >
+                        <X size={15} />
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
 
-            {/* Selected Competitors Display */}
+            {/* Selected Display */}
             {(selectedBusinessCompetitors.length > 0 || selectedSearchCompetitors.length > 0) && (
               <div className="w-full max-w-4xl space-y-6">
-                {/* Selected Business Competitors */}
                 {selectedBusinessCompetitors.length > 0 && (
                   <div className="text-left">
                     <h3 className="text-lg font-medium text-gray-900 mb-4">
                       Selected Business Competitors ({selectedBusinessCompetitors.length})
                     </h3>
                     <div className="flex flex-wrap gap-2">
-                      {selectedBusinessCompetitors.map((competitor, idx) => (
+                      {selectedBusinessCompetitors.map((label, idx) => (
                         <div
-                          key={`selected-business-${competitor}-${idx}`}
+                          key={`biz-pill-${label}-${idx}`}
                           className="group relative inline-flex items-center border border-blue-600 text-blue-600 rounded-lg font-medium bg-white text-md transition-all duration-300 px-6 py-3 cursor-default hover:pr-12"
                         >
-                          <span>{competitor}</span>
+                          <span>{label}</span>
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
-                              handleRemoveBusinessCompetitor(competitor);
+                              removeBusiness(label);
                             }}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 text-gray-400 hover:text-red-500 p-0 h-6 w-6 flex items-center justify-center pointer-events-auto"
-                            title="Remove competitor"
-                            tabIndex={-1}
-                            style={{ background: "transparent", border: "none" }}
+                            className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 text-gray-400 hover:text-red-500 p-0 h-6 w-6 flex items-center justify-center"
+                            title="Remove"
                           >
                             <svg
                               width="16"
@@ -202,28 +336,25 @@ export default function StepSlide5({ onNext, onBack, onCompetitorSubmit }) {
                   </div>
                 )}
 
-                {/* Selected Search Engine Competitors */}
                 {selectedSearchCompetitors.length > 0 && (
                   <div className="text-left">
                     <h3 className="text-lg font-medium text-gray-900 mb-4">
                       Selected Search Engine Competitors ({selectedSearchCompetitors.length})
                     </h3>
                     <div className="flex flex-wrap gap-2">
-                      {selectedSearchCompetitors.map((competitor, idx) => (
+                      {selectedSearchCompetitors.map((label, idx) => (
                         <div
-                          key={`selected-search-${competitor}-${idx}`}
+                          key={`search-pill-${label}-${idx}`}
                           className="group relative inline-flex items-center border border-green-600 text-green-600 rounded-lg font-medium bg-white text-md transition-all duration-300 px-6 py-3 cursor-default hover:pr-12"
                         >
-                          <span>{competitor}</span>
+                          <span>{label}</span>
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
-                              handleRemoveSearchCompetitor(competitor);
+                              removeSearch(label);
                             }}
-                            className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 text-gray-400 hover:text-red-500 p-0 h-6 w-6 flex items-center justify-center pointer-events-auto"
-                            title="Remove competitor"
-                            tabIndex={-1}
-                            style={{ background: "transparent", border: "none" }}
+                            className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 text-gray-400 hover:text-red-500 p-0 h-6 w-6 flex items-center justify-center"
+                            title="Remove"
                           >
                             <svg
                               width="16"
@@ -247,7 +378,7 @@ export default function StepSlide5({ onNext, onBack, onCompetitorSubmit }) {
               </div>
             )}
 
-            {/* Summary Section */}
+            {/* Summary */}
             {showSummary && (
               <>
                 <div className="text-center space-y-6 w-full pt-8">
@@ -255,7 +386,9 @@ export default function StepSlide5({ onNext, onBack, onCompetitorSubmit }) {
                     <h3 className="text-2xl font-bold text-gray-900 mb-4">
                       Here&apos;s your site report — take a quick look on the Info Tab.
                     </h3>
-                    <p className="text-gray-600 text-base">You can always view more information in Info Tab</p>
+                    <p className="text-gray-600 text-base">
+                      You can always view more information in Info Tab
+                    </p>
                   </div>
                 </div>
 

@@ -16,7 +16,7 @@ export default function Steps({ currentStep = 1 }) {
   const [linePos, setLinePos] = useState({ left: 0, width: 0, top: 0 });
 
   // dot tuning
-  const DOT_DIAM = 3;             // dot size (px)
+  const DOT_DIAM = 3.5;             // dot size (px)
   const DOT_GAP  = 8;             // gap between dots (px)
   const BG_SIZE  = `${DOT_GAP + DOT_DIAM}px ${DOT_DIAM}px`;
 

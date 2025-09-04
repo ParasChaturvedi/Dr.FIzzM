@@ -8,18 +8,21 @@ import StepSlide2 from "./components/StepSlide2";
 import StepSlide3 from "./components/StepSlide3";
 import StepSlide4 from "./components/StepSlide4";
 import StepSlide5 from "./components/StepSlide5";
+import Step5Slide2 from "./components/Step5Slide2"; // ⬅️ NEW
 import InfoPanel from "./components/InfoPanel";
 import ThemeToggle from "./components/ThemeToggle";
 
 export default function Home() {
   const [isInfoOpen, setIsInfoOpen] = useState(false);
   const [isPinned, setIsPinned] = useState(false);
+  // currentStep can be 1..5 or "5b" (the final full-width slide)
   const [currentStep, setCurrentStep] = useState(1);
+
   const [websiteData, setWebsiteData] = useState(null);
   const [businessData, setBusinessData] = useState(null);
   const [languageLocationData, setLanguageLocationData] = useState(null);
   const [selectedKeywords, setSelectedKeywords] = useState([]);
-  const [competitorData, setCompetitorData] = useState(null); // store full payload now
+  const [competitorData, setCompetitorData] = useState(null);
 
   const infoRef = useRef(null);
 
@@ -40,33 +43,32 @@ export default function Home() {
   }, [isPinned]);
 
   const handleNextStep = () => {
-    if (currentStep < 5) {
+    if (currentStep === 5) {
+      // Jump to the full-width summary slide
+      setCurrentStep("5b");
+      return;
+    }
+    if (typeof currentStep === "number" && currentStep < 5) {
       setCurrentStep((s) => s + 1);
     }
   };
 
   const handleBackStep = () => {
-    if (currentStep > 1) {
+    if (currentStep === "5b") {
+      setCurrentStep(5);
+      return;
+    }
+    if (typeof currentStep === "number" && currentStep > 1) {
       setCurrentStep((s) => s - 1);
     }
   };
 
   const handleWebsiteSubmit = useCallback((website) => {
     let cleanWebsite = website.toLowerCase();
-    if (cleanWebsite.startsWith("http://")) {
-      cleanWebsite = cleanWebsite.replace("http://", "");
-    }
-    if (cleanWebsite.startsWith("https://")) {
-      cleanWebsite = cleanWebsite.replace("https://", "");
-    }
-    if (cleanWebsite.startsWith("www.")) {
-      cleanWebsite = cleanWebsite.replace("www.", "");
-    }
-
-    setWebsiteData({
-      website: cleanWebsite,
-      submittedAt: new Date(),
-    });
+    if (cleanWebsite.startsWith("http://")) cleanWebsite = cleanWebsite.replace("http://", "");
+    if (cleanWebsite.startsWith("https://")) cleanWebsite = cleanWebsite.replace("https://", "");
+    if (cleanWebsite.startsWith("www.")) cleanWebsite = cleanWebsite.replace("www.", "");
+    setWebsiteData({ website: cleanWebsite, submittedAt: new Date() });
   }, []);
 
   const handleBusinessDataSubmit = useCallback((business) => {
@@ -78,14 +80,13 @@ export default function Home() {
   }, []);
 
   const handleKeywordSubmit = useCallback((data) => {
-    console.log("Keywords received from StepSlide4:", data.keywords);
     setSelectedKeywords(data.keywords);
   }, []);
 
-  // ⬇️ Store the FULL competitor payload so InfoPanel can show both groups
   const handleCompetitorSubmit = useCallback((data) => {
-    console.log("Competitors received from StepSlide5:", data);
-    setCompetitorData(data || { businessCompetitors: [], searchCompetitors: [], totalCompetitors: [] });
+    setCompetitorData(
+      data || { businessCompetitors: [], searchCompetitors: [], totalCompetitors: [] }
+    );
   }, []);
 
   const renderCurrentStep = () => {
@@ -109,13 +110,30 @@ export default function Home() {
           />
         );
       case 4:
-        return <StepSlide4 onNext={handleNextStep} onBack={handleBackStep} onKeywordSubmit={handleKeywordSubmit} />;
+        return (
+          <StepSlide4
+            onNext={handleNextStep}
+            onBack={handleBackStep}
+            onKeywordSubmit={handleKeywordSubmit}
+          />
+        );
       case 5:
         return (
           <StepSlide5
             onNext={handleNextStep}
             onBack={handleBackStep}
             onCompetitorSubmit={handleCompetitorSubmit}
+          />
+        );
+      case "5b":
+        return (
+          <Step5Slide2
+            onBack={() => setCurrentStep(5)}
+            onDashboard={() => console.log("Go to Dashboard")}
+            businessData={businessData}
+            languageLocationData={languageLocationData}
+            keywordData={selectedKeywords}
+            competitorData={competitorData}
           />
         );
       default:
@@ -141,8 +159,8 @@ export default function Home() {
         businessData={businessData}
         languageLocationData={languageLocationData}
         keywordData={selectedKeywords}
-        competitorData={competitorData}       
-        currentStep={currentStep}
+        competitorData={competitorData}
+        currentStep={currentStep === "5b" ? 5 : currentStep}
         onClose={() => setIsInfoOpen(false)}
       />
 
@@ -153,12 +171,15 @@ export default function Home() {
           isInfoOpen || isPinned ? "ml-[400px]" : "ml-[80px]"
         }`}
       >
-        <div className="w-full bg-gray-100 py-6 flex justify-center border-b border-gray-200">
-          <Steps currentStep={currentStep} />
-        </div>
+        {/* Hide the top stepper on the 5b (summary) page */}
+        {currentStep !== "5b" && (
+          <div className="w-full bg-gray-100 py-6 flex justify-center border-b border-gray-200">
+            <Steps currentStep={currentStep === "5b" ? 5 : currentStep} />
+          </div>
+        )}
 
-        <div className="flex-1 bg-gray-100 flex items-center justify-center overflow-hidden">
-          <div className="w-full h-full flex items-center justify-center">{renderCurrentStep()}</div>
+        <div className="flex-1 bg-gray-100 flex items-stretch justify-center overflow-hidden">
+          <div className="w-full h-full">{renderCurrentStep()}</div>
         </div>
       </main>
     </div>

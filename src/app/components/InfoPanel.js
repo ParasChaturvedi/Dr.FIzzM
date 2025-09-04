@@ -12,7 +12,7 @@ export default function InfoPanel({
   businessData,
   languageLocationData,
   keywordData = [],
-  competitorData = null,   // ⬅️ NEW: full payload from Step 5
+  competitorData = null,   // ⬅️ full payload from Step 5
   currentStep,
 }) {
   const panelRef = useRef(null);
@@ -65,7 +65,7 @@ export default function InfoPanel({
     };
   }, [competitorData]);
 
-  // STEP 1 (unchanged)
+  // ---------- STEP 1 ----------
   const renderStep1Content = () => (
     <div className="space-y-6">
       <div className="bg-white rounded-lg p-4 shadow-sm border">
@@ -144,7 +144,7 @@ export default function InfoPanel({
     </div>
   );
 
-  // STEP 2 (unchanged)
+  // ---------- STEP 2 ----------
   const renderStep2Content = () => (
     <div className="space-y-6">
       <div className="bg-white rounded-lg p-4 shadow-sm border">
@@ -278,7 +278,7 @@ export default function InfoPanel({
     </div>
   );
 
-  // STEP 3 (unchanged)
+  // ---------- STEP 3 ----------
   const renderStep3Content = () => (
     <div className="space-y-6">
       <div className="bg-white rounded-lg p-4 shadow-sm border">
@@ -398,7 +398,7 @@ export default function InfoPanel({
     </div>
   );
 
-  // STEP 4 (unchanged visual emphasis on keywords)
+  // ---------- STEP 4 ----------
   const renderStep4Content = () => (
     <div className="space-y-8">
       <div className="bg-white rounded-lg p-4 shadow-sm border">
@@ -512,7 +512,7 @@ export default function InfoPanel({
     </div>
   );
 
-  // STEP 5 (NEW) — shows chosen competitors from StepSlide5
+  // ---------- STEP 5 (competitors list) ----------
   const renderStep5Content = () => {
     const hasAny =
       (businessCompetitors && businessCompetitors.length > 0) ||
@@ -529,7 +529,6 @@ export default function InfoPanel({
               <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded">Good</span>
             </div>
           </div>
-          
 
           <div className="grid grid-cols-3 gap-3">
             {[
@@ -581,7 +580,6 @@ export default function InfoPanel({
               </div>
             )}
 
-            {/* Fallback / combined list if needed */}
             {totalCompetitors?.length > 0 && (businessCompetitors.length === 0 && searchCompetitors.length === 0) && (
               <div className="bg-white rounded-lg p-4 shadow-sm border">
                 <div className="text-xs text-gray-600 font-medium mb-2">
@@ -625,6 +623,77 @@ export default function InfoPanel({
     );
   };
 
+  // ---------- NEW: Step5Slide2 compact summary (currentStep === 6) ----------
+  const Pill = ({ children }) => (
+    <span className="inline-block rounded-md bg-gray-100 text-gray-700 text-[11px] px-3 py-1 shadow-sm">
+      {children}
+    </span>
+  );
+
+  const MiniCard = ({ title, children }) => (
+    <div className="rounded-xl bg-white shadow-sm border border-gray-200 px-4 py-4">
+      <div className="text-gray-700 font-semibold text-sm">{title}</div>
+      <div className="mt-2 h-px bg-gray-200" />
+      <div className="mt-4 space-y-3">{children}</div>
+    </div>
+  );
+
+  const renderStep5Slide2Content = () => {
+    const bizTitle = businessData?.industry || businessData?.category || "Business";
+    const lang = languageLocationData?.language || "English";
+    const state = languageLocationData?.state || languageLocationData?.region || "";
+    const city = languageLocationData?.city || languageLocationData?.location || "";
+
+    const bComp = businessCompetitors || [];
+    const sComp = searchCompetitors || [];
+    const kws = Array.isArray(keywordData) ? keywordData : [];
+
+    return (
+      <div className="space-y-3">
+        <div className="text-xs font-medium text-gray-500">Summary</div>
+
+        <div className="grid grid-cols-1 gap-3">
+          <MiniCard title="Business Selected">
+            <div className="text-xs text-gray-500">{bizTitle}</div>
+            <div className="flex flex-wrap gap-2">
+              {(bComp.length ? bComp.slice(0, 2) : ["KEYWORD-1"]).map((v, i) => (
+                <Pill key={`mini-b-${i}`}>{String(v).toUpperCase()}</Pill>
+              ))}
+            </div>
+          </MiniCard>
+
+          <MiniCard title="Language Selected">
+            <div className="text-xs text-gray-600">{lang}</div>
+            {state && <div className="text-xs text-gray-500">{state}</div>}
+            {city && <Pill>{String(city).toUpperCase()}</Pill>}
+          </MiniCard>
+
+          <MiniCard title="Keyword Selected">
+            <div className="flex flex-wrap gap-2">
+              {(kws.length ? kws.slice(0, 2) : ["KEYWORD-1", "KEYWORD-2"]).map((k, i) => (
+                <Pill key={`mini-k-${i}`}>{String(k).toUpperCase()}</Pill>
+              ))}
+            </div>
+          </MiniCard>
+
+          <MiniCard title="Business Selected">
+            <div className="text-xs text-gray-500">{bizTitle}</div>
+            <div className="flex flex-wrap gap-2">
+              {(sComp.length ? sComp.slice(0, 1) : ["COMP-1"]).map((c, i) => (
+                <Pill key={`mini-b2-${i}`}>{String(c).toUpperCase()}</Pill>
+              ))}
+            </div>
+          </MiniCard>
+        </div>
+
+        <div className="h-px bg-gray-200 my-3" />
+
+        {/* Show detailed competitors below the summary */}
+        {renderStep5Content()}
+      </div>
+    );
+  };
+
   return (
     <div
       ref={panelRef}
@@ -663,6 +732,8 @@ export default function InfoPanel({
           ? renderStep3Content()
           : currentStep === 4
           ? renderStep4Content()
+          : currentStep === 6
+          ? renderStep5Slide2Content()   // 👈 NEW branch for Step5Slide2
           : renderStep5Content()}
       </div>
     </div>
