@@ -148,6 +148,7 @@ export default function Home() {
           if (isPinned) return;
           setIsInfoOpen((prev) => !prev);
         }}
+          infoActive={isInfoOpen || isPinned}
       />
 
       <InfoPanel

@@ -2,34 +2,37 @@
 
 import { BarChart2, PlusSquare, Clock, Grid } from "lucide-react";
 
-function NavItem({ id, label, Icon, onClick }) {
+function NavItem({ id, label, Icon, onClick, active = false }) {
   return (
     <button
       id={id}
       onClick={onClick}
       type="button"
-      className="group relative w-full mb-6 flex flex-col items-center gap-1
-                 text-[#808A95] dark:text-[#A0A6AE] outline-none"
+      aria-current={active ? "page" : undefined}
+      className={`group relative w-full mb-6 flex flex-col items-center gap-1 outline-none
+                  text-[#808A95] dark:text-[#A0A6AE]`}
     >
-      {/* Icon + hover circle */}
+      {/* Icon + hover/active circle */}
       <span className="relative grid place-items-center h-10 w-10">
-        {/* Hover circle: white on light, #303030 on dark */}
         <span
-          className="absolute inset-0 rounded-full scale-0 opacity-0
-                     transition-all duration-200
-                     group-hover:scale-100 group-hover:opacity-100
-                     bg-white dark:bg-[#303030] shadow-sm"
+          className={`absolute inset-0 rounded-full transition-all duration-200 shadow-sm
+            ${active
+              ? "scale-100 opacity-100 bg-white dark:bg-[#303030]"
+              : "scale-0 opacity-0 bg-white dark:bg-[#303030] group-hover:scale-100 group-hover:opacity-100"
+            }`}
         />
         <Icon
           size={22}
-          className="relative z-10 transition-colors duration-200
-                     group-hover:text-[#E9652C]"
+          className={`relative z-10 transition-colors duration-200
+            ${active ? "text-[#E9652C]" : "group-hover:text-[#E9652C]"}
+          `}
         />
       </span>
 
       <span
-        className="text-[14px] leading-none mt-1 transition-colors duration-200
-                   group-hover:text-[#E9652C]"
+        className={`text-[14px] leading-none mt-1 transition-colors duration-200
+          ${active ? "text-[#E9652C]" : "group-hover:text-[#E9652C]"}
+        `}
       >
         {label}
       </span>
@@ -37,7 +40,7 @@ function NavItem({ id, label, Icon, onClick }) {
   );
 }
 
-export default function Sidebar({ onInfoClick }) {
+export default function Sidebar({ onInfoClick, infoActive = false }) {
   return (
     <aside
       className="fixed left-0 top-0 h-full w-[80px]
@@ -54,7 +57,13 @@ export default function Sidebar({ onInfoClick }) {
 
       {/* Menu */}
       <nav className="w-full px-2">
-        <NavItem id="sidebar-info-btn" onClick={onInfoClick} label="Info" Icon={BarChart2} />
+        <NavItem
+          id="sidebar-info-btn"
+          onClick={onInfoClick}
+          label="Info"
+          Icon={BarChart2}
+          active={infoActive}
+        />
         <NavItem label="New" Icon={PlusSquare} />
         <NavItem label="History" Icon={Clock} />
 
@@ -86,7 +95,6 @@ export default function Sidebar({ onInfoClick }) {
           aria-label="Open profile"
           className="group flex flex-col items-center cursor-pointer outline-none"
         >
-          {/* Outer circle (light=blue, dark=orange) and invert on hover */}
           <span
             className={[
               "h-11 w-11 rounded-full grid place-items-center shadow-md",
@@ -98,7 +106,6 @@ export default function Sidebar({ onInfoClick }) {
               "dark:focus-visible:ring-offset-[#1f2121]",
             ].join(" ")}
           >
-            {/* Inner dot stays white */}
             <span className="h-5 w-5 rounded-full bg-white" />
           </span>
 
