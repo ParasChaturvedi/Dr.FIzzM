@@ -22,7 +22,7 @@ function NavItem({ id, label, Icon, onClick, active = false }) {
             }`}
         />
         <Icon
-          size={22}
+          size={26}
           className={`relative z-10 transition-colors duration-200
             ${active ? "text-[#E9652C]" : "group-hover:text-[#E9652C]"}
           `}
@@ -44,7 +44,7 @@ export default function Sidebar({ onInfoClick, infoActive = false }) {
   return (
     <aside
       className="fixed left-0 top-0 h-full w-[80px]
-                 bg-[#E9EDF2] dark:bg-[#1f2121]
+                 bg-[#e5e7e] dark:bg-[#1f2121]
                  border-r border-[#e6e9ec] dark:border-[#374151]
                  flex flex-col items-center py-6 z-50"
     >

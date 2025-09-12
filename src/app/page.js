@@ -142,7 +142,7 @@ export default function Home() {
   };
 
   return (
-    <div className="flex h-screen bg-gray-100 overflow-hidden relative">
+    <div className="flex h-screen bg-[#e5e7eb] overflow-hidden relative p-3 pl-0">
       <Sidebar
         onInfoClick={() => {
           if (isPinned) return;
@@ -168,8 +168,8 @@ export default function Home() {
       <ThemeToggle />
 
       <main
-        className={`flex-1 h-screen bg-gray-100 transition-all duration-300 ${
-          isInfoOpen || isPinned ? "ml-[400px]" : "ml-[80px]"
+        className={`flex-1 h-screen bg-[#e5e7eb] transition-all duration-300 ${
+          isInfoOpen || isPinned ? "ml-[400px]" : "ml-[40px]"
         }`}
       >
         {/* Hide the top stepper on the 5b (summary) page */}

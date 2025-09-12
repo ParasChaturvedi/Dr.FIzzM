@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useMemo } from "react";
-import { Pin, PinOff } from "lucide-react";
+import { Pin, PinOff, BarChart2  } from "lucide-react";
+
 
 export default function InfoPanel({
   isOpen,
@@ -68,39 +69,39 @@ export default function InfoPanel({
   // ---------- STEP 1 ----------
   const renderStep1Content = () => (
     <div className="space-y-6">
-      <div className="bg-white rounded-lg p-4 shadow-sm border">
-        <div className="flex items-center justify-between mb-4">
+      <div className="bg-[#f9fafb] rounded-lg p-4 shadow-sm pb-4">
+        <div className="flex items-center justify-between mb-6">
           <div className="text-xs text-gray-600 font-medium">WEBSITE :</div>
-          <div className="flex items-center gap-2">
-            <div className="text-sm font-medium text-gray-800">{displayWebsite}</div>
+          <div className="flex items-center gap-4">
+            <div className="text-sm font-semibold text-gray-800">{displayWebsite}</div>
             <span className="bg-green-100 text-green-700 text-xs px-2 py-1 rounded">Good</span>
           </div>
         </div>
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-[1.5px] bg-gray-400">
           {[
             ["Domain Authority", stats.domainAuthority],
             ["Organic Traffic", stats.organicTraffic],
             ["Organic Keyword", stats.organicKeyword],
           ].map(([label, value], idx) => (
-            <div key={idx} className="bg-white px-3 py-3 rounded shadow-sm text-center border">
-              <div className="flex items-center justify-center gap-1 mb-1">
-                <div className="text-xl font-bold text-gray-800">{value}</div>
+            <div key={idx} className="bg-[#f9fafb] px-3 py-3 shadow-sm text-center">
+              <div className="text-[16px] text-gray-500 mb-2 font-medium">{label}</div>
+              <div className="flex items-center justify-center gap-3 mb-2">
+                <div className="text-3xl font-black text-gray-800">{value}</div>
                 <div className="text-gray-400">↓</div>
               </div>
-              <div className="text-xs text-gray-500 mb-1">{label}</div>
-              <div className="text-xs text-gray-400">29</div>
+              <div className="text-sm text-gray-400" suppressHydrationWarning>{Math.floor(Math.random() * (100 - 26 + 1)) + 26}</div>
             </div>
           ))}
         </div>
       </div>
       <div>
-        <div className="flex items-center gap-2 mb-3">
-          <div className="w-4 h-4 bg-orange-500 rounded-sm flex items-center justify-center">
+        <div className="flex items-center gap-2 mb-6">
+          <div className="w-4 h-4 bg-gray-800 rounded-sm flex items-center justify-center">
             <span className="text-white text-xs">!</span>
           </div>
           <h4 className="text-sm font-bold text-gray-800">FIX THIS</h4>
         </div>
-        <div className="bg-white rounded-lg border shadow-sm p-3 mb-4">
+        <div className="bg-white rounded-lg shadow-sm p-3 mb-4">
           <div className="flex items-start justify-between mb-2">
             <div>
               <div className="text-sm font-semibold text-gray-800">Domain Authority ({stats.domainAuthority})</div>
@@ -120,7 +121,7 @@ export default function InfoPanel({
             <div className="text-gray-400">⋯</div>
           </div>
         </div>
-        <div className="bg-white rounded-lg border shadow-sm p-3">
+        <div className="bg-white rounded-lg shadow-sm p-3">
           <div className="flex items-start justify-between mb-2">
             <div>
               <div className="text-sm font-semibold text-gray-800">Organic Traffic ({stats.organicTraffic})</div>
@@ -699,28 +700,28 @@ export default function InfoPanel({
       ref={panelRef}
       aria-hidden={!isOpen}
       className={
-        "fixed left-[80px] top-0 h-screen w-[320px] bg-white border-r border-gray-200 shadow-md transition-transform duration-300 ease-in-out z-40 flex flex-col " +
+        "fixed left-[80px] top-0 h-screen w-[430px] bg-white border-l-2 border-[#d2d2d2] shadow-md transition-transform duration-300 ease-in-out z-40 flex flex-col " +
         (isOpen ? "translate-x-0" : "-translate-x-full")
       }
     >
       {/* Header */}
-      <div className="flex items-center justify-between px-4 py-3 border-b bg-white">
+      <div className="flex items-center justify-between px-4 py-3 bg-[#e5e7eb]">
         <div className="flex items-center gap-3">
-          <div className="w-3 h-3 bg-indigo-50 rounded-sm" />
-          <h3 className="text-lg font-semibold text-gray-800">INFO</h3>
+          <BarChart2 className="text-[#111827]" size={26}/> 
+          <h3 className="text-xl font-black text-[#111827]">INFO</h3>
         </div>
         <button
           onClick={() => setIsPinned((p) => !p)}
-          className="p-2 text-blue-500 hover:text-blue-700 rounded"
+          className=" rotate-45 text-[#111827] hover:text-blue-700 rounded"
           title={isPinned ? "Unpin panel" : "Pin panel"}
         >
-          {isPinned ? <PinOff size={18} /> : <Pin size={18} />}
+          {isPinned ? <PinOff size={20} /> : <Pin size={20} />}
         </button>
       </div>
 
       {/* Body */}
       <div
-        className="flex-1 overflow-y-auto p-4 bg-white"
+        className="flex-1 overflow-y-auto p-4 bg-[#e5e7eb]"
         style={{ height: "calc(100vh - 60px)", scrollbarWidth: "none", msOverflowStyle: "none" }}
       >
         <style jsx>{`div::-webkit-scrollbar{display:none}`}</style>
