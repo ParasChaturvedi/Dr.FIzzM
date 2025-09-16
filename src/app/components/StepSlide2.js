@@ -162,7 +162,7 @@ export default function StepSlide2({ onNext, onBack, onBusinessDataSubmit }) {
         `}</style>
 
         {/* FIXED: Added extra padding bottom for dropdown space */}
-        <div className="min-h-full py-12 px-8 pb-30">
+        <div className="min-h-full py-12 px-8">
           <div className="flex flex-col items-center text-center space-y-8 max-w-4xl mx-auto relative">
             {/* Step Indicator */}
             <div className="text-gray-500 text-sm font-medium">Step - 2</div>

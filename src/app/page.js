@@ -1,21 +1,23 @@
 "use client";
 
 import { useState, useEffect, useRef, useCallback } from "react";
-import Sidebar from "./components/Sidebar";
 import Steps from "./components/Steps";
 import Step1Slide1 from "./components/Step1Slide1";
 import StepSlide2 from "./components/StepSlide2";
 import StepSlide3 from "./components/StepSlide3";
 import StepSlide4 from "./components/StepSlide4";
 import StepSlide5 from "./components/StepSlide5";
-import Step5Slide2 from "./components/Step5Slide2"; // ⬅️ NEW
-import InfoPanel from "./components/InfoPanel";
+import Step5Slide2 from "./components/Step5Slide2";
 import ThemeToggle from "./components/ThemeToggle";
+
+import SidebarInfoPanel, {
+  SIDEBAR_WIDTH_PX,
+  INFOPANEL_WIDTH_PX,
+} from "./components/SidebarInfoPanel";
 
 export default function Home() {
   const [isInfoOpen, setIsInfoOpen] = useState(false);
   const [isPinned, setIsPinned] = useState(false);
-  // currentStep can be 1..5 or "5b" (the final full-width slide)
   const [currentStep, setCurrentStep] = useState(1);
 
   const [websiteData, setWebsiteData] = useState(null);
@@ -37,14 +39,12 @@ export default function Home() {
         setIsInfoOpen(false);
       }
     }
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isPinned]);
 
   const handleNextStep = () => {
     if (currentStep === 5) {
-      // Jump to the full-width summary slide
       setCurrentStep("5b");
       return;
     }
@@ -141,18 +141,19 @@ export default function Home() {
     }
   };
 
+  // exact offsets to avoid overlap (Tailwind arbitrary px classes)
+  const mainOffsetClass =
+    isInfoOpen || isPinned ? "ml-[510px]" : "ml-[80px]"; // 510 = 80 + 430
+
   return (
-    <div className="flex h-screen bg-[#e5e7eb] overflow-hidden relative p-3 pl-0">
-      <Sidebar
+    <div className="flex h-screen bg-[image:var(--brand-gradient)] bg-no-repeat bg-[size:100%_100%] overflow-hidden relative p-3">
+      <SidebarInfoPanel
+        ref={infoRef}
         onInfoClick={() => {
           if (isPinned) return;
           setIsInfoOpen((prev) => !prev);
         }}
-          infoActive={isInfoOpen || isPinned}
-      />
-
-      <InfoPanel
-        ref={infoRef}
+        infoActive={isInfoOpen || isPinned}
         isOpen={isInfoOpen}
         isPinned={isPinned}
         setIsPinned={setIsPinned}
@@ -166,23 +167,29 @@ export default function Home() {
       />
 
       <ThemeToggle />
+<main
+  className={`flex-1 h-screen bg-transparent bg-no-repeat bg-[size:100%_100%] transition-all duration-300 h-[calc(90vh-100px)] ${mainOffsetClass}`}
+>
+  {/* Steps header */}
+  {currentStep !== "5b" && (
+    <div className="w-full flex justify-center">
+      <div className="max-w-[100%] rounded-tr-2xl rounded-tl-2xl w-full px-6 bg-white py-6 ">
+        <Steps currentStep={currentStep === "5b" ? 5 : currentStep} />
+      </div>
+    </div>
+  )}
 
-      <main
-        className={`flex-1 h-screen bg-[#e5e7eb] transition-all duration-300 ${
-          isInfoOpen || isPinned ? "ml-[400px]" : "ml-[40px]"
-        }`}
-      >
-        {/* Hide the top stepper on the 5b (summary) page */}
-        {currentStep !== "5b" && (
-          <div className="w-full bg-gray-100 py-6 flex justify-center border-b border-gray-200">
-            <Steps currentStep={currentStep === "5b" ? 5 : currentStep} />
-          </div>
-        )}
+  {/* Slide wrapper */}
+  <div className="flex-1 flex max-w-[100%] justify-center items-start overflow-hidden">
+    <div
+      className="relative flex-1 
+                 bg-white shadow-sm rounded-bl-2xl rounded-br-2xl overflow-y-auto"
+    >
+      {renderCurrentStep()}
+    </div>
+  </div>
+</main>
 
-        <div className="flex-1 bg-gray-100 flex items-stretch justify-center overflow-hidden">
-          <div className="w-full h-full">{renderCurrentStep()}</div>
-        </div>
-      </main>
     </div>
   );
 }

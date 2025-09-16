@@ -1,19 +1,39 @@
 @import "tailwindcss";
 
 /* ---------- Design Tokens ---------- */
-
 :root {
   /* Light */
   --app-bg: #f9fafb;
-  --panel: #ffff;
+  --panel: #ffffff;
   --text: #111827;
   --muted: #4b5563;
   --border: #e5e7eb;
   --sidebar: #e5e7eb;
 
-  /* NEW: sidebar hover bubble color (light) */
   --sb-hover: #ffffff;
   --profile-hover:#E9652C;
+  --bg-panel-sidebar:#e5e7eb;
+
+  /* ✅ Gradient tokens */
+  --brand-gradient: linear-gradient(
+    to right,
+    rgb(212 84 39 / 50%) 0%,
+    rgb(255 166 21 / 50%) 100%
+  );
+
+  /* ✅ Sidebar gradient (same colors, lighter opacity) */
+  --sidebar-gradient: linear-gradient(
+    to bottom,
+    rgb(212 84 39 / 100%) 0%,
+    rgb(255 166 21 / 100%) 100%
+  );
+
+--infoHighlight-gradient: linear-gradient(
+  to right,
+  #d45427 0%,
+  #ffa615 100%
+);
+
 }
 
 html.dark {
@@ -22,11 +42,23 @@ html.dark {
   --text: #e5e7eb;
   --muted: #9ca3af;
   --border: #374151;
-  --sidebar: #1f2121;
+  --sidebar: #191a1a;
 
-  /* NEW: sidebar hover bubble color (dark) */
   --sb-hover: #303030;
-   --profile-hover:#3182ce;
+  --profile-hover:#3182ce;
+  --bg-panel-sidebar:#191a1a;
+
+  /* (Optional) keep same gradients in dark, or increase opacity a touch */
+  --brand-gradient: linear-gradient(
+    to right,
+    rgb(212 84 39 / 22%) 0%,
+    rgb(255 166 21 / 22%) 100%
+  );
+  --sidebar-gradient: linear-gradient(
+    to bottom,
+    rgb(212 84 39) 0%,
+    rgb(255 166 21) 100%
+  );
 }
 
 
@@ -67,10 +99,10 @@ body {
 .border-gray-300 { border-color: color-mix(in oklab, var(--border) 90%, black 10%) !important; }
 
 /* sidebar helper */
-aside.w-\[80px\] {
+/* aside.w-\[80px\] {
   background-color: var(--sidebar) !important;
   border-color: var(--border) !important;
-}
+} */
 
 /* inputs */
 input, textarea, select {
