@@ -1,19 +1,30 @@
-"use client"; 
+"use client";
+
 import { useState, useEffect, useRef } from "react";
 import { ArrowRight, ArrowLeft, ChevronDown } from "lucide-react";
 
 export default function StepSlide2({ onNext, onBack, onBusinessDataSubmit }) {
+  // selections
   const [selectedIndustry, setSelectedIndustry] = useState("");
   const [selectedOffering, setSelectedOffering] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
-  const [showSummary, setShowSummary] = useState(false);
-  const [openDropdown, setOpenDropdown] = useState(null);
   const [customIndustry, setCustomIndustry] = useState("");
   const [customCategory, setCustomCategory] = useState("");
-  const containerRef = useRef(null);
+
+  // UI state
+  const [showSummary, setShowSummary] = useState(false);
+  const [openDropdown, setOpenDropdown] = useState(null);
+
+  // fixed height like Step1Slide1
+  const panelRef = useRef(null);      // outer rounded white panel
+  const scrollRef = useRef(null);     // inner scroll area
+  const bottomBarRef = useRef(null);  // bottom CTA area
+  const [panelHeight, setPanelHeight] = useState(null);
+
+  // remember last submitted payload (avoid duplicate submits)
   const lastSubmittedData = useRef(null);
 
-  // EXACT data from images
+  // exact lists
   const industries = [
     "Technology & Software",
     "Healthcare & Medical",
@@ -21,14 +32,14 @@ export default function StepSlide2({ onNext, onBack, onBusinessDataSubmit }) {
     "Professional Services",
     "Food & Beverage",
     "Fashion & Apparel",
-    "Others"
+    "Others",
   ];
 
   const offerings = [
     "Services",
     "Products",
     "Digital/Software",
-    "Hybrid - Multiple Types"
+    "Hybrid - Multiple Types",
   ];
 
   const categories = [
@@ -38,10 +49,36 @@ export default function StepSlide2({ onNext, onBack, onBusinessDataSubmit }) {
     "Technology & IT Services",
     "Financial & Accounting",
     "Legal Services",
-    "Others"
+    "Others",
   ];
 
-  // Handle business data submission without infinite loop
+  /* -------------------- Fixed panel height (same pattern as Step1Slide1) -------------------- */
+  const recomputePanelHeight = () => {
+    if (!panelRef.current) return;
+    const vpH = window.innerHeight;
+    const barH = bottomBarRef.current?.getBoundingClientRect().height ?? 0;
+    const topOffset = panelRef.current.getBoundingClientRect().top; // from viewport top
+    const paddingGuard = 24; // tiny breathing space
+    const h = Math.max(360, vpH - barH - topOffset - paddingGuard);
+    setPanelHeight(h);
+  };
+
+  useEffect(() => {
+    recomputePanelHeight();
+    const ro = new ResizeObserver(recomputePanelHeight);
+    if (panelRef.current) ro.observe(panelRef.current);
+    window.addEventListener("resize", recomputePanelHeight);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", recomputePanelHeight);
+    };
+  }, []);
+
+  useEffect(() => {
+    recomputePanelHeight();
+  }, [showSummary, selectedIndustry, selectedOffering, selectedCategory]);
+
+  /* -------------------- Data submission / summary toggle -------------------- */
   useEffect(() => {
     if (selectedIndustry && selectedOffering && selectedCategory) {
       const industryValue =
@@ -55,7 +92,7 @@ export default function StepSlide2({ onNext, onBack, onBusinessDataSubmit }) {
         const newData = {
           industry: industryValue,
           offering: selectedOffering,
-          category: categoryValue
+          category: categoryValue,
         };
 
         const dataString = JSON.stringify(newData);
@@ -76,31 +113,23 @@ export default function StepSlide2({ onNext, onBack, onBusinessDataSubmit }) {
     selectedOffering,
     selectedCategory,
     customIndustry,
-    customCategory
+    customCategory,
+    onBusinessDataSubmit,
   ]);
 
   // Auto scroll to top when summary appears
   useEffect(() => {
-    if (containerRef.current) {
-      setTimeout(() => {
-        containerRef.current.scrollTo({
-          top: 0,
-          behavior: "smooth"
-        });
-      }, 100);
+    if (scrollRef.current && showSummary) {
+      scrollRef.current.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [showSummary]);
 
-  const handleNext = () => {
-    if (onNext) onNext();
-  };
+  /* -------------------- Handlers -------------------- */
+  const handleNext = () => onNext?.();
+  const handleBack = () => onBack?.();
 
-  const handleBack = () => {
-    if (onBack) onBack();
-  };
-
-  const handleDropdownToggle = (dropdown) => {
-    setOpenDropdown(openDropdown === dropdown ? null : dropdown);
+  const handleDropdownToggle = (name) => {
+    setOpenDropdown((prev) => (prev === name ? null : name));
   };
 
   const handleIndustrySelect = (industry) => {
@@ -130,327 +159,281 @@ export default function StepSlide2({ onNext, onBack, onBusinessDataSubmit }) {
     setCustomIndustry("");
     setCustomCategory("");
     lastSubmittedData.current = null;
+    setShowSummary(false);
   };
 
-  // Close dropdowns when clicking outside
+  // close dropdowns on outside click
   useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (!event.target.closest(".dropdown-container")) {
+    const onDocClick = (e) => {
+      if (!e.target.closest(".dropdown-container")) {
         setOpenDropdown(null);
       }
     };
-
-    document.addEventListener("click", handleClickOutside);
-    return () => document.removeEventListener("click", handleClickOutside);
+    document.addEventListener("click", onDocClick);
+    return () => document.removeEventListener("click", onDocClick);
   }, []);
 
   return (
-    <div className="w-full h-screen flex flex-col bg-gray-100">
-      {/* Inner Scrolling Container */}
-      <div
-        ref={containerRef}
-        className="flex-1 h-full overflow-y-auto overflow-x-hidden"
-        style={{
-          scrollbarWidth: "none",
-          msOverflowStyle: "none"
-        }}
-      >
-        <style jsx>{`
-          div::-webkit-scrollbar {
-            display: none;
-          }
-        `}</style>
+    <div className="w-full h-full flex flex-col bg-transparent">
+      {/* ---------------- Fixed-height white section (same chrome as Step1Slide1) ---------------- */}
+      <div className="px-6 md:px-8 pt-6">
+        <div
+          ref={panelRef}
+          className="mx-auto w-full max-w-[1120px] rounded-2xl bg-transparent"
+          style={{ padding: "0px 24px", height: panelHeight ? `${panelHeight}px` : "auto" }}
+        >
+          {/* Hide scrollbars cross-browser for inner area */}
+          <style jsx>{`
+            .inner-scroll {
+              scrollbar-width: none;       /* Firefox */
+              -ms-overflow-style: none;    /* IE/Edge */
+            }
+            .inner-scroll::-webkit-scrollbar { display: none; } /* WebKit */
+          `}</style>
 
-        {/* FIXED: Added extra padding bottom for dropdown space */}
-        <div className="min-h-full py-12 px-8">
-          <div className="flex flex-col items-center text-center space-y-8 max-w-4xl mx-auto relative">
-            {/* Step Indicator */}
-            <div className="text-gray-500 text-sm font-medium">Step - 2</div>
+          {/* Inner scrollable area */}
+          <div ref={scrollRef} className="inner-scroll h-full w-full overflow-y-auto">
+            <div className="flex flex-col items-center text-center gap-4.5 max-w-[820px] mx-auto">
+              {/* Step label */}
+              <div className="text-gray-500 text-sm font-medium">Step - 2</div>
 
-            {/* Main Heading */}
-            <div className="space-y-4 max-w-2xl">
-              <h1 className="text-3xl font-bold text-gray-900">
-                Tell us about your business
-              </h1>
-              <p className="text-gray-600 text-lg">
-                Pick the closest category that best describes your business.
-                This tailors benchmarks and keyword ideas.
-              </p>
-            </div>
-
-            {/* Summary Box */}
-            {showSummary && (
-              <div className="bg-white rounded-xl p-6 shadow-sm border max-w-2xl w-full text-left">
-                <div className="space-y-2">
-                  <div className="text-gray-700">
-                    <span className="font-semibold">Industry Sector:</span>{" "}
-                    {selectedIndustry === "Others"
-                      ? customIndustry
-                      : selectedIndustry}
-                  </div>
-                  <div className="text-gray-700">
-                    <span className="font-semibold">Offering Type:</span>{" "}
-                    {selectedOffering}
-                  </div>
-                  <div className="text-gray-700">
-                    <span className="font-semibold">Category:</span>{" "}
-                    {selectedCategory === "Others"
-                      ? customCategory
-                      : selectedCategory}
-                  </div>
-                </div>
-              </div>
-            )}
-
-            {/* Dropdowns - FIXED: Added more space for dropdown expansion */}
-            {!showSummary && (
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-4xl relative pb-80">
-                {/* Industry Dropdown */}
-                <div
-                  className="relative dropdown-container overflow-visible"
-                  style={{
-                    zIndex: openDropdown === "industry" ? 1000 : 1
-                  }}
-                >
-                  <button
-                    onClick={() => handleDropdownToggle("industry")}
-                    className="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-left flex items-center justify-between hover:border-gray-400 transition-colors focus:outline-none focus:border-blue-500"
-                    type="button"
-                  >
-                    <span
-                      className={
-                        selectedIndustry ? "text-gray-900" : "text-gray-500"
-                      }
-                    >
-                      {selectedIndustry || "Industry Sector"}
-                    </span>
-                    <ChevronDown
-                      size={20}
-                      className={`transform transition-transform ${
-                        openDropdown === "industry" ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-
-                  {openDropdown === "industry" && (
-                    <div className="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded-lg mt-1 shadow-2xl max-h-64 overflow-y-auto"
-                      style={{ zIndex: 1001 }}>
-                      {industries.map((industry) => (
-                        <button
-                          key={industry}
-                          onClick={() => handleIndustrySelect(industry)}
-                          className="w-full text-left px-4 py-3 hover:bg-blue-50 text-gray-900 border-b border-gray-100 last:border-b-0 transition-colors focus:outline-none focus:bg-blue-100"
-                          type="button"
-                        >
-                          {industry}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-
-                  {selectedIndustry === "Others" && (
-                    <input
-                      type="text"
-                      placeholder="Describe your sector"
-                      value={customIndustry}
-                      onChange={(e) => setCustomIndustry(e.target.value)}
-                      className="w-full mt-2 bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-900 placeholder-gray-500 outline-none focus:border-blue-500"
-                    />
-                  )}
-                </div>
-
-                {/* Offering Dropdown */}
-                <div
-                  className="relative dropdown-container overflow-visible"
-                  style={{
-                    zIndex: openDropdown === "offering" ? 1000 : 1
-                  }}
-                >
-                  <button
-                    onClick={() =>
-                      selectedIndustry ? handleDropdownToggle("offering") : null
-                    }
-                    disabled={!selectedIndustry}
-                    className={`w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-left flex items-center justify-between transition-colors focus:outline-none ${
-                      selectedIndustry
-                        ? "hover:border-gray-400 cursor-pointer focus:border-blue-500"
-                        : "opacity-50 cursor-not-allowed"
-                    }`}
-                    type="button"
-                  >
-                    <span
-                      className={
-                        selectedOffering ? "text-gray-900" : "text-gray-500"
-                      }
-                    >
-                      {selectedOffering || "Offering Type"}
-                    </span>
-                    <ChevronDown
-                      size={20}
-                      className={`transform transition-transform ${
-                        openDropdown === "offering" ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-
-                  {openDropdown === "offering" && selectedIndustry && (
-                    <div className="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded-lg mt-1 shadow-2xl max-h-64 overflow-y-auto"
-                      style={{ zIndex: 1001 }}>
-                      {offerings.map((offering) => (
-                        <button
-                          key={offering}
-                          onClick={() => handleOfferingSelect(offering)}
-                          className="w-full text-left px-4 py-3 hover:bg-blue-50 text-gray-900 border-b border-gray-100 last:border-b-0 transition-colors focus:outline-none focus:bg-blue-100"
-                          type="button"
-                        >
-                          {offering}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-
-                {/* Category Dropdown */}
-                <div
-                  className="relative dropdown-container overflow-visible"
-                  style={{
-                    zIndex: openDropdown === "category" ? 1000 : 1
-                  }}
-                >
-                  <button
-                    onClick={() =>
-                      selectedOffering ? handleDropdownToggle("category") : null
-                    }
-                    disabled={!selectedOffering}
-                    className={`w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-left flex items-center justify-between transition-colors focus:outline-none ${
-                      selectedOffering
-                        ? "hover:border-gray-400 cursor-pointer focus:border-blue-500"
-                        : "opacity-50 cursor-not-allowed"
-                    }`}
-                    type="button"
-                  >
-                    <span
-                      className={
-                        selectedCategory ? "text-gray-900" : "text-gray-500"
-                      }
-                    >
-                      {selectedCategory ||
-                        `Specific Category for ${
-                          selectedOffering?.toLowerCase() || "service"
-                        }`}
-                    </span>
-                    <ChevronDown
-                      size={20}
-                      className={`transform transition-transform ${
-                        openDropdown === "category" ? "rotate-180" : ""
-                      }`}
-                    />
-                  </button>
-
-                  {openDropdown === "category" && selectedOffering && (
-                    <div className="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded-lg mt-1 shadow-2xl max-h-64 overflow-y-auto"
-                      style={{ zIndex: 1001 }}>
-                      {categories.map((category) => (
-                        <button
-                          key={category}
-                          onClick={() => handleCategorySelect(category)}
-                          className="w-full text-left px-4 py-3 hover:bg-blue-50 text-gray-900 border-b border-gray-100 last:border-b-0 transition-colors focus:outline-none focus:bg-blue-100"
-                          type="button"
-                        >
-                          {category}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-
-                  {selectedCategory === "Others" && (
-                    <input
-                      type="text"
-                      placeholder="Describe your service"
-                      value={customCategory}
-                      onChange={(e) => setCustomCategory(e.target.value)}
-                      className="w-full mt-2 bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-900 placeholder-gray-500 outline-none focus:border-blue-500"
-                    />
-                  )}
-                </div>
-              </div>
-            )}
-
-            {/* Report Message */}
-            {showSummary && (
-              <div className="text-center space-y-6 w-full pt-8">
-                <div>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                    Heres your site report — take a quick look on the Info Tab.
-                  </h3>
-                  <p className="text-gray-600 text-base">
-                    If not, Want to do some changes?
-                  </p>
-                </div>
-
-                <div className="flex gap-8 justify-center text-base">
-                  <button
-                    onClick={handleResetSelections}
-                    className="px-0 py-3 text-gray-700 hover:text-gray-900 font-medium"
-                  >
-                    NO
-                  </button>
-                  <button
-                    onClick={handleResetSelections}
-                    className="px-0 py-3 text-blue-600 hover:text-blue-800 font-medium"
-                  >
-                    YES!
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {/* Next Section with Navigation Buttons */}
-            {showSummary && (
-              <div className="text-center w-full pt-8 pb-20">
-                <p className="text-gray-600 text-base mb-6">
-                  All set? Click{" "}
-                  <span className="font-bold text-gray-900">Next</span> to
-                  continue.
+              {/* Heading + copy (match Step1Slide1 typography size/weights) */}
+              <div className="space-y-4 max-w-[640px]">
+                <h1 className="text-[22px] md:text-[26px] font-bold text-gray-900">
+                  Tell us about your business
+                </h1>
+                <p className="text-[15px] text-gray-700 leading-relaxed">
+                  Pick the closest category that best describes your business.
+                  This tailors benchmarks and keyword ideas.
                 </p>
-
-                <div className="flex justify-center gap-4 mt-6">
-                  <button
-                    onClick={handleBack}
-                    className="bg-white hover:bg-gray-50 text-gray-700 px-6 py-3 rounded-full text-base font-medium flex items-center gap-2 border border-gray-300 transition-colors"
-                  >
-                    <ArrowLeft size={16} /> Back
-                  </button>
-                  <button
-                    onClick={handleNext}
-                    className="bg-gray-700 hover:bg-gray-800 text-white px-8 py-3 rounded-full text-base font-medium flex items-center gap-2 transition-colors shadow-lg"
-                  >
-                    Next <ArrowRight size={16} />
-                  </button>
-                </div>
               </div>
-            )}
+
+              {/* Summary (when all selected) */}
+              {showSummary && (
+                <div className="bg-[var(--input)] max-w-[340px] w-full rounded-2xl shadow-sm border border-gray-200 px-6 py-4 my-1 text-[16px] font-medium text-left self-end">
+                  <div className="space-y-2 text-[15px]">
+                    <div className="text-gray-800">
+                      <span className="font-semibold">Industry Sector:</span>{" "}
+                      {selectedIndustry === "Others" ? customIndustry : selectedIndustry}
+                    </div>
+                    <div className="text-gray-800">
+                      <span className="font-semibold">Offering Type:</span> {selectedOffering}
+                    </div>
+                    <div className="text-gray-800">
+                      <span className="font-semibold">Category:</span>{" "}
+                      {selectedCategory === "Others" ? customCategory : selectedCategory}
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Dropdown grid (when not summarized) */}
+              {!showSummary && (
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 w-full max-w-[880px] relative pb-64">
+                  {/* Industry */}
+                  <div
+                    className="relative dropdown-container overflow-visible"
+                    style={{ zIndex: openDropdown === "industry" ? 1000 : 1 }}
+                  >
+                    <button
+                      onClick={() => handleDropdownToggle("industry")}
+                      type="button"
+                      className="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-left flex items-center justify-between hover:border-gray-400 focus:outline-none focus:border-blue-500 transition-colors"
+                    >
+                      <span className={selectedIndustry ? "text-gray-900" : "text-gray-500"}>
+                        {selectedIndustry || "Industry Sector"}
+                      </span>
+                      <ChevronDown
+                        size={20}
+                        className={`transition-transform ${openDropdown === "industry" ? "rotate-180" : ""}`}
+                      />
+                    </button>
+
+                    {openDropdown === "industry" && (
+                      <div
+                        className="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded-lg mt-1 shadow-2xl max-h-64 overflow-y-auto"
+                        style={{ zIndex: 1001 }}
+                      >
+                        {industries.map((ind) => (
+                          <button
+                            key={ind}
+                            onClick={() => handleIndustrySelect(ind)}
+                            type="button"
+                            className="w-full text-left px-4 py-3 hover:bg-blue-50 text-gray-900 border-b border-gray-100 last:border-b-0 focus:outline-none focus:bg-blue-100 transition-colors"
+                          >
+                            {ind}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+
+                    {selectedIndustry === "Others" && (
+                      <input
+                        type="text"
+                        placeholder="Describe your sector"
+                        value={customIndustry}
+                        onChange={(e) => setCustomIndustry(e.target.value)}
+                        className="w-full mt-2 bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-900 placeholder-gray-500 outline-none focus:border-blue-500"
+                      />
+                    )}
+                  </div>
+
+                  {/* Offering */}
+                  <div
+                    className="relative dropdown-container overflow-visible"
+                    style={{ zIndex: openDropdown === "offering" ? 1000 : 1 }}
+                  >
+                    <button
+                      onClick={() => (selectedIndustry ? handleDropdownToggle("offering") : null)}
+                      disabled={!selectedIndustry}
+                      type="button"
+                      className={`w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-left flex items-center justify-between focus:outline-none transition-colors ${
+                        selectedIndustry
+                          ? "hover:border-gray-400 cursor-pointer focus:border-blue-500"
+                          : "opacity-50 cursor-not-allowed"
+                      }`}
+                    >
+                      <span className={selectedOffering ? "text-gray-900" : "text-gray-500"}>
+                        {selectedOffering || "Offering Type"}
+                      </span>
+                      <ChevronDown
+                        size={20}
+                        className={`transition-transform ${openDropdown === "offering" ? "rotate-180" : ""}`}
+                      />
+                    </button>
+
+                    {openDropdown === "offering" && selectedIndustry && (
+                      <div
+                        className="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded-lg mt-1 shadow-2xl max-h-64 overflow-y-auto"
+                        style={{ zIndex: 1001 }}
+                      >
+                        {offerings.map((off) => (
+                          <button
+                            key={off}
+                            onClick={() => handleOfferingSelect(off)}
+                            type="button"
+                            className="w-full text-left px-4 py-3 hover:bg-blue-50 text-gray-900 border-b border-gray-100 last:border-b-0 focus:outline-none focus:bg-blue-100 transition-colors"
+                          >
+                            {off}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Category */}
+                  <div
+                    className="relative dropdown-container overflow-visible"
+                    style={{ zIndex: openDropdown === "category" ? 1000 : 1 }}
+                  >
+                    <button
+                      onClick={() => (selectedOffering ? handleDropdownToggle("category") : null)}
+                      disabled={!selectedOffering}
+                      type="button"
+                      className={`w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-left flex items-center justify-between focus:outline-none transition-colors ${
+                        selectedOffering
+                          ? "hover:border-gray-400 cursor-pointer focus:border-blue-500"
+                          : "opacity-50 cursor-not-allowed"
+                      }`}
+                    >
+                      <span className={selectedCategory ? "text-gray-900" : "text-gray-500"}>
+                        {selectedCategory ||
+                          `Specific Category for ${selectedOffering?.toLowerCase() || "service"}`}
+                      </span>
+                      <ChevronDown
+                        size={20}
+                        className={`transition-transform ${openDropdown === "category" ? "rotate-180" : ""}`}
+                      />
+                    </button>
+
+                    {openDropdown === "category" && selectedOffering && (
+                      <div
+                        className="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded-lg mt-1 shadow-2xl max-h-64 overflow-y-auto"
+                        style={{ zIndex: 1001 }}
+                      >
+                        {categories.map((cat) => (
+                          <button
+                            key={cat}
+                            onClick={() => handleCategorySelect(cat)}
+                            type="button"
+                            className="w-full text-left px-4 py-3 hover:bg-blue-50 text-gray-900 border-b border-gray-100 last:border-b-0 focus:outline-none focus:bg-blue-100 transition-colors"
+                          >
+                            {cat}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+
+                    {selectedCategory === "Others" && (
+                      <input
+                        type="text"
+                        placeholder="Describe your service"
+                        value={customCategory}
+                        onChange={(e) => setCustomCategory(e.target.value)}
+                        className="w-full mt-2 bg-white border border-gray-300 rounded-lg px-4 py-3 text-gray-900 placeholder-gray-500 outline-none focus:border-blue-500"
+                      />
+                    )}
+                  </div>
+                </div>
+              )}
+
+              {/* Summary CTA (same spacing rhythm as Step1Slide1) */}
+              {showSummary && (
+                <div className="max-w-[640px] text-left self-start">
+                  <div>
+                    <h3 className="text-[18px] font-bold text-gray-900 mb-3">
+                      Here’s your site report — take a quick look on the Info Tab.
+                    </h3>
+                    <p className="text-[15px] text-gray-600 mt-2">
+                      If not, Want to do some changes?
+                    </p>
+                  </div>
+
+                  <div className="flex items-center gap-12 mt-6 text-[14px]">
+                    {/* <button
+                      onClick={handleResetSelections}
+                      className="text-gray-700 hover:text-gray-900 font-medium"
+                    >
+                      NO
+                    </button> */}
+                    <button
+                      onClick={handleResetSelections}
+                      className="text-[#d45427] hover:brightness-110 font-medium"
+                    >
+                      YES!
+                    </button>
+                  </div>
+                </div>
+              )}
+
+              {/* Spacer so tail never sticks to bottom edge */}
+              <div className="h-2" />
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Navigation Buttons - Original ones at bottom */}
-      <div className="flex-shrink-0 bg-gray-100 border-t border-gray-200 p-6">
-        <div className="max-w-4xl mx-auto flex justify-center gap-4">
-          <button
-            onClick={handleBack}
-            className="bg-white hover:bg-gray-50 text-gray-700 px-6 py-3 rounded-full text-base font-medium flex items-center gap-2 border border-gray-300 transition-colors"
-          >
-            <ArrowLeft size={16} /> Back
-          </button>
-          {showSummary && (
+      {/* ---------------- Bottom bar (same as Step1Slide1 format) ---------------- */}
+      <div ref={bottomBarRef} className="flex-shrink-0 bg-transparent">
+        <div className="border-t border-gray-200" />
+        <div className="mx-auto w-full max-w-[1120px] px-6 md:px-8">
+          <div className="py-7 flex justify-center gap-4">
             <button
-              onClick={handleNext}
-              className="bg-gray-700 hover:bg-gray-800 text-white px-8 py-3 rounded-full text-base font-medium flex items-center gap-2 transition-colors shadow-lg"
+              onClick={handleBack}
+              className="inline-flex items-center gap-2 rounded-full bg-[image:var(--input)] px-6 py-3 text-[var(--text)] hover:bg-white shadow-sm border border-[#d45427]"
             >
-              Next <ArrowRight size={16} />
+              <ArrowLeft size={16} /> Back
             </button>
-          )}
+
+            {showSummary && (
+              <button
+                onClick={handleNext}
+                className="inline-flex items-center gap-2 rounded-full bg-[image:var(--infoHighlight-gradient)] px-6 py-3 text-white hover:bg-gray-800 shadow-sm"
+              >
+                Next <ArrowRight size={16} />
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

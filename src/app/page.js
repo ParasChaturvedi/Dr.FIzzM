@@ -9,11 +9,8 @@ import StepSlide4 from "./components/StepSlide4";
 import StepSlide5 from "./components/StepSlide5";
 import Step5Slide2 from "./components/Step5Slide2";
 import ThemeToggle from "./components/ThemeToggle";
-
-import SidebarInfoPanel, {
-  SIDEBAR_WIDTH_PX,
-  INFOPANEL_WIDTH_PX,
-} from "./components/SidebarInfoPanel";
+import SidebarInfoPanel from "./components/SidebarInfoPanel";
+import Dashboard from "./components/Dashboard";
 
 export default function Home() {
   const [isInfoOpen, setIsInfoOpen] = useState(false);
@@ -129,24 +126,24 @@ export default function Home() {
         return (
           <Step5Slide2
             onBack={() => setCurrentStep(5)}
-            onDashboard={() => console.log("Go to Dashboard")}
+            onDashboard={() => setCurrentStep("dashboard")}   // switches after loading
             businessData={businessData}
             languageLocationData={languageLocationData}
             keywordData={selectedKeywords}
             competitorData={competitorData}
           />
         );
+      case "dashboard":
+        return <Dashboard />;
       default:
         return <Step1Slide1 onNext={handleNextStep} onWebsiteSubmit={handleWebsiteSubmit} />;
     }
   };
 
-  // exact offsets to avoid overlap (Tailwind arbitrary px classes)
-  const mainOffsetClass =
-    isInfoOpen || isPinned ? "ml-[510px]" : "ml-[80px]"; // 510 = 80 + 430
+  const mainOffsetClass = isInfoOpen || isPinned ? "ml-[510px]" : "ml-[80px]"; // 510 = 80 + 430
 
   return (
-    <div className="flex h-screen bg-[image:var(--brand-gradient)] bg-no-repeat bg-[size:100%_100%] overflow-hidden relative p-3">
+    <div className="flex h-screen overflow-hidden bg-[image:var(--brand-gradient)] bg-no-repeat bg-[size:100%_100%] p-3">
       <SidebarInfoPanel
         ref={infoRef}
         onInfoClick={() => {
@@ -167,29 +164,38 @@ export default function Home() {
       />
 
       <ThemeToggle />
-<main
-  className={`flex-1 h-screen bg-transparent bg-no-repeat bg-[size:100%_100%] transition-all duration-300 h-[calc(90vh-100px)] ${mainOffsetClass}`}
+
+      {/* FLEX COLUMN ROOT — min-h-0 lets the child scroll */}
+      <main className={`flex-1 flex flex-col min-h-0 transition-all duration-300 ${mainOffsetClass}`}>
+        {/* Steps header (hidden on 5b & dashboard) */}
+        {currentStep !== "5b" && currentStep !== "dashboard" && (
+          <div className="w-full flex justify-center">
+            <div className="max-w-[100%] w-full rounded-tr-2xl rounded-tl-2xl px-6 bg-[var(--bg-panel)] py-6">
+              <Steps currentStep={currentStep === "5b" ? 5 : currentStep} />
+            </div>
+          </div>
+        )}
+
+        {/* HOST PANEL — the only scroll container */}
+        <div className="flex-1 h-full flex justify-center items-start no-scrollbar">
+        <style jsx global>{`
+        .no-scrollbar {
+          -ms-overflow-style: none; /* IE & Edge */
+          scrollbar-width: none; /* Firefox */
+        }
+        .no-scrollbar::-webkit-scrollbar {
+          display: none; /* Chrome, Safari, Opera */
+        }
+      `}</style>
+         <div
+  className={`relative flex-1 h-full bg-[var(--bg-panel)] shadow-sm 
+    ${currentStep === "dashboard" || currentStep === "5b" ? "rounded-2xl" : "rounded-bl-2xl rounded-br-2xl"} 
+    overflow-y-scroll overscroll-contain no-scrollbar`}
 >
-  {/* Steps header */}
-  {currentStep !== "5b" && (
-    <div className="w-full flex justify-center">
-      <div className="max-w-[100%] rounded-tr-2xl rounded-tl-2xl w-full px-6 bg-white py-6 ">
-        <Steps currentStep={currentStep === "5b" ? 5 : currentStep} />
-      </div>
-    </div>
-  )}
-
-  {/* Slide wrapper */}
-  <div className="flex-1 flex max-w-[100%] justify-center items-start overflow-hidden">
-    <div
-      className="relative flex-1 
-                 bg-white shadow-sm rounded-bl-2xl rounded-br-2xl overflow-y-auto"
-    >
-      {renderCurrentStep()}
-    </div>
-  </div>
-</main>
-
+  {renderCurrentStep()}
+</div>
+        </div>
+      </main>
     </div>
   );
 }

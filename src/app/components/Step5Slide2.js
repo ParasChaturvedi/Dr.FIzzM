@@ -1,10 +1,11 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo, useState, useRef, useEffect } from "react";
 import { ArrowLeft, ArrowRight, Briefcase, Languages, Tag } from "lucide-react";
 
 export default function Step5Slide2({
   onBack,
+  onDashboard,            // <-- NEW: parent callback to show Dashboard
   websiteData,
   businessData,
   languageLocationData,
@@ -12,6 +13,7 @@ export default function Step5Slide2({
   competitorData = null,
 }) {
   const [loading, setLoading] = useState(false);
+  const timeoutRef = useRef(null);
 
   // Data shaping
   const industry = businessData?.industry || "—";
@@ -33,7 +35,24 @@ export default function Step5Slide2({
 
   const clean = (s) => (typeof s === "string" ? s.replace(/-\d+$/, "") : s);
 
-  const onDashboard = () => setLoading(true);
+  // When user clicks Dashboard:
+  // 1) show loading visuals
+  // 2) after ~6s, tell parent to render <Dashboard />
+  const handleDashboard = () => {
+    if (loading) return;
+    setLoading(true);
+    // 6s sits nicely in the 5–8s window you requested
+    timeoutRef.current = setTimeout(() => {
+      onDashboard?.(); // parent flips to Dashboard
+    }, 6000);
+  };
+
+  // Cleanup timer if user navigates away
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
   const Card = ({ icon, title, children }) => (
     <div className="rounded-2xl bg-white border border-gray-200 shadow-sm">
@@ -116,7 +135,7 @@ export default function Step5Slide2({
               Back
             </button>
             <button
-              onClick={onDashboard}
+              onClick={handleDashboard}   // <-- use our handler
               className="mt-6 ml-4 inline-flex items-center gap-2 rounded-full bg-gray-900 px-8 py-3 text-white hover:bg-black"
             >
               Dashboard
@@ -134,7 +153,6 @@ export default function Step5Slide2({
             <div className="mt-6 wave-loader">
               <div className="shine" />
               <div className="layer layer-back">
-                {/* two seamless copies */}
                 <svg viewBox="0 0 200 60" preserveAspectRatio="none" className="seg">
                   <defs>
                     <linearGradient id="inkBack" x1="0" y1="0" x2="1" y2="0">
@@ -145,7 +163,6 @@ export default function Step5Slide2({
                   <path d="M0 30 Q 25 22 50 30 T 100 30 T 150 30 T 200 30 V60 H0 Z" fill="url(#inkBack)" />
                 </svg>
                 <svg viewBox="0 0 200 60" preserveAspectRatio="none" className="seg clone">
-                  <use href="#backPath" />
                   <defs>
                     <linearGradient id="inkBack2" x1="0" y1="0" x2="1" y2="0">
                       <stop offset="0%" stopColor="#334155" />
@@ -157,7 +174,6 @@ export default function Step5Slide2({
               </div>
 
               <div className="layer layer-front">
-                {/* two seamless copies */}
                 <svg viewBox="0 0 200 60" preserveAspectRatio="none" className="seg">
                   <defs>
                     <linearGradient id="inkFront" x1="0" y1="0" x2="1" y2="0">
@@ -224,24 +240,13 @@ export default function Step5Slide2({
           animation: chunkSlide 2200ms cubic-bezier(0.37, 0.01, 0.22, 1) infinite;
         }
         @keyframes chunkSlide {
-          0% {
-            transform: translateX(-120%);
-          }
-          50% {
-            transform: translateX(36%);
-          }
-          100% {
-            transform: translateX(300%);
-          }
+          0% { transform: translateX(-120%); }
+          50% { transform: translateX(36%); }
+          100% { transform: translateX(300%); }
         }
         @keyframes dotPulse {
-          0%,
-          100% {
-            transform: translate(-50%, -50%) scale(1);
-          }
-          50% {
-            transform: translate(-50%, -50%) scale(1.06);
-          }
+          0%, 100% { transform: translate(-50%, -50%) scale(1); }
+          50% { transform: translate(-50%, -50%) scale(1.06); }
         }
 
         /* Wave bowl (seamless) */
@@ -272,9 +277,6 @@ export default function Step5Slide2({
           z-index: 3;
         }
 
-        /* Each "layer" has two identical segments positioned side-by-side.
-           We animate the whole layer so the end of seg A lines up with the
-           start of seg B — no seam as it loops. */
         .layer {
           position: absolute;
           inset: 0;
@@ -287,11 +289,11 @@ export default function Step5Slide2({
           position: absolute;
           left: 0;
           bottom: 0;
-          width: 200%; /* one wave length */
+          width: 200%;
           height: 140%;
         }
         .seg.clone {
-          left: 200%; /* placed immediately after the first segment */
+          left: 200%;
         }
 
         .layer-back {
@@ -307,35 +309,19 @@ export default function Step5Slide2({
             driftFront 5600ms linear infinite;
         }
 
-        /* Horizontal drift for the whole layer (affects both segs together) */
         @keyframes driftFront {
-          0% {
-            transform: translate(0, 20%);
-          }
-          100% {
-            transform: translate(-200%, 20%); /* exactly one full pair width */
-          }
+          0% { transform: translate(0, 20%); }
+          100% { transform: translate(-200%, 20%); }
         }
         @keyframes driftBack {
-          0% {
-            transform: translate(0, 20%);
-          }
-          100% {
-            transform: translate(-200%, 20%);
-          }
+          0% { transform: translate(0, 20%); }
+          100% { transform: translate(-200%, 20%); }
         }
 
-        /* Gentle bob */
         @keyframes waterBob {
-          0% {
-            transform: translateY(20%);
-          }
-          50% {
-            transform: translateY(13.5%);
-          }
-          100% {
-            transform: translateY(20%);
-          }
+          0% { transform: translateY(20%); }
+          50% { transform: translateY(13.5%); }
+          100% { transform: translateY(20%); }
         }
       `}</style>
     </div>

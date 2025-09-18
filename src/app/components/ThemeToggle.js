@@ -3,12 +3,6 @@
 import { useTheme } from "./ThemeContext";
 import { Moon, Sun } from "lucide-react";
 
-/**
- * A pixel-accurate, animated theme toggle that matches the provided design.
- * - Track: 84x40, rounded, subtle border & shadow
- * - Static icons: moon (left), sun (right) in muted gray
- * - Blue thumb slides between sides and swaps icon (white)
- */
 export default function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
   const isDark = theme === "dark";
@@ -71,7 +65,7 @@ export default function ThemeToggle() {
             width: thumb,
             height: thumb,
             transform: `translateX(${isDark ? 0 : translateX}px)`,
-            background: "#3B82F6", // design blue
+            background: "var(--infoHighlight-gradient)", // design blue
           }}
         >
           {/* Icon inside the thumb (white) */}

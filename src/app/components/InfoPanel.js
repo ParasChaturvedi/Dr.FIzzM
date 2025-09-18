@@ -167,7 +167,7 @@ export default function InfoPanel({
             </div>
             <div className="text-gray-400 cursor-help">?</div>
           </div>
-          <div className="mb-3 inline-block bg-yellow-300 text-black text-xs px-3 py-1 rounded">
+          <div className="mb-3 inline-block bg-[image:var(--infoHighlight-gradient)] text-white text-xs px-3 py-1 rounded">
             Each organic visitor costs $0 vs $2–5 for ads.
           </div>
           <div className="flex items-center gap-3">

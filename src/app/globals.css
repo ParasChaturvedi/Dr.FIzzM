@@ -9,6 +9,7 @@
   --muted: #4b5563;
   --border: #e5e7eb;
   --sidebar: #e5e7eb;
+  --input:#fff;
 
   --sb-hover: #ffffff;
   --profile-hover:#E9652C;
@@ -34,6 +35,8 @@
   #ffa615 100%
 );
 
+--bg-panel: #F4F4F3;
+
 }
 
 html.dark {
@@ -43,7 +46,7 @@ html.dark {
   --muted: #9ca3af;
   --border: #374151;
   --sidebar: #191a1a;
-
+--input:#000;
   --sb-hover: #303030;
   --profile-hover:#3182ce;
   --bg-panel-sidebar:#191a1a;
@@ -59,6 +62,8 @@ html.dark {
     rgb(212 84 39) 0%,
     rgb(255 166 21) 100%
   );
+
+  --bg-panel: #1f2121;
 }
 
 

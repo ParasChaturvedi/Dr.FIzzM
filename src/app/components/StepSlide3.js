@@ -1,14 +1,25 @@
 "use client";
+
 import { useState, useEffect, useRef } from "react";
 import { ArrowRight, ArrowLeft, ChevronDown, Plus } from "lucide-react";
 
 export default function StepSlide3({ onNext, onBack, onLanguageLocationSubmit }) {
+  // selections
   const [selectedLanguage, setSelectedLanguage] = useState("");
   const [selectedLocation, setSelectedLocation] = useState("");
   const [addedSelections, setAddedSelections] = useState([]);
+
+  // UI state
   const [showSummary, setShowSummary] = useState(false);
   const [openDropdown, setOpenDropdown] = useState(null);
-  const containerRef = useRef(null);
+
+  // fixed height like Step1Slide1 / FINAL StepSlide2
+  const panelRef = useRef(null);      // outer rounded panel
+  const scrollRef = useRef(null);     // inner scroll region
+  const bottomBarRef = useRef(null);  // bottom CTA area
+  const [panelHeight, setPanelHeight] = useState(null);
+
+  // submit guard
   const lastSubmittedData = useRef(null);
 
   const languages = [
@@ -18,37 +29,59 @@ export default function StepSlide3({ onNext, onBack, onLanguageLocationSubmit })
     "Swedish","Norwegian","Finnish","Danish","Czech","Hungarian","Greek",
     "Romanian","Ukrainian","Hebrew","Malay/Indonesian","Filipino/Tagalog"
   ];
+
   const locations = [
-    "United States","Canada","Mexico",
-    "United Kingdom","Germany","France","Italy","Spain","Netherlands",
-    "Sweden","Norway","Denmark","Finland","Poland","Czech Republic","Switzerland",
-    "Belgium","Austria","Ireland","Portugal","Greece","Russia","Ukraine",
-    "Romania","Hungary","China","India","Japan","South Korea",
-    "Singapore","Hong Kong","Taiwan","Indonesia","Malaysia","Thailand",
-    "Vietnam","Philippines","Israel","Turkey","United Arab Emirates",
-    "Saudi Arabia","Qatar","South Africa","Egypt","Nigeria","Morocco",
-    "Kenya","Australia","New Zealand","Brazil","Argentina","Chile",
-    "Colombia","Peru",
-    // Region/city examples
-    "Bangalore","Mumbai","Delhi","California","New York","London","Paris","Berlin"
+    "United States","Canada","Mexico","United Kingdom","Germany","France","Italy","Spain","Netherlands",
+    "Sweden","Norway","Denmark","Finland","Poland","Czech Republic","Switzerland","Belgium","Austria",
+    "Ireland","Portugal","Greece","Russia","Ukraine","Romania","Hungary","China","India","Japan",
+    "South Korea","Singapore","Hong Kong","Taiwan","Indonesia","Malaysia","Thailand","Vietnam",
+    "Philippines","Israel","Turkey","United Arab Emirates","Saudi Arabia","Qatar","South Africa",
+    "Egypt","Nigeria","Morocco","Kenya","Australia","New Zealand","Brazil","Argentina","Chile",
+    "Colombia","Peru","Bangalore","Mumbai","Delhi","California","New York","London","Paris","Berlin"
   ];
 
-  // Add either selected or default "Other"
+  /* ---------------- Fixed panel height (same approach as final StepSlide2) ---------------- */
+  const recomputePanelHeight = () => {
+    if (!panelRef.current) return;
+    const vpH = window.innerHeight;
+    const barH = bottomBarRef.current?.getBoundingClientRect().height ?? 0;
+    const topOffset = panelRef.current.getBoundingClientRect().top;
+    const paddingGuard = 24;
+    const h = Math.max(360, vpH - barH - topOffset - paddingGuard);
+    setPanelHeight(h);
+  };
+
+  useEffect(() => {
+    recomputePanelHeight();
+    const ro = new ResizeObserver(recomputePanelHeight);
+    if (panelRef.current) ro.observe(panelRef.current);
+    window.addEventListener("resize", recomputePanelHeight);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", recomputePanelHeight);
+    };
+  }, []);
+
+  useEffect(() => {
+    recomputePanelHeight();
+  }, [showSummary, addedSelections.length]);
+
+  /* ---------------- Selections / Submission ---------------- */
   const handleAdd = () => {
     const lang = selectedLanguage || "Other";
     const loc  = selectedLocation  || "Other";
-    const entry = { language: lang, location: loc, id: Date.now() };
-    setAddedSelections([...addedSelections, entry]);
+    const entry = { id: Date.now(), language: lang, location: loc };
+    setAddedSelections((prev) => [...prev, entry]);
     setSelectedLanguage("");
     setSelectedLocation("");
-    if (addedSelections.length === 0) setShowSummary(true);
+    setOpenDropdown(null);
   };
 
   useEffect(() => {
     if (addedSelections.length) {
       const payload = { selections: addedSelections };
-      const curr = JSON.stringify(payload);
-      if (curr !== JSON.stringify(lastSubmittedData.current)) {
+      const now = JSON.stringify(payload);
+      if (now !== JSON.stringify(lastSubmittedData.current)) {
         lastSubmittedData.current = payload;
         onLanguageLocationSubmit?.(payload);
       }
@@ -58,158 +91,227 @@ export default function StepSlide3({ onNext, onBack, onLanguageLocationSubmit })
     }
   }, [addedSelections, onLanguageLocationSubmit]);
 
+  // scroll to top when summary appears (like StepSlide2)
   useEffect(() => {
-    if (containerRef.current) {
-      setTimeout(() => containerRef.current.scrollTo({ top: 0, behavior: "smooth" }), 100);
+    if (scrollRef.current && showSummary) {
+      scrollRef.current.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [showSummary]);
 
-  const handleDropdownToggle = (d) => setOpenDropdown(openDropdown === d ? null : d);
-  const handleSelect = (d, v) => {
-    if (d === "lang") setSelectedLanguage(v);
-    else setSelectedLocation(v);
-    setOpenDropdown(null);
+  /* ---------------- Handlers ---------------- */
+  const handleNext = () => onNext?.();
+  const handleBack = () => onBack?.();
+
+  const handleDropdownToggle = (name) => {
+    setOpenDropdown((prev) => (prev === name ? null : name));
   };
-  const resetAll = () => {
+
+  const handleReset = () => {
     setAddedSelections([]);
+    setSelectedLanguage("");
+    setSelectedLocation("");
     lastSubmittedData.current = null;
     setShowSummary(false);
   };
 
+  // close dropdowns if clicked outside
   useEffect(() => {
-    const onClick = (e) => { if (!e.target.closest(".dropdown-container")) setOpenDropdown(null); };
-    document.addEventListener("click", onClick);
-    return () => document.removeEventListener("click", onClick);
+    const onDocClick = (e) => {
+      if (!e.target.closest(".dropdown-container")) setOpenDropdown(null);
+    };
+    document.addEventListener("click", onDocClick);
+    return () => document.removeEventListener("click", onDocClick);
   }, []);
 
   return (
-    <div className="w-full h-screen flex flex-col bg-gray-100">
-      <div
-        ref={containerRef}
-        className="flex-1 overflow-y-auto overflow-x-hidden"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-      >
-        <style jsx>{`div::-webkit-scrollbar{display:none}`}</style>
-        <div className="min-h-full py-12 px-8 pb-96">
-          <div className="flex flex-col items-center text-center space-y-8 max-w-4xl mx-auto">
-            <div className="text-gray-500 text-sm font-medium">Step - 3</div>
-            <div className="space-y-4 max-w-2xl">
-              <h1 className="text-3xl font-bold text-gray-900">
-                Select the languages and locations relevant to your business
-              </h1>
-              <p className="text-gray-600 text-lg">
-                Choose your language & business locations. Select at least one country to localise your analysis.
-              </p>
-            </div>
+    <div className="w-full h-full flex flex-col bg-transparent">
+      {/* ---------------- Fixed-height section (matches StepSlide2 final) ---------------- */}
+      <div className="px-6 md:px-8 pt-6">
+        <div
+          ref={panelRef}
+          className="mx-auto w-full max-w-[1120px] rounded-2xl bg-transparent"
+          style={{ padding: "0px 24px", height: panelHeight ? `${panelHeight}px` : "auto" }}
+        >
+          {/* hide inner scrollbar cross-browser */}
+          <style jsx>{`
+            .inner-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+            .inner-scroll::-webkit-scrollbar { display: none; }
+          `}</style>
 
-            {addedSelections.length > 0 && (
-              <div className="w-full flex justify-end mb-4">
-                <div className="space-y-2">
-                  {addedSelections.map(s => (
-                    <div key={s.id} className="bg-white rounded-lg p-4 shadow-sm border max-w-xs relative">
-                      <div className="space-y-1">
-                        <div className="text-sm text-gray-700"><span className="font-medium">Language:</span> {s.language}</div>
-                        <div className="text-sm text-gray-700"><span className="font-medium">Location:</span> {s.location}</div>
+          {/* Inner scrollable */}
+          <div ref={scrollRef} className="inner-scroll h-full w-full overflow-y-auto">
+            <div className="flex flex-col items-center text-center gap-4.5 max-w-[820px] mx-auto">
+              {/* Step label */}
+              <div className="text-gray-500 text-sm font-medium">Step - 3</div>
+
+              {/* Heading & copy (same scale as StepSlide2 final) */}
+              <div className="space-y-4 max-w-[640px]">
+                <h1 className="text-[22px] md:text-[26px] font-bold text-gray-900">
+                  Select the languages and locations relevant to your business
+                </h1>
+                <p className="text-[15px] text-gray-700 leading-relaxed">
+                  Choose your language & business locations. Select at least one country to localise your analysis.
+                </p>
+              </div>
+
+              {/* Right-aligned “summary bubble(s)” (like StepSlide2) */}
+              {showSummary && (
+                <div className="w-full self-end flex flex-col items-end gap-2">
+                  {addedSelections.map((s) => (
+                    <div
+                      key={s.id}
+                      className="bg-[var(--input)] max-w-[340px] w-full rounded-2xl shadow-sm border border-gray-200 px-6 py-4 text-left text-[15px]"
+                    >
+                      <div className="text-gray-800">
+                        <span className="font-semibold">Language:</span> {s.language}
                       </div>
-                      <ChevronDown size={16} className="absolute top-4 right-4 text-gray-400" />
+                      <div className="text-gray-800">
+                        <span className="font-semibold">Location:</span> {s.location}
+                      </div>
                     </div>
                   ))}
                 </div>
-              </div>
-            )}
+              )}
 
-            {!showSummary && (
-              <div className="flex flex-wrap items-center justify-center gap-4 w-full max-w-4xl relative pb-80">
-                <div className="relative dropdown-container overflow-visible" style={{ zIndex: openDropdown==="lang"?1000:1 }}>
-                  <button
-                    onClick={()=>handleDropdownToggle("lang")}
-                    className="bg-white border border-gray-300 rounded-lg px-4 py-3 flex items-center justify-between min-w-48 hover:border-gray-400 transition-colors"
+              {/* Pickers (when not summarized) */}
+              {!showSummary && (
+                <div className="grid grid-cols-1 md:grid-cols-[1fr_1fr_auto] gap-6 w-full max-w-[880px] relative pb-64">
+                  {/* Language */}
+                  <div
+                    className="relative dropdown-container overflow-visible"
+                    style={{ zIndex: openDropdown === "lang" ? 1000 : 1 }}
                   >
-                    <span className={selectedLanguage?"text-gray-900":"text-gray-500"}>{selectedLanguage||"Select Language"}</span>
-                    <ChevronDown size={20} className={`ml-2 transform ${openDropdown==="lang"?"rotate-180":""}`} />
-                  </button>
-                  {openDropdown==="lang" && (
-                    <div className="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded-lg mt-1 shadow-2xl max-h-64 overflow-y-auto">
-                      {languages.map(l=>(
-                        <button key={l} onClick={()=>handleSelect("lang",l)}
-                          className="w-full text-left px-4 py-3 text-gray-900 border-b border-gray-100 last:border-b-0 hover:bg-blue-50 transition-colors focus:outline-none focus:bg-blue-100">
-                          {l}
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-                <div className="relative dropdown-container overflow-visible" style={{ zIndex: openDropdown==="loc"?1000:1 }}>
-                  <button
-                    onClick={()=>handleDropdownToggle("loc")}
-                    className="bg-white border border-gray-300 rounded-lg px-4 py-3 flex items-center justify-between min-w-48 hover:border-gray-400 transition-colors"
+                    <button
+                      onClick={() => handleDropdownToggle("lang")}
+                      type="button"
+                      className="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-left flex items-center justify-between hover:border-gray-400 focus:outline-none focus:border-blue-500 transition-colors"
+                    >
+                      <span className={selectedLanguage ? "text-gray-900" : "text-gray-500"}>
+                        {selectedLanguage || "Select Language"}
+                      </span>
+                      <ChevronDown
+                        size={20}
+                        className={`transition-transform ${openDropdown === "lang" ? "rotate-180" : ""}`}
+                      />
+                    </button>
+
+                    {openDropdown === "lang" && (
+                      <div className="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded-lg mt-1 shadow-2xl max-h-64 overflow-y-auto z-20">
+                        {languages.map((l) => (
+                          <button
+                            key={l}
+                            onClick={() => { setSelectedLanguage(l); setOpenDropdown(null); }}
+                            type="button"
+                            className="w-full text-left px-4 py-3 hover:bg-blue-50 text-gray-900 border-b border-gray-100 last:border-b-0 focus:outline-none focus:bg-blue-100 transition-colors"
+                          >
+                            {l}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Location */}
+                  <div
+                    className="relative dropdown-container overflow-visible"
+                    style={{ zIndex: openDropdown === "loc" ? 1000 : 1 }}
                   >
-                    <span className={selectedLocation?"text-gray-900":"text-gray-500"}>{selectedLocation||"Select Location"}</span>
-                    <ChevronDown size={20} className={`ml-2 transform ${openDropdown==="loc"?"rotate-180":""}`} />
-                  </button>
-                  {openDropdown==="loc" && (
-                    <div className="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded-lg mt-1 shadow-2xl max-h-64 overflow-y-auto">
-                      {locations.map(c=>(
-                        <button key={c} onClick={()=>handleSelect("loc",c)}
-                          className="w-full text-left px-4 py-3 text-gray-900 border-b border-gray-100 last:border-b-0 hover:bg-blue-50 transition-colors focus:outline-none focus:bg-blue-100">
-                          {c}
-                        </button>
-                      ))}
-                    </div>
-                  )}
+                    <button
+                      onClick={() => handleDropdownToggle("loc")}
+                      type="button"
+                      className="w-full bg-white border border-gray-300 rounded-lg px-4 py-3 text-left flex items-center justify-between hover:border-gray-400 focus:outline-none focus:border-blue-500 transition-colors"
+                    >
+                      <span className={selectedLocation ? "text-gray-900" : "text-gray-500"}>
+                        {selectedLocation || "Select Location"}
+                      </span>
+                      <ChevronDown
+                        size={20}
+                        className={`transition-transform ${openDropdown === "loc" ? "rotate-180" : ""}`}
+                      />
+                    </button>
+
+                    {openDropdown === "loc" && (
+                      <div className="absolute top-full left-0 right-0 bg-white border border-gray-300 rounded-lg mt-1 shadow-2xl max-h-64 overflow-y-auto z-20">
+                        {locations.map((c) => (
+                          <button
+                            key={c}
+                            onClick={() => { setSelectedLocation(c); setOpenDropdown(null); }}
+                            type="button"
+                            className="w-full text-left px-4 py-3 hover:bg-blue-50 text-gray-900 border-b border-gray-100 last:border-b-0 focus:outline-none focus:bg-blue-100 transition-colors"
+                          >
+                            {c}
+                          </button>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Add button */}
+                  <div className="flex items-stretch">
+                    <button
+                      onClick={handleAdd}
+                      type="button"
+                      className="w-full md:w-auto bg-[image:var(--infoHighlight-gradient)]  rounded-lg px-6 py-3 flex items-center justify-center gap-2 text-[var(--input)]"
+                    >
+                      <Plus size={16} />
+                      <span>Add</span>
+                    </button>
+                  </div>
                 </div>
+              )}
 
-                <button
-                  onClick={handleAdd}
-                  className="bg-white border border-gray-300 rounded-lg px-4 py-3 flex items-center gap-2 transition-colors"
-                >
-                  <Plus size={16} />
-                  <span>Add</span>
-                </button>
-              </div>
-            )}
-
-            {showSummary && (
-              <>
-                <div className="text-center space-y-6 w-full pt-8">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                    Here&apos;s your site report — take a quick look on the Info Tab.
+              {/* Left-aligned system message (same copy/format as final StepSlide2) */}
+              {showSummary && (
+                <div className="max-w-[640px] text-left self-start">
+                  <h3 className="text-[18px] font-bold text-gray-900 mb-3">
+                    Here’s your site report — take a quick look on the Info Tab.
                   </h3>
-                  <p className="text-gray-600">If not, Want to do some changes?</p>
-                  <div className="flex gap-8 justify-center text-base">
-                    <button onClick={resetAll} className="text-gray-700 hover:text-gray-900">NO</button>
-                    <button onClick={resetAll} className="text-blue-600 hover:text-blue-800">YES!</button>
-                  </div>
-                </div>
-                <div className="text-center w-full pt-8 pb-20">
-                  <p className="text-gray-600 mb-6">
-                    All set? Click <span className="font-bold text-gray-900">Next</span> to continue.
+                  <p className="text-[15px] text-gray-600 mt-2">
+                    If not, Want to do some changes?
                   </p>
-                  <div className="flex justify-center gap-4">
-                    <button onClick={onBack} className="bg-white hover:bg-gray-50 text-gray-700 px-6 py-3 rounded-full flex items-center gap-2 border border-gray-300">
-                      <ArrowLeft size={16} /> Back
-                    </button>
-                    <button onClick={onNext} className="bg-gray-700 hover:bg-gray-800 text-white px-8 py-3 rounded-full flex items-center gap-2">
-                      Next <ArrowRight size={16} />
+
+                  <div className="flex items-center gap-12 mt-6 text-[14px]">
+                    {/* In StepSlide2 final you kept ONLY the positive action */}
+                    <button
+                      onClick={handleReset}
+                      className="text-[#d45427] hover:brightness-110 font-medium"
+                      type="button"
+                    >
+                      YES!
                     </button>
                   </div>
                 </div>
-              </>
-            )}
+              )}
+
+              <div className="h-2" />
+            </div>
           </div>
         </div>
       </div>
-      {/* Bottom nav */}
-      <div className="flex-shrink-0 bg-gray-100 border-t border-gray-200 p-6">
-        <div className="max-w-4xl mx-auto flex justify-center gap-4">
-          <button onClick={onBack} className="bg-white hover:bg-gray-50 text-gray-700 px-6 py-3 rounded-full flex items-center gap-2 border border-gray-300">
-            <ArrowLeft size={16} /> Back
-          </button>
-          {showSummary && (
-            <button onClick={onNext} className="bg-gray-700 hover:bg-gray-800 text-white px-8 py-3 rounded-full flex items-center gap-2">
-              Next <ArrowRight size={16} />
+
+      {/* ---------------- Bottom bar (identical styling to final StepSlide2) ---------------- */}
+      <div ref={bottomBarRef} className="flex-shrink-0 bg-transparent">
+        <div className="border-t border-gray-200" />
+        <div className="mx-auto w-full max-w-[1120px] px-6 md:px-8">
+          <div className="py-7 flex justify-center gap-4">
+            <button
+              onClick={handleBack}
+              type="button"
+              className="inline-flex items-center gap-2 rounded-full bg-[image:var(--input)] px-6 py-3 text-[var(--text)] hover:bg-gray-800 shadow-sm border border-[#d45427]"
+            >
+              <ArrowLeft size={16} /> Back
             </button>
-          )}
+
+            {showSummary && (
+              <button
+                onClick={handleNext}
+                type="button"
+                className="inline-flex items-center gap-2 rounded-full bg-[image:var(--infoHighlight-gradient)] px-6 py-3 text-white hover:bg-gray-800 shadow-sm"
+              >
+                Next <ArrowRight size={16} />
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>

@@ -1,15 +1,27 @@
 "use client";
+
 import { useState, useEffect, useRef } from "react";
 import { ArrowRight, ArrowLeft, ChevronDown, Plus, X } from "lucide-react";
 
 export default function StepSlide4({ onNext, onBack, onKeywordSubmit }) {
+  /* ---------------- State ---------------- */
   const [selectedKeywords, setSelectedKeywords] = useState([]);
   const [customKeyword, setCustomKeyword] = useState("");
   const [showSummary, setShowSummary] = useState(false);
-  const containerRef = useRef(null);
+
+  // NEW: control inline “More → input”
+  const [showInlineMoreInput, setShowInlineMoreInput] = useState(false);
+  const moreInputRef = useRef(null);
+
+  // fixed-height shell like StepSlide2/3 final
+  const panelRef = useRef(null);
+  const scrollRef = useRef(null);
+  const bottomBarRef = useRef(null);
+  const [panelHeight, setPanelHeight] = useState(null);
+
   const lastSubmittedData = useRef(null);
 
-  // Unique suggested keywords
+  /* ---------------- Suggestions (unchanged list) ---------------- */
   const suggestedKeywords = [
     "Keyword A",
     "Keyword B",
@@ -22,28 +34,60 @@ export default function StepSlide4({ onNext, onBack, onKeywordSubmit }) {
     "More",
   ];
 
-  // Toggle keyword selection
+  /* ---------------- Fixed panel height (same as StepSlide2/3) ---------------- */
+  const recomputePanelHeight = () => {
+    if (!panelRef.current) return;
+    const vpH = window.innerHeight;
+    const barH = bottomBarRef.current?.getBoundingClientRect().height ?? 0;
+    const topOffset = panelRef.current.getBoundingClientRect().top;
+    const paddingGuard = 24;
+    const h = Math.max(360, vpH - barH - topOffset - paddingGuard);
+    setPanelHeight(h);
+  };
+
+  useEffect(() => {
+    recomputePanelHeight();
+    const ro = new ResizeObserver(recomputePanelHeight);
+    if (panelRef.current) ro.observe(panelRef.current);
+    window.addEventListener("resize", recomputePanelHeight);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener("resize", recomputePanelHeight);
+    };
+  }, []);
+
+  useEffect(() => {
+    recomputePanelHeight();
+  }, [showSummary, selectedKeywords.length, showInlineMoreInput]);
+
+  /* ---------------- Keyword handlers (logic unchanged) ---------------- */
   const handleKeywordToggle = (keyword) => {
+    // “More” does not toggle selection — it reveals the inline input instead
+    if (keyword === "More") {
+      setShowInlineMoreInput(true);
+      // focus input shortly after render
+      setTimeout(() => moreInputRef.current?.focus(), 50);
+      return;
+    }
     setSelectedKeywords((prev) =>
       prev.includes(keyword) ? prev.filter((k) => k !== keyword) : [...prev, keyword]
     );
   };
 
-  // Remove specific keyword
   const handleRemoveKeyword = (keywordToRemove) => {
     setSelectedKeywords((prev) => prev.filter((k) => k !== keywordToRemove));
   };
 
-  // Add custom keyword
   const handleAddCustom = () => {
     const trimmed = customKeyword.trim();
     if (trimmed && !selectedKeywords.includes(trimmed)) {
       setSelectedKeywords((prev) => [...prev, trimmed]);
       setCustomKeyword("");
+      // keep the inline input visible so user can add multiple, as discussed
+      setTimeout(() => moreInputRef.current?.focus(), 50);
     }
   };
 
-  // Handle Enter key for custom keyword (use onKeyDown instead of deprecated onKeyPress)
   const handleKeyDown = (e) => {
     if (e.key === "Enter") {
       e.preventDefault();
@@ -51,7 +95,15 @@ export default function StepSlide4({ onNext, onBack, onKeywordSubmit }) {
     }
   };
 
-  // Submit data upwards when keywords change
+  const handleReset = () => {
+    setSelectedKeywords([]);
+    setCustomKeyword("");
+    setShowInlineMoreInput(false);
+    lastSubmittedData.current = null;
+    setShowSummary(false);
+  };
+
+  /* ---------------- Submit to parent + summary toggle ---------------- */
   useEffect(() => {
     if (selectedKeywords.length > 0) {
       const payload = { keywords: selectedKeywords };
@@ -67,170 +119,191 @@ export default function StepSlide4({ onNext, onBack, onKeywordSubmit }) {
     }
   }, [selectedKeywords, onKeywordSubmit]);
 
-  // Auto-scroll to top when summary appears
+  // scroll to top when summary appears
   useEffect(() => {
-    if (containerRef.current && showSummary) {
-      setTimeout(() => {
-        containerRef.current.scrollTo({ top: 0, behavior: "smooth" });
-      }, 100);
+    if (scrollRef.current && showSummary) {
+      scrollRef.current.scrollTo({ top: 0, behavior: "smooth" });
     }
   }, [showSummary]);
 
+  /* ---------------- UI ---------------- */
   return (
-    <div className="w-full h-screen flex flex-col bg-gray-100 transition-colors duration-300">
-      <div
-        ref={containerRef}
-        className="flex-1 overflow-y-auto overflow-x-hidden"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-      >
-        <style jsx>{`div::-webkit-scrollbar{display:none}`}</style>
-        <div className="min-h-full py-12 px-8 pb-96">
-          <div className="flex flex-col items-center text-center space-y-8 max-w-4xl mx-auto">
-            {/* Step Indicator */}
-            <div className="text-gray-500 text-sm font-medium">Step - 4</div>
+    <div className="w-full h-full flex flex-col bg-transparent">
+      {/* Fixed-height white section (matches StepSlide2/3 final) */}
+      <div className="px-6 md:px-8 pt-6">
+        <div
+          ref={panelRef}
+          className="mx-auto w-full max-w-[1120px] rounded-2xl bg-transparent"
+          style={{ padding: "0px 24px", height: panelHeight ? `${panelHeight}px` : "auto" }}
+        >
+          {/* hide inner scrollbar */}
+          <style jsx>{`
+            .inner-scroll { scrollbar-width: none; -ms-overflow-style: none; }
+            .inner-scroll::-webkit-scrollbar { display: none; }
+          `}</style>
 
-            {/* Main Heading */}
-            <div className="space-y-4 max-w-2xl">
-              <h1 className="text-3xl font-bold text-gray-900">Unlock high-impact keywords.</h1>
-              <p className="text-gray-600 text-lg">I scanned your site and found these gems.</p>
-            </div>
-
-            {/* Keyword Selection Area */}
-            <div className="w-full max-w-4xl space-y-8">
-              {/* Suggested Keywords */}
-              <div className="flex flex-wrap justify-center gap-3">
-                {suggestedKeywords.map((keyword) => {
-                  const isSelected = selectedKeywords.includes(keyword);
-                  return (
-                    <button
-                      key={keyword}
-                      onClick={() => handleKeywordToggle(keyword)}
-                      className={`px-4 py-2 rounded-full border text-sm font-medium transition-all duration-200 ${
-                        isSelected
-                          ? "bg-white text-gray-900 border-blue-600"
-                          : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
-                      }`}
-                    >
-                      {keyword}
-                      {isSelected ? (
-                        <ChevronDown size={16} className="inline ml-1 -rotate-180" />
-                      ) : keyword !== "More" ? (
-                        <Plus size={16} className="inline ml-1" />
-                      ) : null}
-                    </button>
-                  );
-                })}
+          <div ref={scrollRef} className="inner-scroll h-full w-full overflow-y-auto">
+            <div className="flex flex-col items-start text-start gap-6 max-w-[820px] mx-auto">
+              {/* Step label */}
+              <div className="text-gray-500 text-sm font-medium">Step - 4</div>
+<div className="spacer-line w-[80%] self-start h-[1px] bg-[#d45427] mt-[-1%]"></div>
+              {/* Heading + copy */}
+              <div className="space-y-4 max-w-[640px]">
+                <h1 className="text-[22px] md:text-[26px] font-bold text-gray-900">
+                  Unlock high-impact keywords.
+                </h1>
+                <p className="text-[15px] text-gray-700 leading-relaxed">
+                  I scanned your site and found these gems.
+                </p>
               </div>
 
-              {/* Custom Keyword Input */}
-              <div className="flex justify-center">
-                <div className="flex gap-2">
-                  <input
-                    type="text"
-                    placeholder="Add your own keyword"
-                    value={customKeyword}
-                    onChange={(e) => setCustomKeyword(e.target.value)}
-                    onKeyDown={handleKeyDown}
-                    className="px-4 py-2 border border-blue-600 rounded-lg bg-white text-gray-900 placeholder-gray-800 focus:outline-none focus:border-blue-500"
-                  />
-                  <button
-                    onClick={handleAddCustom}
-                    disabled={!customKeyword.trim()}
-                    className="px-4 py-2 bg-gray-800 text-white rounded-lg hover:bg-gray-900 disabled:opacity-50 disabled:cursor-not-allowed transition-colors duration-200"
-                    aria-label="Add custom keyword"
-                  >
-                    <Plus size={16} />
-                  </button>
-                </div>
-              </div>
-            </div>
+              {/* Keyword picker area — suggestions + inline More-input */}
+              <div className="w-full max-w-[880px] space-y-8">
+                {/* Suggested pills */}
+                <div className="flex flex-wrap justify-start gap-3">
+                  {suggestedKeywords.map((keyword) => {
+                    const isSelected = selectedKeywords.includes(keyword);
 
-            {/* Selected Keywords Display with hover-reveal remove (matches StepSlide5) */}
-            {selectedKeywords.length > 0 && (
-              <div className="w-full max-w-4xl">
-                <h3 className="text-lg font-medium text-gray-900 mb-4">
-                  Selected Keywords ({selectedKeywords.length})
-                </h3>
-                <div className="flex flex-wrap gap-2">
-                  {selectedKeywords.map((keyword, idx) => (
-                    <div
-                      key={`${keyword}-${idx}`}
-                      className="group relative inline-flex items-center border border-blue-600 text-blue-600 rounded-lg font-medium bg-white text-md transition-all duration-300 px-6 py-3 cursor-default hover:pr-12"
-                    >
-                      <span>{keyword}</span>
+                    // Render “More” as inline input when toggled
+                    if (keyword === "More" && showInlineMoreInput) {
+                      return (
+                        <div
+                          key="more-inline-input"
+                          className="flex items-center gap-2"
+                        >
+                          <input
+                            ref={moreInputRef}
+                            type="text"
+                            placeholder="Add your own keyword"
+                            value={customKeyword}
+                            onChange={(e) => setCustomKeyword(e.target.value)}
+                            onKeyDown={handleKeyDown}
+                            className="px-4 py-2 border border-[#d45427] rounded-xl bg-white text-gray-900 placeholder-gray-800 focus:outline-none focus:border-[#d45427] text-sm"
+                          />
+                          <button
+                            onClick={handleAddCustom}
+                            disabled={!customKeyword.trim()}
+                            type="button"
+                            className="px-4 py-2 bg-[image:var(--infoHighlight-gradient)] text-white rounded-xl hover:bg-gray-900 disabled:opacity-70 disabled:cursor-not-allowed transition-colors duration-200"
+                            aria-label="Add custom keyword"
+                          >
+                            <Plus size={16} />
+                          </button>
+                        </div>
+                      );
+                    }
+
+                    return (
                       <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          handleRemoveKeyword(keyword);
-                        }}
-                        className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 text-gray-400 hover:text-red-500 p-0 h-6 w-6 flex items-center justify-center pointer-events-auto"
-                        title="Remove keyword"
-                        aria-label={`Remove ${keyword}`}
-                        tabIndex={-1}
-                        style={{ background: "transparent", border: "none" }}
+                        key={keyword}
+                        onClick={() => handleKeywordToggle(keyword)}
+                        type="button"
+                        className={`px-4 py-2 rounded-xl border text-sm font-medium transition-all duration-200 ${
+                          isSelected
+                            ? "bg-white text-gray-900 border-[#d45427]"
+                            : "bg-white text-gray-700 border-gray-300 hover:bg-gray-100"
+                        }`}
                       >
-                        <X size={16} />
+                        {keyword}
+                        {isSelected ? (
+                          <ChevronDown size={16} className="inline ml-1 -rotate-180" />
+                        ) : keyword !== "More" ? (
+                          <Plus size={16} className="inline ml-1" />
+                        ) : null}
                       </button>
-                    </div>
-                  ))}
+                    );
+                  })}
                 </div>
+
+                {/* The separate custom input block is intentionally hidden now.
+                    We only show the input when the user clicks “More”, which
+                    transforms the “More” pill itself into the input above. */}
               </div>
-            )}
 
-            {/* Summary Section */}
-            {showSummary && (
-              <>
-                <div className="text-center space-y-6 w-full pt-8">
-                  <div>
-                    <h3 className="text-2xl font-bold text-gray-900 mb-4">
-                      Here&apos;s your site report — take a quick look on the Info Tab.
-                    </h3>
-                    <p className="text-gray-600 text-base">You can always view more information in Info Tab</p>
+              {/* Selected keywords list */}
+              {selectedKeywords.length > 0 && (
+                <div className="w-full max-w-[820px]">
+                  <h3 className="text-md font-medium text-gray-900 mb-4">
+                    Selected Keywords ({selectedKeywords.length})
+                  </h3>
+                  <div className="flex flex-wrap gap-2">
+                    {selectedKeywords.map((keyword, idx) => (
+                      <div
+                        key={`${keyword}-${idx}`}
+                        className="group relative inline-flex items-center text-[#fff] rounded-xl font-medium bg-[image:var(--infoHighlight-gradient)] text-sm transition-all duration-300 px-6 py-3 cursor-default hover:pr-12"
+                      >
+                        <span>{keyword}</span>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleRemoveKeyword(keyword);
+                          }}
+                          type="button"
+                          className="absolute right-2 top-1/2 -translate-y-1/2 opacity-0 scale-50 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200 text-[var(--input)] p-0 h-6 w-6 flex items-center justify-center pointer-events-auto"
+                          title="Remove keyword"
+                          aria-label={`Remove ${keyword}`}
+                          tabIndex={-1}
+                          style={{ background: "transparent", border: "none" }}
+                        >
+                          <X size={18} />
+                        </button>
+                      </div>
+                    ))}
                   </div>
                 </div>
+              )}
 
-                <div className="text-center w-full pt-8 pb-20">
-                  <p className="text-gray-600 text-base mb-6">
-                    All set? Click <span className="font-bold text-gray-900">Next</span> to continue.
+              {/* Left-aligned system message */}
+              {showSummary && (
+                <div className="max-w-[640px] text-left self-start mt-6">
+                  <h3 className="text-[18px] font-bold text-gray-900 mb-3">
+                    Here’s your site report — take a quick look on the Info Tab.
+                  </h3>
+                  <p className="text-[15px] text-gray-600 mt-2">
+                    If not, Want to do some changes?
                   </p>
-                  <div className="flex justify-center gap-4">
+
+                  <div className="flex items-center gap-12 mt-6 text-[14px]">
                     <button
-                      onClick={onBack}
-                      className="bg-white hover:bg-gray-50 text-gray-700 px-6 py-3 rounded-full flex items-center gap-2 border border-gray-300"
+                      onClick={handleReset}
+                      type="button"
+                      className="text-[#d45427] hover:brightness-110 font-medium"
                     >
-                      <ArrowLeft size={16} /> Back
-                    </button>
-                    <button
-                      onClick={onNext}
-                      className="bg-gray-700 hover:bg-gray-800 text-white px-8 py-3 rounded-full flex items-center gap-2"
-                    >
-                      Next <ArrowRight size={16} />
+                      YES!
                     </button>
                   </div>
                 </div>
-              </>
-            )}
+              )}
+
+              <div className="h-2" />
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom Navigation */}
-      <div className="flex-shrink-0 bg-white border-t border-gray-200 p-6 transition-colors duration-300">
-        <div className="max-w-4xl mx-auto flex justify-center gap-4">
-          <button
-            onClick={onBack}
-            className="bg-white hover:bg-gray-50 text-gray-700 px-6 py-3 rounded-full flex items-center gap-2 border border-gray-300"
-          >
-            <ArrowLeft size={16} /> Back
-          </button>
-          {showSummary && (
+      {/* Bottom bar (same styling as StepSlide2/3) */}
+      <div ref={bottomBarRef} className="flex-shrink-0 bg-transparent">
+        <div className="border-t border-gray-200" />
+        <div className="mx-auto w-full max-w-[1120px] px-6 md:px-8">
+          <div className="py-7 flex justify-center gap-4">
             <button
-              onClick={onNext}
-              className="bg-gray-700 hover:bg-gray-800 text-white px-8 py-3 rounded-full flex items-center gap-2"
+              onClick={onBack}
+              type="button"
+              className="inline-flex items-center gap-2 rounded-full bg-[image:var(--input)] px-6 py-3 text-[var(--text)] hover:bg-white shadow-sm border border-[#d45427]"
             >
-              Next <ArrowRight size={16} />
+              <ArrowLeft size={16} /> Back
             </button>
-          )}
+
+            {showSummary && (
+              <button
+                onClick={onNext}
+                type="button"
+                className="inline-flex items-center gap-2 rounded-full bg-[image:var(--infoHighlight-gradient)] px-6 py-3 text-white hover:bg-gray-800 shadow-sm"
+              >
+                Next <ArrowRight size={16} />
+              </button>
+            )}
+          </div>
         </div>
       </div>
     </div>
