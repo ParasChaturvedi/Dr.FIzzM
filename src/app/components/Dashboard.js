@@ -1457,7 +1457,7 @@ export default function Dashboard() {
             </div>
 
             {/* cards */}
-            <div className="grid grid-cols-1 gap-5 xl:grid-cols-2 items-stretch">
+            <div className="grid grid-cols-1 gap-4 xl:grid-cols-2 items-stretch">
               <OpportunityCard
                 title="How to Improve Site Speed"
                 score={45}
