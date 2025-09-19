@@ -140,10 +140,10 @@ export default function StepSlide3({ onNext, onBack, onLanguageLocationSubmit })
 
           {/* Inner scrollable */}
           <div ref={scrollRef} className="inner-scroll h-full w-full overflow-y-auto">
-            <div className="flex flex-col items-center text-center gap-4.5 max-w-[820px] mx-auto">
+            <div className="flex flex-col items-start text-start gap-6 max-w-[820px] mx-auto">
               {/* Step label */}
               <div className="text-gray-500 text-sm font-medium">Step - 3</div>
-
+<div className="spacer-line w-[80%] self-start h-[1px] bg-[#d45427] mt-[-1%]"></div>
               {/* Heading & copy (same scale as StepSlide2 final) */}
               <div className="space-y-4 max-w-[640px]">
                 <h1 className="text-[22px] md:text-[26px] font-bold text-gray-900">
@@ -297,7 +297,7 @@ export default function StepSlide3({ onNext, onBack, onLanguageLocationSubmit })
             <button
               onClick={handleBack}
               type="button"
-              className="inline-flex items-center gap-2 rounded-full bg-[image:var(--input)] px-6 py-3 text-[var(--text)] hover:bg-gray-800 shadow-sm border border-[#d45427]"
+              className="inline-flex items-center gap-2 rounded-full bg-[image:var(--input)] px-6 py-3 text-[var(--text)] hover:bg-[var(--input)] shadow-sm border border-[#d45427]"
             >
               <ArrowLeft size={16} /> Back
             </button>

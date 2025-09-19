@@ -289,7 +289,7 @@ export default function StepSlide4({ onNext, onBack, onKeywordSubmit }) {
             <button
               onClick={onBack}
               type="button"
-              className="inline-flex items-center gap-2 rounded-full bg-[image:var(--input)] px-6 py-3 text-[var(--text)] hover:bg-white shadow-sm border border-[#d45427]"
+              className="inline-flex items-center gap-2 rounded-full bg-[image:var(--input)] px-6 py-3 text-[var(--text)] hover:bg-[var(--input)] shadow-sm border border-[#d45427]"
             >
               <ArrowLeft size={16} /> Back
             </button>

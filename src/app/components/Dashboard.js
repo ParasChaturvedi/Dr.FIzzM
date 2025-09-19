@@ -1,5 +1,6 @@
 // src/components/Dashboard.js
 "use client";
+import Image from "next/image";
 
 import {
   ShieldCheck,
@@ -20,6 +21,11 @@ import {
   Clock3,
   ActivitySquare,
   Lock,
+  Lightbulb,
+  Skull,
+  BookOpen,
+  Eye,
+  PencilLine,
   // Page Speed Scores icons
   Monitor,
   Smartphone,
@@ -30,8 +36,12 @@ import {
   SquareArrowOutUpRight,
   // New for Leads header
   Settings,
+  SlidersHorizontal,
+  Wifi,
+  ThumbsUp,
+  ThumbsDown
 } from "lucide-react";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useMemo, useLayoutEffect } from "react";
 
 export default function Dashboard() {
   // ---- Domain Rating animation ----
@@ -47,7 +57,7 @@ export default function Dashboard() {
     const start = performance.now();
     const step = (now) => {
       const t = Math.min(1, (now - start) / DURATION);
-      const ease = 1 - Math.pow(1 - t, 3);
+      const ease = Math.max(0, Math.min(1, 1 - Math.pow(1 - t, 3)));
       setDrValue(DR_TARGET * ease);
       setDrWidth(DR_BAR * ease);
       if (t < 1) rafRef.current = requestAnimationFrame(step);
@@ -239,6 +249,281 @@ export default function Dashboard() {
     return () => cancelAnimationFrame(leadsRaf.current);
   }, []);
 
+  // ---- Row 4 (SERP features) animated counts ----
+  const SERP_TARGETS = useMemo(() => [23, 156, 89, 34, 12], []); // Featured, PAA, Image Pack, Video, Knowledge
+  const [serpCounts, setSerpCounts] = useState([0, 0, 0, 0, 0]);
+
+  useEffect(() => {
+    const DURATION = 900;
+    const start = performance.now();
+    let rafId;
+    const step = (now) => {
+      const t = Math.min(1, (now - start) / DURATION);
+      const ease = 1 - Math.pow(1 - t, 3);
+      setSerpCounts(SERP_TARGETS.map((n) => Math.round(n * ease)));
+      if (t < 1) rafId = requestAnimationFrame(step);
+    };
+    rafId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(rafId);
+  }, [SERP_TARGETS]);
+
+    // ---- Row 4 (SERP coverage %) animation ----
+    const SERP_COVERAGE = 45;
+    const [serpCoverage, setSerpCoverage] = useState(0);
+    useEffect(() => {
+      const DURATION = 900;
+      const start = performance.now();
+      let raf;
+      const tick = (now) => {
+        const t = Math.min(1, (now - start) / DURATION);
+        const ease = 1 - Math.pow(1 - t, 3);
+        setSerpCoverage(SERP_COVERAGE * ease);
+        if (t < 1) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+      return () => cancelAnimationFrame(raf);
+    }, []);
+
+    // ---- Row 4 (AI SEO Matrix numerator) animation ----
+    const MATRIX_NUM_TARGET = 2;
+    const [matrixNum, setMatrixNum] = useState(0);
+    useEffect(() => {
+      const DURATION = 700;
+      const start = performance.now();
+      let raf;
+      const tick = (now) => {
+        const t = Math.min(1, (now - start) / DURATION);
+        const ease = 1 - Math.pow(1 - t, 3);
+        setMatrixNum(Math.round(MATRIX_NUM_TARGET * ease));
+        if (t < 1) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+      return () => cancelAnimationFrame(raf);
+    }, []);
+
+    // ---- On-Page SEO Opportunities (Row) counters ----
+    const [oppCounts, setOppCounts] = useState([0, 0, 0, 0]);
+
+    useEffect(() => {
+      const TARGETS = [274, 883, 77, 5];
+      const DURATION = 900;
+      const start = performance.now();
+      let raf;
+      const tick = (now) => {
+        const t = Math.min(1, (now - start) / DURATION);
+        const ease = 1 - Math.pow(1 - t, 3);
+        setOppCounts(TARGETS.map((n) => Math.max(0, Math.round(n * ease))));
+        if (t < 1) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+      return () => cancelAnimationFrame(raf);
+    }, []);
+
+    // ---- Shared progress for the "Top On-Page Content Opportunities" section
+    const [oppCardsProgress, setOppCardsProgress] = useState(0);
+    useLayoutEffect(() => {
+      const DURATION = 800; // match your taste
+      const start = performance.now();
+      let raf;
+      const tick = (now) => {
+        const t = Math.min(1, (now - start) / DURATION);
+        const ease = 1 - Math.pow(1 - t, 3); // easeOutCubic
+        setOppCardsProgress(ease);
+        if (t < 1) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+      return () => cancelAnimationFrame(raf);
+    }, []);
+
+    // ---- "New on page SEO opportunity" table: shared progress 0→1 ----
+    const SEO_TABLE_DURATION = 900;
+    const [seoTableProg, setSeoTableProg] = useState(0);
+    useLayoutEffect(() => {
+      const start = performance.now();
+      let raf;
+      const tick = (now) => {
+        const t = Math.min(1, (now - start) / SEO_TABLE_DURATION);
+        const ease = 1 - Math.pow(1 - t, 3); // easeOutCubic
+        setSeoTableProg(ease);
+        if (t < 1) raf = requestAnimationFrame(tick);
+      };
+      raf = requestAnimationFrame(tick);
+      return () => cancelAnimationFrame(raf);
+    }, []);
+
+    // color-coded animated difficulty bar
+    function DifficultyBar({ value, progress = 1 }) {
+      const [mounted, setMounted] = useState(false);
+      useEffect(() => { setMounted(true); }, []);
+
+      const pct = Math.max(0, Math.min(100, value));
+      const p   = Math.max(0, Math.min(1, progress));
+      const fill = pct < 40 ? "#EF4444" : pct < 70 ? "#F59E0B" : "#10B981";
+
+      return (
+        <div className="relative h-2 w-24 overflow-hidden rounded-full bg-[#E5E7EB]">
+          <div
+            className="h-2 rounded-full w-0"
+            style={{
+              width: `${pct * p}%`,
+              backgroundColor: fill,
+              transition: mounted ? "width 140ms linear" : "none",
+            }}
+          />
+        </div>
+      );
+    }
+
+    // table data (same rows as the screenshot)
+    const seoRows = [
+      { keyword: "How to fix slow Wi-Fi", type: "Informational", volume: 7032, difficulty: 98 },
+      { keyword: "How to fix slow Wi-Fi", type: "Informational", volume: 7032, difficulty: 88 },
+      { keyword: "How to fix slow Wi-Fi", type: "Transactional", volume: 7032, difficulty: 98 },
+      { keyword: "How to fix slow Wi-Fi", type: "Informational", volume: 7032, difficulty: 28 },
+      { keyword: "How to fix slow Wi-Fi", type: "Transactional", volume: 7032, difficulty: 28 },
+      { keyword: "How to fix slow Wi-Fi", type: "Transactional", volume: 7032, difficulty: 68 },
+      { keyword: "How to fix slow Wi-Fi", type: "Informational", volume: 7032, difficulty: 48 },
+    ];
+
+    // simple count-up hook
+    function useCountUp(target, duration = 900) {
+      const [v, setV] = useState(0);
+      useEffect(() => {
+        let raf; const start = performance.now();
+        const step = (now) => {
+          const t = Math.min(1, (now - start) / duration);
+          const ease = 1 - Math.pow(1 - t, 3);
+          setV(target * ease);
+          if (t < 1) raf = requestAnimationFrame(step);
+        };
+        raf = requestAnimationFrame(step);
+        return () => cancelAnimationFrame(raf);
+      }, [target, duration]);
+      return v;
+    }
+
+    // threshold → colors/labels (matches the image look)
+    function getPriority(score) {
+      if (score <= 30) {
+        return {
+          label: "High Priority",
+          dot: "#EF4444",
+          pillBg: "#FFF0F4",
+          pillBorder: "#FFE1EA",
+          pillText: "#D12C2C",
+          chipBg: "#FFF0F4",
+          chipBorder: "#FFE1EA",
+          chipText: "#D12C2C",
+        };
+      }
+      if (score <= 70) {
+        return {
+          label: "Medium Priority",
+          dot: "#F59E0B",
+          pillBg: "#FFF5D9",
+          pillBorder: "#FDE7B8",
+          pillText: "#B98500",
+          chipBg: "#FFF5D9",
+          chipBorder: "#FDE7B8",
+          chipText: "#B98500",
+        };
+      }
+      return {
+        label: "Low Priority",
+        dot: "#22C55E",
+        pillBg: "#EAF8F1",
+        pillBorder: "#CBEBD9",
+        pillText: "#178A5D",
+        chipBg: "#EAF8F1",
+        chipBorder: "#CBEBD9",
+        chipText: "#178A5D",
+      };
+    }
+
+    function OpportunityCard({
+      title,
+      score,
+      wordCount,
+      keywords,
+      status,          // "Published" | "Draft"
+      progress = 1,    // <-- pass oppCardsProgress here
+    }) {
+      const scoreAnim = Math.max(0, Math.round(score * progress));
+      const wordAnim  = Math.max(0, Math.round(wordCount * progress));
+      const keyAnim   = Math.max(0, Math.round(keywords * progress));
+      const pri = getPriority(score);
+
+      return (
+        <div className="relative rounded-[18px] border border-[#E7EAF0] bg-[var(--input)] p-4 shadow-sm">
+          {/* score chip + black tooltip on hover */}
+          <div className="group absolute right-4 top-4">
+            <div
+              className="flex h-9 w-9 items-center justify-center rounded-full text-[14px] font-semibold shadow-sm tabular-nums"
+              style={{ backgroundColor: pri.chipBg, border: `1px solid ${pri.chipBorder}`, color: pri.chipText }}
+              aria-label={`Page Speed Indicator: ${scoreAnim}`}
+            >
+              {scoreAnim}
+            </div>
+            <div className="pointer-events-none absolute -top-3 right-1/2 z-10 w-max translate-x-1/2 -translate-y-full
+                            rounded-md bg-black px-3 py-2 text-white opacity-0 shadow-lg transition-opacity
+                            duration-150 group-hover:opacity-100">
+              <div className="text-[12px] font-semibold">Page Speed Indicator: {scoreAnim}</div>
+              <div className="mt-0.5 text-[11px] text-gray-300">Your site&#39;s credit rating with Google.</div>
+              <span className="absolute left-1/2 top-full -translate-x-1/2
+                              border-x-8 border-t-8 border-b-0 border-solid
+                              border-x-transparent border-t-black" />
+            </div>
+          </div>
+
+          <div className="pr-14">
+            <h3 className="text-[20px] font-semibold leading-snug text-[#0F172A]">{title}</h3>
+          </div>
+
+          <hr className="mt-3 border-t border-[#ECEFF5]" />
+
+          <div className="mt-3 flex items-center gap-2">
+            <span
+              className="inline-flex items-center gap-2 rounded-[10px] px-2.5 py-1 text-[12px] font-medium"
+              style={{ backgroundColor: pri.pillBg, border: `1px solid ${pri.pillBorder}`, color: pri.pillText }}
+            >
+              <span className="h-2.5 w-2.5 rounded-full" style={{ backgroundColor: pri.dot }} />
+              {pri.label}
+            </span>
+            <span className="inline-flex items-center gap-2 rounded-[10px] border border-[#E7EAF0] bg-[#F6F8FB] px-2.5 py-1 text-[12px] text-[#6B7280]">
+              {status === "Published" ? <Check size={14} /> : <PencilLine size={14} />}
+              {status}
+            </span>
+          </div>
+
+          <div className="mt-4 rounded-[12px] border border-[#E7EAF0] bg-[var(--input)] px-4 py-3">
+            <div className="grid grid-cols-2 gap-6">
+              <div>
+                <div className="text-[12px] text-[#6B7280]">Word Count</div>
+                <div className="mt-1 text-[28px] font-semibold leading-none text-[#0F172A] tabular-nums">
+                  {wordAnim.toLocaleString()}
+                </div>
+              </div>
+              <div>
+                <div className="text-[12px] text-[#6B7280]">Keywords</div>
+                <div className="mt-1 text-[28px] font-semibold leading-none text-[#0F172A] tabular-nums">
+                  {keyAnim}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="mt-4 flex items-center justify-between">
+            <button className="inline-flex items-center gap-2 rounded-[10px] border border-[#E7EAF0] bg-[#FAFBFD] px-3 py-2 text-[12px] font-medium text-[#566072]">
+              <Eye size={14} /> View Details
+            </button>
+            <button className="inline-flex items-center gap-2 rounded-[14px] px-4 py-2 text-[13px] font-semibold text-white shadow-sm bg-gradient-to-r from-[#6A8BFF] to-[#3B82F6]">
+              Start <ChevronRight size={16} />
+            </button>
+          </div>
+        </div>
+      );
+    }
+
   // helper for ring (kept for other areas)
   const ring = (value, color) => {
     const pct = Math.max(0, Math.min(100, value));
@@ -247,7 +532,7 @@ export default function Dashboard() {
     return (
       <div className="flex flex-col items-center">
         <div className="relative h-24 w-24 rounded-full" style={{ background: bg }}>
-          <div className="absolute inset-2 rounded-full bg-white" />
+          <div className="absolute inset-2 rounded-full bg-[var(--input)]" />
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-[22px] font-semibold leading-none">{pct}</div>
           </div>
@@ -263,7 +548,7 @@ export default function Dashboard() {
     return (
       <div className="flex flex-col items-center ">
         <div className="relative h-32 w-32 rounded-full" style={{ background: bg }}>
-          <div className="absolute inset-3 rounded-full bg-white" />
+          <div className="absolute inset-3 rounded-full bg-[var(--input)]" />
           <div className="absolute inset-0 flex flex-col items-center justify-center gap-1">
             <div className="text-[28px] font-semibold leading-none text-[#374151] tabular-nums">
               {Math.round(pct)}
@@ -283,22 +568,22 @@ export default function Dashboard() {
   }
 
   return (
-    <main className="min-h-screen bg-[#F6F8FB] px-4 py-6 sm:px-6 lg:px-8 ">
-      <div className="mx-auto max-w-[1200px]">
+    <main className="min-h-screen bg-[var(--bg-panel)] px-4 py-6 sm:px-6 lg:px-8 overflow-x-hidden">
+      <div className="mx-auto max-w-[100%] mt-1">
         {/* Row 1 */}
-        <h2 className="mb-3 text-[15px] font-semibold tracking-tight text-[#566072]">
+        <h2 className="text-[16px] font-bold text-gray-900 mb-3 ml-1">
           Off-Page SEO Metrics
         </h2>
 
         <section className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-3">
           {/* Domain Rating */}
-          <div className="rounded-[14px] border border-[#E7EAF0] bg-white p-4 shadow-sm">
+          <div className="rounded-[14px] border border-[#E7EAF0] bg-[var(--input)] p-4 shadow-sm">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-[#ECF0F4] bg-[#F7F9FC] text-[#6B7280]">
                   <ShieldCheck size={16} />
                 </span>
-                <span className="text-[13px] font-medium text-[#2B3040]">
+                <span className="text-[13px] text-gray-700 leading-relaxed">
                   Domain Rating
                 </span>
               </div>
@@ -331,13 +616,13 @@ export default function Dashboard() {
           </div>
 
           {/* Referring Domains */}
-          <div className="rounded-[14px] border border-[#E7EAF0] bg-white p-4 shadow-sm">
+          <div className="rounded-[14px] border border-[#E7EAF0] bg-[var(--input)] p-4 shadow-sm">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-[#ECF0F4] bg-[#F7F9FC] text-[#6B7280]">
                   <Network size={16} />
                 </span>
-                <span className="text-[13px] font-medium text-[#2B3040]">
+                <span className="text-[13px] text-gray-700 leading-relaxed">
                   Referring Domains
                 </span>
               </div>
@@ -391,13 +676,13 @@ export default function Dashboard() {
           </div>
 
           {/* Total Backlinks */}
-          <div className="rounded-[14px] border border-[#E7EAF0] bg-white p-4 shadow-sm">
+          <div className="rounded-[14px] border border-[#E7EAF0] bg-[var(--input)] p-4 shadow-sm">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-[#ECF0F4] bg-[#F7F9FC] text-[#6B7280]">
                   <Link2 size={16} />
                 </span>
-                <span className="text-[13px] font-medium text-[#2B3040]">
+                <span className="text-[13px] text-gray-700 leading-relaxed">
                   Total Backlinks
                 </span>
               </div>
@@ -441,19 +726,19 @@ export default function Dashboard() {
         </section>
 
         {/* Row 2 */}
-        <h2 className="mb-3 text-[15px] font-semibold tracking-tight text-[#566072]">
+        <h2 className="text-[16px] font-bold text-gray-900 mb-3 ml-1">
           Technical SEO
         </h2>
 
         <section className="mb-8 grid grid-cols-1 gap-4 md:grid-cols-3">
           {/* Site Health (animated) */}
-          <div className="rounded-[14px] border border-[#E7EAF0] bg-white p-4 shadow-sm">
+          <div className="rounded-[14px] border border-[#E7EAF0] bg-[var(--input)] p-4 shadow-sm">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-[#E3F3EA] bg-[#F3FBF7] text-[#178A5D]">
                   <Activity size={16} />
                 </span>
-                <span className="flex items-center gap-1 text-[13px] font-medium text-[#2B3040]">
+                <span className="flex items-center gap-1 text-[13px] text-gray-700 leading-relaxed">
                   Site Health Score
                   <HelpCircle className="text-[#9AA3B2]" size={14} />
                 </span>
@@ -479,7 +764,7 @@ export default function Dashboard() {
             <ul className="mt-3 space-y-2 text-[13px]">
               <li className="flex items-center justify-between rounded-[10px] border border-[#DFF1E7] bg-[#F3FBF7] px-3 py-3">
                 <span className="flex items-center gap-2 text-[#178A5D]">
-                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-md border border-[#DFF1E7] bg-white">
+                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-md border border-[#DFF1E7] bg-[var(--input)]">
                     <Check size={14} />
                   </span>
                   Page Scanned
@@ -489,7 +774,7 @@ export default function Dashboard() {
 
               <li className="flex items-center justify-between rounded-[10px] border border-[#FDEFCF] bg-[#FFF9EC] px-3 py-3">
                 <span className="flex items-center gap-2 text-[#B67200]">
-                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-md border border-[#FDEFCF] bg-white">
+                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-md border border-[#FDEFCF] bg-[var(--input)]">
                     <AlertTriangle size={14} />
                   </span>
                   Redirect
@@ -499,7 +784,7 @@ export default function Dashboard() {
 
               <li className="flex items-center justify-between rounded-[10px] border border-[#FFE3E3] bg-[#FFF6F6] px-3 py-3">
                 <span className="flex items-center gap-2 text-[#D12C2C]">
-                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-md border border-[#FFE3E3] bg-white">
+                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-md border border-[#FFE3E3] bg-[var(--input)]">
                     <X size={14} />
                   </span>
                   Broken
@@ -510,14 +795,14 @@ export default function Dashboard() {
           </div>
 
           {/* Core Web Vitals (UPDATED & animated) */}
-          <div className="rounded-[14px] border border-[#E7EAF0] bg-white p-4 shadow-sm">
+          <div className="rounded-[14px] border border-[#E7EAF0] bg-[var(--input)] p-4 shadow-sm">
             {/* Header */}
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-[#FFE1EA] bg-[#FFF0F4] text-[#D12C2C]">
                   <Gauge size={16} />
                 </span>
-                <span className="flex items-center gap-1 text-[13px] font-medium text-[#2B3040]">
+                <span className="flex items-center gap-1 text-[13px] text-gray-700 leading-relaxed">
                   Core web vitals
                   <HelpCircle className="text-[#9AA3B2]" size={14} />
                 </span>
@@ -589,14 +874,14 @@ export default function Dashboard() {
           </div>
 
           {/* Page Speed Scores (animated with shared progress) */}
-          <div className="rounded-[14px] border border-[#E7EAF0] bg-white p-4 shadow-sm">
+          <div className="rounded-[14px] border border-[#E7EAF0] bg-[var(--input)] p-4 shadow-sm">
             {/* Header */}
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-[#E3F3EA] bg-[#F3FBF7] text-[#178A5D]">
                   <Rocket size={16} />
                 </span>
-                <span className="flex items-center gap-1 text-[13px] font-medium text-[#2B3040]">
+                <span className="flex items-center gap-1 text-[13px] text-gray-700 leading-relaxed">
                   Page Speed Scores
                   <HelpCircle className="text-[#9AA3B2]" size={14} />
                 </span>
@@ -622,19 +907,19 @@ export default function Dashboard() {
         </section>
 
         {/* Row 3 */}
-        <h2 className="mb-3 text-[15px] font-semibold tracking-tight text-[#566072]">
+        <h2 className="text-[16px] font-bold text-gray-900 mb-3 ml-1">
           Performance (SEO Metrics)
         </h2>
 
         <section className="mb-4 grid grid-cols-1 gap-4 md:grid-cols-3">
           {/* Organic Traffic (animated counter + animated area/line) */}
-          <div className="rounded-[14px] border border-[#E7EAF0] bg-white p-4 shadow-sm">
+          <div className="rounded-[14px] border border-[#E7EAF0] bg-[var(--input)] p-4 shadow-sm">
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-[#ECF0F4] bg-[#F7F9FC] text-[#6B7280]">
                   <BarChart3 size={16} />
                 </span>
-                <span className="text-[13px] font-medium text-[#2B3040]">Organic traffic</span>
+                <span className="flex items-center gap-1 text-[13px] text-gray-700 leading-relaxed">Organic traffic</span>
 
                 {/* Positive Growth with green dot */}
                 <span className="ml-2 inline-flex items-center gap-1 rounded-full bg-[#EAF8F1] px-2 py-0.5 text-[11px] font-medium text-[#178A5D]">
@@ -730,14 +1015,14 @@ export default function Dashboard() {
           </div>
 
           {/* Organic Keywords (animated & restructured) */}
-          <div className="rounded-[14px] border border-[#E7EAF0] bg-white p-4 shadow-sm">
+          <div className="rounded-[14px] border border-[#E7EAF0] bg-[var(--input)] p-4 shadow-sm">
             {/* Header with icons like the reference */}
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-[#FDE7B8] bg-[#FFF5D9] text-[#B98500]">
                   <KeyRound size={16} />
                 </span>
-                <span className="text-[13px] font-medium text-[#2B3040]">
+                <span className="flex items-center gap-1 text-[13px] text-gray-700 leading-relaxed">
                   Organic Keywords
                 </span>
                 <HelpCircle size={14} className="text-[#9AA3B2]" />
@@ -765,7 +1050,7 @@ export default function Dashboard() {
                     key={row.label}
                     className="grid grid-cols-[88px_auto_1fr] items-center  gap-3 rounded-[10px] border border-[#ECF0F4] bg-[#FAFBFD] px-3 py-2 rounded-tr-2xl"
                   >
-                    <span className="inline-flex items-center justify-center rounded-md bg-white px-2 py-1 text-[12px] text-[#566072]">
+                    <span className="inline-flex items-center justify-center rounded-md bg-[var(--input)] px-2 py-1 text-[12px] text-[#566072]">
                       {row.label}
                     </span>
                     <span className="text-[12px] font-semibold text-[#2B3040] tabular-nums">
@@ -792,7 +1077,7 @@ export default function Dashboard() {
                 type="button"
                 className="inline-flex items-center gap-2 rounded-[10px] border border-[#DDE3ED] bg-[#FAFBFD] px-3 py-2 text-[12px] font-medium text-[#566072]"
               >
-                <span className="inline-flex h-5 w-5 items-center justify-center rounded-md border border-[#E7EAF0] bg-white">
+                <span className="inline-flex h-5 w-5 items-center justify-center rounded-md border border-[#E7EAF0] bg-[var(--input)]">
                   <FileText size={12} className="text-[#3178C6]" />
                 </span>
                 Connect to <span className="font-semibold text-[#2B3040]">Google Search Console</span>
@@ -802,14 +1087,14 @@ export default function Dashboard() {
           </div>
 
           {/* Leads (animated, 3 bars, icons & layout) */}
-          <div className="rounded-[14px] border border-[#E7EAF0] bg-white p-4 shadow-sm">
+          <div className="rounded-[14px] border border-[#E7EAF0] bg-[var(--input)] p-4 shadow-sm">
             {/* Header */}
             <div className="flex items-start justify-between">
               <div className="flex items-center gap-2">
                 <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-[#FFD8C7] bg-[#FFEFE8] text-[#D14B1F]">
                   <Goal size={16} />
                 </span>
-                <span className="flex items-center gap-1 text-[13px] font-medium text-[#2B3040]">
+                <span className="flex items-center gap-1 text-[13px] text-gray-700 leading-relaxed">
                   Leads
                   <HelpCircle size={14} className="text-[#9AA3B2]" />
                 </span>
@@ -902,6 +1187,436 @@ export default function Dashboard() {
             </div>
           </div>
         </section>
+
+        {/* Row 4 */}
+        <h2 className="text-[16px] font-bold text-gray-900 mb-3 ml-1">
+          Advance SEO metrics
+        </h2>
+
+        <section className="mb-10 grid grid-cols-1 gap-4 md:grid-cols-2">
+          {/* Left: SERP feature */}
+          <div className="rounded-[14px] border border-[#E7EAF0] bg-[var(--input)] p-4 shadow-sm">
+            {/* header */}
+            <div className="flex items-start justify-between">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-[#FDE7B8] bg-[#FFF5D9] text-[#B98500]">
+                  {/* star badge, matches the screenshot */}
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 3l2.2 5.1 5.6.5-4.2 3.7 1.3 5.5L12 14.9 7.1 17.8l1.3-5.5-4.2-3.7 5.6-.5L12 3z" fill="#F4B740"/>
+                  </svg>
+                </span>
+                <span className="text-[13px] text-gray-700 leading-relaxed">
+                  SERP feature
+                </span>
+                {/* use the same question-mark icon as other cards */}
+                <HelpCircle size={14} className="text-[#9AA3B2]" />
+              </div>
+              {/* use the same filter/settings icon as other cards */}
+              <span className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-[#E7EAF0] text-[#6B7280]">
+                <SlidersHorizontal size={16} />
+              </span>
+            </div>
+
+            {/* coverage */}
+            <div className="mt-4 flex items-baseline gap-3">
+              <div className="text-[40px] font-bold leading-none tracking-tight text-[#0F172A] tabular-nums">
+                {Math.round(serpCoverage)}
+                <span className="align-top text-[28px]">%</span>
+              </div>
+              <div className="text-[14px] text-[#6B7280]">coverage</div>
+            </div>
+
+            {/* list (5 items, animated numbers) */}
+            <div className="mt-4 space-y-2">
+              {/* Featured Snippet */}
+              <div className="flex items-center justify-between rounded-[12px] border border-[#F1F4F9] bg-[#FBFCFE] px-3 py-3">
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-[#FFF5D9] border border-[#FDE7B8]">
+                    <svg width="12" height="12" viewBox="0 0 24 24"><path d="M12 3l2.2 5.1 5.6.5-4.2 3.7 1.3 5.5L12 14.9 7.1 17.8l1.3-5.5-4.2-3.7 5.6-.5L12 3z" fill="#F4B740"/></svg>
+                  </span>
+                  <span className="text-[13px] text-[#2B3040]">Featured Snippet</span>
+                </div>
+                <span className="text-[13px] font-semibold text-[#2B3040] tabular-nums">
+                  {serpCounts[0]}
+                </span>
+              </div>
+
+              {/* People Also Ask */}
+              <div className="flex items-center justify-between rounded-[12px] border border-[#F1F4F9] bg-[#FBFCFE] px-3 py-3">
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-[#EAF4FF] border border-[#CFE1FF]">
+                    <svg width="12" height="12" viewBox="0 0 24 24"><path d="M12 3l2.2 5.1 5.6.5-4.2 3.7 1.3 5.5L12 14.9 7.1 17.8l1.3-5.5-4.2-3.7 5.6-.5L12 3z" fill="#3B82F6"/></svg>
+                  </span>
+                  <span className="text-[13px] text-[#2B3040]">People Also Ask</span>
+                </div>
+                <span className="text-[13px] font-semibold text-[#2B3040] tabular-nums">
+                  {serpCounts[1]}
+                </span>
+              </div>
+
+              {/* Image Pack */}
+              <div className="flex items-center justify-between rounded-[12px] border border-[#F1F4F9] bg-[#FBFCFE] px-3 py-3">
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-[#EAF8F1] border border-[#CBEBD9]">
+                    <svg width="12" height="12" viewBox="0 0 24 24"><path d="M12 3l2.2 5.1 5.6.5-4.2 3.7 1.3 5.5L12 14.9 7.1 17.8l1.3-5.5-4.2-3.7 5.6-.5L12 3z" fill="#22C55E"/></svg>
+                  </span>
+                  <span className="text-[13px] text-[#2B3040]">Image Pack</span>
+                </div>
+                <span className="text-[13px] font-semibold text-[#2B3040] tabular-nums">
+                  {serpCounts[2]}
+                </span>
+              </div>
+
+              {/* Video Result */}
+              <div className="flex items-center justify-between rounded-[12px] border border-[#F1F4F9] bg-[#FBFCFE] px-3 py-3">
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-[#FFF0F4] border border-[#FFE1EA]">
+                    <svg width="12" height="12" viewBox="0 0 24 24"><path d="M12 3l2.2 5.1 5.6.5-4.2 3.7 1.3 5.5L12 14.9 7.1 17.8l1.3-5.5-4.2-3.7 5.6-.5L12 3z" fill="#D12C2C"/></svg>
+                  </span>
+                  <span className="text-[13px] text-[#2B3040]">Video Result</span>
+                </div>
+                <span className="text-[13px] font-semibold text-[#2B3040] tabular-nums">
+                  {serpCounts[3]}
+                </span>
+              </div>
+
+              {/* Knowledge Pannel */}
+              <div className="flex items-center justify-between rounded-[12px] border border-[#F1F4F9] bg-[#FBFCFE] px-3 py-3">
+                <div className="flex items-center gap-3">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-md bg-[#F5EAFE] border border-[#E7D7FB]">
+                    <svg width="12" height="12" viewBox="0 0 24 24"><path d="M12 3l2.2 5.1 5.6.5-4.2 3.7 1.3 5.5L12 14.9 7.1 17.8l1.3-5.5-4.2-3.7 5.6-.5L12 3z" fill="#8B5CF6"/></svg>
+                  </span>
+                  <span className="text-[13px] text-[#2B3040]">Knowledge Pannel</span>
+                </div>
+                <span className="text-[13px] font-semibold text-[#2B3040] tabular-nums">
+                  {serpCounts[4]}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Ai SEO Matrix */}
+          <div className="rounded-[14px] border border-[#E7EAF0] bg-[var(--input)] p-4 shadow-sm">
+            {/* header */}
+            <div className="flex items-start justify-between">
+              <div className="flex items-center gap-2">
+                <span className="inline-flex h-8 w-8 items-center justify-center rounded-xl border border-[#FDE7B8] bg-[#FFF5D9] text-[#B98500]">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none">
+                    <path d="M12 3l2.2 5.1 5.6.5-4.2 3.7 1.3 5.5L12 14.9 7.1 17.8l1.3-5.5-4.2-3.7 5.6-.5L12 3z" fill="#F4B740"/>
+                  </svg>
+                </span>
+                <span className="text-[13px] text-gray-700 leading-relaxed">Ai SEO Matrix</span>
+                {/* use the same question-mark icon as other cards */}
+                <HelpCircle size={14} className="text-[#9AA3B2]" />
+              </div>
+              {/* use the same filter/settings icon as other cards */}
+              <span className="inline-flex h-8 w-8 items-center justify-center rounded-md border border-[#E7EAF0] text-[#6B7280]">
+                <SlidersHorizontal size={16} />
+              </span>
+            </div>
+
+            {/* 5 brand tiles w/ real logos from /public/brands */}
+            <div className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-5">
+              {[
+                { name: "GPT",        ratio: "2/5", pages: "2.1k Pages", src: "/assets/gpt.svg" },
+                { name: "GOOGLE Ai",  ratio: "2/5", pages: "1.9k Pages", src: "/assets/google.svg" },
+                { name: "PERPLEXITY", ratio: "2/5", pages: "1.3k Pages", src: "/assets/perplexity.svg" },
+                { name: "COPILOT",    ratio: "2/5", pages: "1.8k Pages", src: "/assets/copilot.svg" },
+                { name: "GEMINI",     ratio: "2/5", pages: "2.3k Pages", src: "/assets/gemini.svg" },
+              ].map((b) => (
+                <div key={b.name} className="rounded-[12px] border border-[#EDF1F5] bg-[#FAFBFD] p-4 text-center">
+                <Image
+                  src={b.src}
+                  alt={b.name}
+                  width={36}
+                  height={36}
+                  className="mx-auto mb-2"
+                />
+                  <div className="text-[12px] text-[#6B7280]">{b.name}</div>
+                  <div className="mt-1 text-[22px] font-semibold leading-none text-[#151824] tabular-nums">
+                    {matrixNum}<span className="text-[#6B7280]">/5</span>
+                  </div>
+                  <div className="mt-1 text-[11px] text-[#8D96A8]">{b.pages}</div>
+                </div>
+              ))}
+            </div>
+
+            {/* footer */}
+            <div className="mt-4 text-[12px] text-[#6B7280]">
+              AI tool visibility and optimization scores
+            </div>
+          </div>
+        </section>
+
+        {/* Row: On-Page SEO Opportunities */}
+        <h2 className="text-[16px] font-bold text-gray-900 mb-3 ml-1">
+          On-Page SEO Opportunities
+        </h2>
+
+        <section className="mb-10 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {/* Card 1: Critical Issue */}
+          <div className="flex items-center justify-between rounded-[18px] border border-[#E7EAF0] bg-[var(--input)] px-4 py-3 shadow-sm">
+            <div className="flex items-center gap-3 min-w-0">
+              <span className="flex shrink-0 aspect-square h-10 w-10 items-center justify-center rounded-full bg-[#EF3E5C] text-white">
+                <Skull size={20} />
+              </span>
+              <div className="leading-tight">
+                <div className="text-[11px] text-[#6B7280]">Critical Issue</div>
+                <div className="mt-0.5 text-[20px] font-extrabold leading-none text-[#0F172A] tabular-nums">
+                  {oppCounts[0]}
+                </div>
+                <div className="mt-1 text-[11px] font-medium text-[#DC2626] whitespace-nowrap">
+                  32% more since last month
+                </div>
+              </div>
+            </div>
+            <button className="ml-4 inline-flex items-center gap-1 text-[11px] font-medium text-[#8D96A8] shrink-0 whitespace-nowrap">
+              Fix Now <ChevronRight size={12} />
+            </button>
+          </div>
+
+          {/* Card 2: Waring Issue */}
+          <div className="flex items-center justify-between rounded-[18px] border border-[#E7EAF0] bg-[var(--input)] px-4 py-3 shadow-sm">
+            <div className="flex items-center gap-3 min-w-0">
+              <span className="flex shrink-0 aspect-square h-10 w-10 items-center justify-center rounded-full bg-[#F59E0B] text-white">
+                <AlertTriangle size={20} />
+              </span>
+              <div className="leading-tight">
+                <div className="text-[11px] text-[#6B7280]">Waring Issue</div>
+                <div className="mt-0.5 text-[20px] font-extrabold leading-none text-[#0F172A] tabular-nums">
+                  {oppCounts[1]}
+                </div>
+                <div className="mt-1 text-[11px] font-medium text-[#DC2626] whitespace-nowrap">
+                  32% more since last month
+                </div>
+              </div>
+            </div>
+            <button className="ml-4 inline-flex items-center gap-1 text-[11px] font-medium text-[#8D96A8] shrink-0 whitespace-nowrap">
+              Fix Now <ChevronRight size={12} />
+            </button>
+          </div>
+
+          {/* Card 3: Recommendations */}
+          <div className="flex items-center justify-between rounded-[18px] border border-[#E7EAF0] bg-[var(--input)] px-4 py-3 shadow-sm">
+            <div className="flex items-center gap-3 min-w-0">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#10B981] text-white">
+                <Lightbulb size={20} />
+              </span>
+              <div className="leading-tight">
+                <div className="text-[11px] text-[#6B7280]">Recommendations</div>
+                <div className="mt-0.5 text-[20px] font-extrabold leading-none text-[#0F172A] tabular-nums">
+                  {oppCounts[2]}
+                </div>
+                <div className="mt-1 text-[11px] font-medium text-[#16A34A] whitespace-nowrap">
+                  +23%<span className="text-[#6B7280]">{' '}since last month</span>
+                </div>
+              </div>
+            </div>
+            <button className="ml-4 inline-flex items-center gap-1 text-[11px] font-medium text-[#8D96A8] shrink-0 whitespace-nowrap">
+              View All <ChevronRight size={12} />
+            </button>
+          </div>
+
+          {/* Card 4: Content Opportunities */}
+          <div className="flex items-center justify-between rounded-[18px] border border-[#E7EAF0] bg-[var(--input)] px-4 py-3 shadow-sm">
+            <div className="flex items-center gap-3 min-w-0">
+              <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#3B82F6] text-white">
+                <FileText size={18} />
+              </span>
+              <div className="leading-tight">
+                <div className="text-[11px] text-[#6B7280]">Content Opportunities</div>
+                <div className="mt-0.5 text-[20px] font-extrabold leading-none text-[#0F172A] tabular-nums">
+                  {oppCounts[3]}
+                </div>
+                <div className="mt-1 text-[11px] font-medium text-[#DC2626] whitespace-nowrap">
+                  -32%<span className="text-[#6B7280]">{' '}since last month</span>
+                </div>
+              </div>
+            </div>
+            <button className="ml-4 inline-flex items-center gap-1 text-[11px] font-medium text-[#8D96A8] shrink-0 whitespace-nowrap">
+              View All <ChevronRight size={12} />
+            </button>
+          </div>
+        </section>
+
+        {/* Top On-Page Content Opportunities */}
+        <h2 className="text-[16px] font-bold text-gray-900 mb-3 ml-1">
+          Top On-Page Content Opportunities
+        </h2>
+
+        <section className="mb-10 grid grid-cols-1 items-start gap-8 lg:grid-cols-[minmax(0,1fr)_1px_minmax(0,1fr)]">
+          {/* BLOG column */}
+          <div className="grid grid-rows-[auto_1fr_auto] gap-3">
+            {/* header */}
+            <div className="flex items-center gap-2">
+              <span className="inline-flex h-6 w-6 items-center justify-center rounded-md border border-[#E7D7FB] bg-[#F5EAFE] text-[#7C3AED]">
+                <BookOpen size={14} />
+              </span>
+              <span className="text-[12px] font-semibold tracking-wide text-[#2B3040]">BLOG</span>
+              <HelpCircle size={14} className="text-[#9AA3B2]" />
+            </div>
+
+            {/* cards */}
+            <div className="grid grid-cols-1 gap-5 xl:grid-cols-2 items-stretch">
+              <OpportunityCard
+                title="How to Improve Site Speed"
+                score={45}
+                wordCount={1250}
+                keywords={50}
+                status="Published"
+                progress={oppCardsProgress}
+                className="h-full"
+              />
+              <OpportunityCard
+                title="Complete Local SEO Guide"
+                score={72}
+                wordCount={2400}
+                keywords={3}
+                status="Draft"
+                progress={oppCardsProgress}
+                className="h-full"
+              />
+            </div>
+
+            {/* view all pinned to bottom */}
+            <div className="flex justify-end pt-1 px-4">
+              <button className="inline-flex items-center gap-2 rounded-[12px] border border-[#DDE3ED] bg-[#FAFBFD] px-3 py-2 text-[12px] font-medium text-[#566072]">
+                View all opportunity <ChevronRight size={14} />
+              </button>
+            </div>
+          </div>
+
+          {/* vertical divider */}
+          <div className="hidden lg:block w-px self-stretch bg-[#ECEFF5]" />
+
+          {/* PAGES column */}
+          <div className="grid grid-rows-[auto_1fr_auto] gap-3">
+            {/* header */}
+            <div className="flex items-center gap-2">
+              <span className="inline-flex h-6 w-6 items-center justify-center rounded-md border border-[#FFD6E8] bg-[#FFE9F3] text-[#F43F5E]">
+                <FileText size={14} />
+              </span>
+              <span className="text-[12px] font-semibold tracking-wide text-[#2B3040]">PAGES</span>
+              <HelpCircle size={14} className="text-[#9AA3B2]" />
+            </div>
+
+            {/* cards */}
+            <div className="grid grid-cols-1 gap-5 xl:grid-cols-2">
+              <OpportunityCard
+                title="How to Improve Site Speed"
+                score={25}
+                wordCount={1250}
+                keywords={50}
+                status="Published"
+                progress={oppCardsProgress}
+              />
+              <OpportunityCard
+                title="Complete Local SEO Guide"
+                score={72}
+                wordCount={2400}
+                keywords={3}
+                status="Draft"
+                progress={oppCardsProgress}
+              />
+            </div>
+
+            {/* view all pinned to bottom */}
+            <div className="flex justify-end pt-1 px-4">
+              <button className="inline-flex items-center gap-2 rounded-[12px] border border-[#DDE3ED] bg-[#FAFBFD] px-3 py-2 text-[12px] font-medium text-[#566072]">
+                View all opportunity <ChevronRight size={14} />
+              </button>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== New on page SEO opportunity (table) ===== */}
+        <h2 className="text-[16px] font-bold text-gray-900 mb-2 ml-1">
+          New on page SEO opportunity
+        </h2>
+        <p className="ml-1 mb-4 text-[12px] text-[#6B7280]">
+          *While it’s highly recommended to follow the AI’s suggested plan for optimal results,
+          feel free to generate content based on your personal choice.
+        </p>
+
+        <div className="overflow-hidden rounded-[16px] border border-[#E7EAF0] bg-[var(--input)] shadow-sm">
+          {/* table header */}
+          <div className="hidden md:grid grid-cols-[2fr_1.1fr_1.1fr_1.3fr_2fr_1fr_1fr_1fr] items-center px-4 py-3 text-[12px] font-semibold text-[#4B5563] bg-[#F8FAFC]">
+            <div>Keywords</div>
+            <div>Type <span className="opacity-50">↑↓</span></div>
+            <div>Search Volume</div>
+            <div>SEO Difficulty</div>
+            <div>Suggested topic</div>
+            <div>Blog</div>
+            <div>Page</div>
+            <div>Preference</div>
+          </div>
+
+          {/* rows */}
+          <ul className="divide-y divide-[#ECEFF5]">
+            {seoRows.map((row, i) => (
+              <li
+                key={i}
+                className="grid grid-cols-1 md:grid-cols-[2fr_1.1fr_1.1fr_1.3fr_2fr_1fr_1fr_1fr] items-center gap-3 px-4 py-3 text-[13px] hover:bg-[#FAFBFD]"
+              >
+                {/* Keywords */}
+                <div className="flex items-center gap-2 text-[#2B3040]">
+                  <span className="inline-flex h-6 w-6 items-center justify-center rounded-full bg-[#F3F4F6] text-[#6B7280]">
+                    <Wifi size={14} />
+                  </span>
+                  <span className="truncate">{row.keyword}</span>
+                </div>
+
+                {/* Type pill */}
+                <div>
+                  <span className="inline-flex items-center gap-1 rounded-md border border-[#E7EAF0] bg-[#F6F8FB] px-2 py-0.5 text-[11px] text-[#6B7280]">
+                    {row.type === "Informational" ? <FileText size={12} /> : <Link2 size={12} />}
+                    {row.type}
+                  </span>
+                </div>
+
+                {/* Search volume */}
+                <div className="tabular-nums text-[#2B3040]">{row.volume.toLocaleString()}</div>
+
+                {/* Difficulty w/ animated bar */}
+                <div className="flex items-center gap-2 text-[#2B3040]">
+                  <span className="tabular-nums">{row.difficulty}%</span>
+                  <DifficultyBar value={row.difficulty} progress={seoTableProg} />
+                </div>
+
+                {/* Suggested topic (ellipsis) */}
+                <div className="text-[#6B7280] truncate">The information shown here...</div>
+
+                {/* Blog button */}
+                <div>
+                  <button className="inline-flex items-center justify-center rounded-full border border-[#BBD5FF] bg-[#F3F7FF] px-4 py-1.5 text-[12px] font-semibold text-[#3178C6]">
+                    Generate
+                  </button>
+                </div>
+
+                {/* Page button */}
+                <div>
+                  <button className="inline-flex items-center justify-center rounded-full border border-[#BBD5FF] bg-[#F3F7FF] px-4 py-1.5 text-[12px] font-semibold text-[#3178C6]">
+                    Generate
+                  </button>
+                </div>
+
+                {/* Preference icons */}
+                <div className="flex items-center gap-3 text-[#A1A7B3]">
+                  <ThumbsUp size={16} className="hover:text-[#6B7280] cursor-pointer" />
+                  <ThumbsDown size={16} className="hover:text-[#6B7280] cursor-pointer" />
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          {/* footer */}
+          <div className="flex justify-end border-t border-[#ECEFF5] bg-[#F8FAFC] px-4 py-3">
+            <button className="inline-flex items-center gap-2 rounded-full border border-[#DDE3ED] bg-[var(--input)] px-3 py-1.5 text-[12px] text-[#566072] hover:bg-[#FAFBFD]">
+              View all page issue <ChevronRight size={14} />
+            </button>
+          </div>
+        </div>
+
       </div>
     </main>
   );
