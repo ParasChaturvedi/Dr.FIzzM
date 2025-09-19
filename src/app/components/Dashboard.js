@@ -516,7 +516,7 @@ export default function Dashboard() {
             <button className="inline-flex items-center gap-2 rounded-[10px] border border-[#E7EAF0] bg-[#FAFBFD] px-3 py-2 text-[12px] font-medium text-[#566072]">
               <Eye size={14} /> View Details
             </button>
-            <button className="inline-flex items-center gap-2 rounded-[14px] px-4 py-2 text-[13px] font-semibold text-white shadow-sm bg-gradient-to-r from-[#6A8BFF] to-[#3B82F6]">
+            <button className="inline-flex items-center gap-2 rounded-[14px] px-4 py-2 text-[13px] font-semibold text-white shadow-sm bg-[image:var(--infoHighlight-gradient)]">
               Start <ChevronRight size={16} />
             </button>
           </div>
