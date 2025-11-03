@@ -1,0 +1,2625 @@
+{
+  "version": "1.0",
+  "domains": [
+    {
+      "domain": "google.com",
+      "displayName": "Google",
+      "meta": {
+        "industry": "General",
+        "country": "IN",
+        "language": "en"
+      },
+      "updatedAt": "2025-11-02T14:36:10Z",
+      "pages": [
+        {
+          "id": "category-tech-overview",
+          "url": "https://google.com/category/technology",
+          "title": "Technology Category Overview",
+          "pageType": "category",
+          "kpis": {
+            "headings": 2,
+            "links": 5,
+            "images": 3
+          },
+          "keywords": [
+            {
+              "id": "k1",
+              "title": "core web vitals",
+              "used": 4,
+              "recommended": 3,
+              "sources": 15,
+              "type": "Long Tail",
+              "mine": 2,
+              "avg": 5,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://google.com/guide/content-marketing-basics",
+                  "title": "Core Web Vitals: How It Works on google.com",
+                  "snippet": "A focused guide to core web vitals for google.com, with examples tied to Core Web Vitals. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://google.com/playbook/content-marketing-tips",
+                  "title": "Improving Core Web Vitals — Tactics for google.com",
+                  "snippet": "Step‑by‑step instructions to improve core web vitals on google.com. Aligns execution with Helpful Content System and measurement tips."
+                },
+                {
+                  "url": "https://google.com/checklist/content-marketing-checklist",
+                  "title": "Core Web Vitals Checklist (google.com)",
+                  "snippet": "Use this checklist to ship core web vitals changes on google.com. Covers setup, QA, and rollout notes aligned with rich results."
+                }
+              ]
+            },
+            {
+              "id": "k2",
+              "title": "helpful content system",
+              "used": 1,
+              "recommended": 3,
+              "sources": 12,
+              "type": "All Topics",
+              "mine": 1,
+              "avg": 4,
+              "results": 5,
+              "links": [
+                {
+                  "url": "https://google.com/guide/schema-markup-basics",
+                  "title": "Helpful Content System: How It Works on google.com",
+                  "snippet": "A focused guide to helpful content system for google.com, with examples tied to Core Web Vitals. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://google.com/playbook/schema-markup-tips",
+                  "title": "Improving Helpful Content System — Tactics for google.com",
+                  "snippet": "Step‑by‑step instructions to improve helpful content system on google.com. Aligns execution with Helpful Content System and measurement tips."
+                },
+                {
+                  "url": "https://google.com/checklist/schema-markup-checklist",
+                  "title": "Helpful Content System Checklist (google.com)",
+                  "snippet": "Use this checklist to ship helpful content system changes on google.com. Covers setup, QA, and rollout notes aligned with rich results."
+                }
+              ]
+            },
+            {
+              "id": "k3",
+              "title": "rich results",
+              "used": 2,
+              "recommended": 4,
+              "sources": 9,
+              "type": "Clusters",
+              "mine": 2,
+              "avg": 3,
+              "results": 4,
+              "links": [
+                {
+                  "url": "https://google.com/guide/internal-linking-basics",
+                  "title": "Rich Results: How It Works on google.com",
+                  "snippet": "A focused guide to rich results for google.com, with examples tied to Core Web Vitals. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://google.com/playbook/internal-linking-tips",
+                  "title": "Improving Rich Results — Tactics for google.com",
+                  "snippet": "Step‑by‑step instructions to improve rich results on google.com. Aligns execution with Helpful Content System and measurement tips."
+                },
+                {
+                  "url": "https://google.com/checklist/internal-linking-checklist",
+                  "title": "Rich Results Checklist (google.com)",
+                  "snippet": "Use this checklist to ship rich results changes on google.com. Covers setup, QA, and rollout notes aligned with rich results."
+                }
+              ]
+            },
+            {
+              "id": "k4",
+              "title": "crawl budget",
+              "used": 3,
+              "recommended": 3,
+              "sources": 18,
+              "type": "Long Tail",
+              "mine": 3,
+              "avg": 4,
+              "results": 6,
+              "links": [
+                {
+                  "url": "https://google.com/guide/page-speed-basics",
+                  "title": "Crawl Budget: How It Works on google.com",
+                  "snippet": "A focused guide to crawl budget for google.com, with examples tied to Core Web Vitals. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://google.com/playbook/page-speed-tips",
+                  "title": "Improving Crawl Budget — Tactics for google.com",
+                  "snippet": "Step‑by‑step instructions to improve crawl budget on google.com. Aligns execution with Helpful Content System and measurement tips."
+                },
+                {
+                  "url": "https://google.com/checklist/page-speed-checklist",
+                  "title": "Crawl Budget Checklist (google.com)",
+                  "snippet": "Use this checklist to ship crawl budget changes on google.com. Covers setup, QA, and rollout notes aligned with rich results."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "blog-seo-basics",
+          "url": "https://google.com/blog/seo-basics",
+          "title": "SEO Basics for Growth",
+          "pageType": "blog",
+          "kpis": {
+            "headings": 2,
+            "links": 5,
+            "images": 3
+          },
+          "keywords": [
+            {
+              "id": "k5",
+              "title": "core web vitals",
+              "used": 3,
+              "recommended": 3,
+              "sources": 10,
+              "type": "Clusters",
+              "mine": 3,
+              "avg": 4,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://google.com/guide/title-readability-basics",
+                  "title": "Core Web Vitals: How It Works on google.com",
+                  "snippet": "A focused guide to core web vitals for google.com, with examples tied to Core Web Vitals. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://google.com/playbook/title-readability-tips",
+                  "title": "Improving Core Web Vitals — Tactics for google.com",
+                  "snippet": "Step‑by‑step instructions to improve core web vitals on google.com. Aligns execution with Helpful Content System and measurement tips."
+                },
+                {
+                  "url": "https://google.com/checklist/title-readability-checklist",
+                  "title": "Core Web Vitals Checklist (google.com)",
+                  "snippet": "Use this checklist to ship core web vitals changes on google.com. Covers setup, QA, and rollout notes aligned with rich results."
+                }
+              ]
+            },
+            {
+              "id": "k6",
+              "title": "helpful content system",
+              "used": 2,
+              "recommended": 4,
+              "sources": 8,
+              "type": "All Topics",
+              "mine": 2,
+              "avg": 3,
+              "results": 4,
+              "links": [
+                {
+                  "url": "https://google.com/guide/meta-description-basics",
+                  "title": "Helpful Content System: How It Works on google.com",
+                  "snippet": "A focused guide to helpful content system for google.com, with examples tied to Core Web Vitals. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://google.com/playbook/meta-description-tips",
+                  "title": "Improving Helpful Content System — Tactics for google.com",
+                  "snippet": "Step‑by‑step instructions to improve helpful content system on google.com. Aligns execution with Helpful Content System and measurement tips."
+                },
+                {
+                  "url": "https://google.com/checklist/meta-description-checklist",
+                  "title": "Helpful Content System Checklist (google.com)",
+                  "snippet": "Use this checklist to ship helpful content system changes on google.com. Covers setup, QA, and rollout notes aligned with rich results."
+                }
+              ]
+            },
+            {
+              "id": "k7",
+              "title": "rich results",
+              "used": 1,
+              "recommended": 3,
+              "sources": 7,
+              "type": "Long Tail",
+              "mine": 1,
+              "avg": 3,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://google.com/guide/keyword-clusters-basics",
+                  "title": "Rich Results: How It Works on google.com",
+                  "snippet": "A focused guide to rich results for google.com, with examples tied to Core Web Vitals. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://google.com/playbook/keyword-clusters-tips",
+                  "title": "Improving Rich Results — Tactics for google.com",
+                  "snippet": "Step‑by‑step instructions to improve rich results on google.com. Aligns execution with Helpful Content System and measurement tips."
+                },
+                {
+                  "url": "https://google.com/checklist/keyword-clusters-checklist",
+                  "title": "Rich Results Checklist (google.com)",
+                  "snippet": "Use this checklist to ship rich results changes on google.com. Covers setup, QA, and rollout notes aligned with rich results."
+                }
+              ]
+            },
+            {
+              "id": "k8",
+              "title": "crawl budget",
+              "used": 1,
+              "recommended": 3,
+              "sources": 5,
+              "type": "All Topics",
+              "mine": 1,
+              "avg": 2,
+              "results": 2,
+              "links": [
+                {
+                  "url": "https://google.com/guide/link-readability-basics",
+                  "title": "Crawl Budget: How It Works on google.com",
+                  "snippet": "A focused guide to crawl budget for google.com, with examples tied to Core Web Vitals. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://google.com/playbook/link-readability-tips",
+                  "title": "Improving Crawl Budget — Tactics for google.com",
+                  "snippet": "Step‑by‑step instructions to improve crawl budget on google.com. Aligns execution with Helpful Content System and measurement tips."
+                },
+                {
+                  "url": "https://google.com/checklist/link-readability-checklist",
+                  "title": "Crawl Budget Checklist (google.com)",
+                  "snippet": "Use this checklist to ship crawl budget changes on google.com. Covers setup, QA, and rollout notes aligned with rich results."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domain": "amazon.in",
+      "displayName": "Amazon India",
+      "meta": {
+        "industry": "General",
+        "country": "IN",
+        "language": "en"
+      },
+      "updatedAt": "2025-11-02T14:36:10Z",
+      "pages": [
+        {
+          "id": "category-tech-overview",
+          "url": "https://amazon.in/category/technology",
+          "title": "Technology Category Overview",
+          "pageType": "category",
+          "kpis": {
+            "headings": 2,
+            "links": 5,
+            "images": 3
+          },
+          "keywords": [
+            {
+              "id": "k1",
+              "title": "a+ content",
+              "used": 4,
+              "recommended": 3,
+              "sources": 15,
+              "type": "Long Tail",
+              "mine": 2,
+              "avg": 5,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://amazon.in/guide/content-marketing-basics",
+                  "title": "A+ Content: How It Works on amazon.in",
+                  "snippet": "A focused guide to a+ content for amazon.in, with examples tied to A+ Content. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://amazon.in/playbook/content-marketing-tips",
+                  "title": "Improving A+ Content — Tactics for amazon.in",
+                  "snippet": "Step‑by‑step instructions to improve a+ content on amazon.in. Aligns execution with search terms and measurement tips."
+                },
+                {
+                  "url": "https://amazon.in/checklist/content-marketing-checklist",
+                  "title": "A+ Content Checklist (amazon.in)",
+                  "snippet": "Use this checklist to ship a+ content changes on amazon.in. Covers setup, QA, and rollout notes aligned with reviews velocity."
+                }
+              ]
+            },
+            {
+              "id": "k2",
+              "title": "search terms",
+              "used": 1,
+              "recommended": 3,
+              "sources": 12,
+              "type": "All Topics",
+              "mine": 1,
+              "avg": 4,
+              "results": 5,
+              "links": [
+                {
+                  "url": "https://amazon.in/guide/schema-markup-basics",
+                  "title": "Search Terms: How It Works on amazon.in",
+                  "snippet": "A focused guide to search terms for amazon.in, with examples tied to A+ Content. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://amazon.in/playbook/schema-markup-tips",
+                  "title": "Improving Search Terms — Tactics for amazon.in",
+                  "snippet": "Step‑by‑step instructions to improve search terms on amazon.in. Aligns execution with search terms and measurement tips."
+                },
+                {
+                  "url": "https://amazon.in/checklist/schema-markup-checklist",
+                  "title": "Search Terms Checklist (amazon.in)",
+                  "snippet": "Use this checklist to ship search terms changes on amazon.in. Covers setup, QA, and rollout notes aligned with reviews velocity."
+                }
+              ]
+            },
+            {
+              "id": "k3",
+              "title": "buy box",
+              "used": 2,
+              "recommended": 4,
+              "sources": 9,
+              "type": "Clusters",
+              "mine": 2,
+              "avg": 3,
+              "results": 4,
+              "links": [
+                {
+                  "url": "https://amazon.in/guide/internal-linking-basics",
+                  "title": "Buy Box: How It Works on amazon.in",
+                  "snippet": "A focused guide to buy box for amazon.in, with examples tied to A+ Content. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://amazon.in/playbook/internal-linking-tips",
+                  "title": "Improving Buy Box — Tactics for amazon.in",
+                  "snippet": "Step‑by‑step instructions to improve buy box on amazon.in. Aligns execution with search terms and measurement tips."
+                },
+                {
+                  "url": "https://amazon.in/checklist/internal-linking-checklist",
+                  "title": "Buy Box Checklist (amazon.in)",
+                  "snippet": "Use this checklist to ship buy box changes on amazon.in. Covers setup, QA, and rollout notes aligned with reviews velocity."
+                }
+              ]
+            },
+            {
+              "id": "k4",
+              "title": "prime eligibility",
+              "used": 3,
+              "recommended": 3,
+              "sources": 18,
+              "type": "Long Tail",
+              "mine": 3,
+              "avg": 4,
+              "results": 6,
+              "links": [
+                {
+                  "url": "https://amazon.in/guide/page-speed-basics",
+                  "title": "Prime Eligibility: How It Works on amazon.in",
+                  "snippet": "A focused guide to prime eligibility for amazon.in, with examples tied to A+ Content. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://amazon.in/playbook/page-speed-tips",
+                  "title": "Improving Prime Eligibility — Tactics for amazon.in",
+                  "snippet": "Step‑by‑step instructions to improve prime eligibility on amazon.in. Aligns execution with search terms and measurement tips."
+                },
+                {
+                  "url": "https://amazon.in/checklist/page-speed-checklist",
+                  "title": "Prime Eligibility Checklist (amazon.in)",
+                  "snippet": "Use this checklist to ship prime eligibility changes on amazon.in. Covers setup, QA, and rollout notes aligned with reviews velocity."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "blog-seo-basics",
+          "url": "https://amazon.in/blog/seo-basics",
+          "title": "SEO Basics for Growth",
+          "pageType": "blog",
+          "kpis": {
+            "headings": 2,
+            "links": 5,
+            "images": 3
+          },
+          "keywords": [
+            {
+              "id": "k5",
+              "title": "a+ content",
+              "used": 3,
+              "recommended": 3,
+              "sources": 10,
+              "type": "Clusters",
+              "mine": 3,
+              "avg": 4,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://amazon.in/guide/title-readability-basics",
+                  "title": "A+ Content: How It Works on amazon.in",
+                  "snippet": "A focused guide to a+ content for amazon.in, with examples tied to A+ Content. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://amazon.in/playbook/title-readability-tips",
+                  "title": "Improving A+ Content — Tactics for amazon.in",
+                  "snippet": "Step‑by‑step instructions to improve a+ content on amazon.in. Aligns execution with search terms and measurement tips."
+                },
+                {
+                  "url": "https://amazon.in/checklist/title-readability-checklist",
+                  "title": "A+ Content Checklist (amazon.in)",
+                  "snippet": "Use this checklist to ship a+ content changes on amazon.in. Covers setup, QA, and rollout notes aligned with reviews velocity."
+                }
+              ]
+            },
+            {
+              "id": "k6",
+              "title": "search terms",
+              "used": 2,
+              "recommended": 4,
+              "sources": 8,
+              "type": "All Topics",
+              "mine": 2,
+              "avg": 3,
+              "results": 4,
+              "links": [
+                {
+                  "url": "https://amazon.in/guide/meta-description-basics",
+                  "title": "Search Terms: How It Works on amazon.in",
+                  "snippet": "A focused guide to search terms for amazon.in, with examples tied to A+ Content. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://amazon.in/playbook/meta-description-tips",
+                  "title": "Improving Search Terms — Tactics for amazon.in",
+                  "snippet": "Step‑by‑step instructions to improve search terms on amazon.in. Aligns execution with search terms and measurement tips."
+                },
+                {
+                  "url": "https://amazon.in/checklist/meta-description-checklist",
+                  "title": "Search Terms Checklist (amazon.in)",
+                  "snippet": "Use this checklist to ship search terms changes on amazon.in. Covers setup, QA, and rollout notes aligned with reviews velocity."
+                }
+              ]
+            },
+            {
+              "id": "k7",
+              "title": "buy box",
+              "used": 1,
+              "recommended": 3,
+              "sources": 7,
+              "type": "Long Tail",
+              "mine": 1,
+              "avg": 3,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://amazon.in/guide/keyword-clusters-basics",
+                  "title": "Buy Box: How It Works on amazon.in",
+                  "snippet": "A focused guide to buy box for amazon.in, with examples tied to A+ Content. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://amazon.in/playbook/keyword-clusters-tips",
+                  "title": "Improving Buy Box — Tactics for amazon.in",
+                  "snippet": "Step‑by‑step instructions to improve buy box on amazon.in. Aligns execution with search terms and measurement tips."
+                },
+                {
+                  "url": "https://amazon.in/checklist/keyword-clusters-checklist",
+                  "title": "Buy Box Checklist (amazon.in)",
+                  "snippet": "Use this checklist to ship buy box changes on amazon.in. Covers setup, QA, and rollout notes aligned with reviews velocity."
+                }
+              ]
+            },
+            {
+              "id": "k8",
+              "title": "prime eligibility",
+              "used": 1,
+              "recommended": 3,
+              "sources": 5,
+              "type": "All Topics",
+              "mine": 1,
+              "avg": 2,
+              "results": 2,
+              "links": [
+                {
+                  "url": "https://amazon.in/guide/link-readability-basics",
+                  "title": "Prime Eligibility: How It Works on amazon.in",
+                  "snippet": "A focused guide to prime eligibility for amazon.in, with examples tied to A+ Content. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://amazon.in/playbook/link-readability-tips",
+                  "title": "Improving Prime Eligibility — Tactics for amazon.in",
+                  "snippet": "Step‑by‑step instructions to improve prime eligibility on amazon.in. Aligns execution with search terms and measurement tips."
+                },
+                {
+                  "url": "https://amazon.in/checklist/link-readability-checklist",
+                  "title": "Prime Eligibility Checklist (amazon.in)",
+                  "snippet": "Use this checklist to ship prime eligibility changes on amazon.in. Covers setup, QA, and rollout notes aligned with reviews velocity."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domain": "flipkart.com",
+      "displayName": "Flipkart",
+      "meta": {
+        "industry": "General",
+        "country": "IN",
+        "language": "en"
+      },
+      "updatedAt": "2025-11-02T14:36:10Z",
+      "pages": [
+        {
+          "id": "category-tech-overview",
+          "url": "https://flipkart.com/category/technology",
+          "title": "Technology Category Overview",
+          "pageType": "category",
+          "kpis": {
+            "headings": 2,
+            "links": 5,
+            "images": 3
+          },
+          "keywords": [
+            {
+              "id": "k1",
+              "title": "big billion days",
+              "used": 4,
+              "recommended": 3,
+              "sources": 15,
+              "type": "Long Tail",
+              "mine": 2,
+              "avg": 5,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://flipkart.com/guide/content-marketing-basics",
+                  "title": "Big Billion Days: How It Works on flipkart.com",
+                  "snippet": "A focused guide to big billion days for flipkart.com, with examples tied to Big Billion Days. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://flipkart.com/playbook/content-marketing-tips",
+                  "title": "Improving Big Billion Days — Tactics for flipkart.com",
+                  "snippet": "Step‑by‑step instructions to improve big billion days on flipkart.com. Aligns execution with Assured badge and measurement tips."
+                },
+                {
+                  "url": "https://flipkart.com/checklist/content-marketing-checklist",
+                  "title": "Big Billion Days Checklist (flipkart.com)",
+                  "snippet": "Use this checklist to ship big billion days changes on flipkart.com. Covers setup, QA, and rollout notes aligned with delivery promise."
+                }
+              ]
+            },
+            {
+              "id": "k2",
+              "title": "assured badge",
+              "used": 1,
+              "recommended": 3,
+              "sources": 12,
+              "type": "All Topics",
+              "mine": 1,
+              "avg": 4,
+              "results": 5,
+              "links": [
+                {
+                  "url": "https://flipkart.com/guide/schema-markup-basics",
+                  "title": "Assured Badge: How It Works on flipkart.com",
+                  "snippet": "A focused guide to assured badge for flipkart.com, with examples tied to Big Billion Days. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://flipkart.com/playbook/schema-markup-tips",
+                  "title": "Improving Assured Badge — Tactics for flipkart.com",
+                  "snippet": "Step‑by‑step instructions to improve assured badge on flipkart.com. Aligns execution with Assured badge and measurement tips."
+                },
+                {
+                  "url": "https://flipkart.com/checklist/schema-markup-checklist",
+                  "title": "Assured Badge Checklist (flipkart.com)",
+                  "snippet": "Use this checklist to ship assured badge changes on flipkart.com. Covers setup, QA, and rollout notes aligned with delivery promise."
+                }
+              ]
+            },
+            {
+              "id": "k3",
+              "title": "delivery promise",
+              "used": 2,
+              "recommended": 4,
+              "sources": 9,
+              "type": "Clusters",
+              "mine": 2,
+              "avg": 3,
+              "results": 4,
+              "links": [
+                {
+                  "url": "https://flipkart.com/guide/internal-linking-basics",
+                  "title": "Delivery Promise: How It Works on flipkart.com",
+                  "snippet": "A focused guide to delivery promise for flipkart.com, with examples tied to Big Billion Days. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://flipkart.com/playbook/internal-linking-tips",
+                  "title": "Improving Delivery Promise — Tactics for flipkart.com",
+                  "snippet": "Step‑by‑step instructions to improve delivery promise on flipkart.com. Aligns execution with Assured badge and measurement tips."
+                },
+                {
+                  "url": "https://flipkart.com/checklist/internal-linking-checklist",
+                  "title": "Delivery Promise Checklist (flipkart.com)",
+                  "snippet": "Use this checklist to ship delivery promise changes on flipkart.com. Covers setup, QA, and rollout notes aligned with delivery promise."
+                }
+              ]
+            },
+            {
+              "id": "k4",
+              "title": "q&a schema",
+              "used": 3,
+              "recommended": 3,
+              "sources": 18,
+              "type": "Long Tail",
+              "mine": 3,
+              "avg": 4,
+              "results": 6,
+              "links": [
+                {
+                  "url": "https://flipkart.com/guide/page-speed-basics",
+                  "title": "Q&A Schema: How It Works on flipkart.com",
+                  "snippet": "A focused guide to q&a schema for flipkart.com, with examples tied to Big Billion Days. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://flipkart.com/playbook/page-speed-tips",
+                  "title": "Improving Q&A Schema — Tactics for flipkart.com",
+                  "snippet": "Step‑by‑step instructions to improve q&a schema on flipkart.com. Aligns execution with Assured badge and measurement tips."
+                },
+                {
+                  "url": "https://flipkart.com/checklist/page-speed-checklist",
+                  "title": "Q&A Schema Checklist (flipkart.com)",
+                  "snippet": "Use this checklist to ship q&a schema changes on flipkart.com. Covers setup, QA, and rollout notes aligned with delivery promise."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "blog-seo-basics",
+          "url": "https://flipkart.com/blog/seo-basics",
+          "title": "SEO Basics for Growth",
+          "pageType": "blog",
+          "kpis": {
+            "headings": 2,
+            "links": 5,
+            "images": 3
+          },
+          "keywords": [
+            {
+              "id": "k5",
+              "title": "big billion days",
+              "used": 3,
+              "recommended": 3,
+              "sources": 10,
+              "type": "Clusters",
+              "mine": 3,
+              "avg": 4,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://flipkart.com/guide/title-readability-basics",
+                  "title": "Big Billion Days: How It Works on flipkart.com",
+                  "snippet": "A focused guide to big billion days for flipkart.com, with examples tied to Big Billion Days. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://flipkart.com/playbook/title-readability-tips",
+                  "title": "Improving Big Billion Days — Tactics for flipkart.com",
+                  "snippet": "Step‑by‑step instructions to improve big billion days on flipkart.com. Aligns execution with Assured badge and measurement tips."
+                },
+                {
+                  "url": "https://flipkart.com/checklist/title-readability-checklist",
+                  "title": "Big Billion Days Checklist (flipkart.com)",
+                  "snippet": "Use this checklist to ship big billion days changes on flipkart.com. Covers setup, QA, and rollout notes aligned with delivery promise."
+                }
+              ]
+            },
+            {
+              "id": "k6",
+              "title": "assured badge",
+              "used": 2,
+              "recommended": 4,
+              "sources": 8,
+              "type": "All Topics",
+              "mine": 2,
+              "avg": 3,
+              "results": 4,
+              "links": [
+                {
+                  "url": "https://flipkart.com/guide/meta-description-basics",
+                  "title": "Assured Badge: How It Works on flipkart.com",
+                  "snippet": "A focused guide to assured badge for flipkart.com, with examples tied to Big Billion Days. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://flipkart.com/playbook/meta-description-tips",
+                  "title": "Improving Assured Badge — Tactics for flipkart.com",
+                  "snippet": "Step‑by‑step instructions to improve assured badge on flipkart.com. Aligns execution with Assured badge and measurement tips."
+                },
+                {
+                  "url": "https://flipkart.com/checklist/meta-description-checklist",
+                  "title": "Assured Badge Checklist (flipkart.com)",
+                  "snippet": "Use this checklist to ship assured badge changes on flipkart.com. Covers setup, QA, and rollout notes aligned with delivery promise."
+                }
+              ]
+            },
+            {
+              "id": "k7",
+              "title": "delivery promise",
+              "used": 1,
+              "recommended": 3,
+              "sources": 7,
+              "type": "Long Tail",
+              "mine": 1,
+              "avg": 3,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://flipkart.com/guide/keyword-clusters-basics",
+                  "title": "Delivery Promise: How It Works on flipkart.com",
+                  "snippet": "A focused guide to delivery promise for flipkart.com, with examples tied to Big Billion Days. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://flipkart.com/playbook/keyword-clusters-tips",
+                  "title": "Improving Delivery Promise — Tactics for flipkart.com",
+                  "snippet": "Step‑by‑step instructions to improve delivery promise on flipkart.com. Aligns execution with Assured badge and measurement tips."
+                },
+                {
+                  "url": "https://flipkart.com/checklist/keyword-clusters-checklist",
+                  "title": "Delivery Promise Checklist (flipkart.com)",
+                  "snippet": "Use this checklist to ship delivery promise changes on flipkart.com. Covers setup, QA, and rollout notes aligned with delivery promise."
+                }
+              ]
+            },
+            {
+              "id": "k8",
+              "title": "q&a schema",
+              "used": 1,
+              "recommended": 3,
+              "sources": 5,
+              "type": "All Topics",
+              "mine": 1,
+              "avg": 2,
+              "results": 2,
+              "links": [
+                {
+                  "url": "https://flipkart.com/guide/link-readability-basics",
+                  "title": "Q&A Schema: How It Works on flipkart.com",
+                  "snippet": "A focused guide to q&a schema for flipkart.com, with examples tied to Big Billion Days. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://flipkart.com/playbook/link-readability-tips",
+                  "title": "Improving Q&A Schema — Tactics for flipkart.com",
+                  "snippet": "Step‑by‑step instructions to improve q&a schema on flipkart.com. Aligns execution with Assured badge and measurement tips."
+                },
+                {
+                  "url": "https://flipkart.com/checklist/link-readability-checklist",
+                  "title": "Q&A Schema Checklist (flipkart.com)",
+                  "snippet": "Use this checklist to ship q&a schema changes on flipkart.com. Covers setup, QA, and rollout notes aligned with delivery promise."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domain": "myntra.com",
+      "displayName": "Myntra",
+      "meta": {
+        "industry": "General",
+        "country": "IN",
+        "language": "en"
+      },
+      "updatedAt": "2025-11-02T14:36:10Z",
+      "pages": [
+        {
+          "id": "category-tech-overview",
+          "url": "https://myntra.com/category/technology",
+          "title": "Technology Category Overview",
+          "pageType": "category",
+          "kpis": {
+            "headings": 2,
+            "links": 5,
+            "images": 3
+          },
+          "keywords": [
+            {
+              "id": "k1",
+              "title": "lookbook",
+              "used": 4,
+              "recommended": 3,
+              "sources": 15,
+              "type": "Long Tail",
+              "mine": 2,
+              "avg": 5,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://myntra.com/guide/content-marketing-basics",
+                  "title": "Lookbook: How It Works on myntra.com",
+                  "snippet": "A focused guide to lookbook for myntra.com, with examples tied to lookbooks. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://myntra.com/playbook/content-marketing-tips",
+                  "title": "Improving Lookbook — Tactics for myntra.com",
+                  "snippet": "Step‑by‑step instructions to improve lookbook on myntra.com. Aligns execution with size guides and measurement tips."
+                },
+                {
+                  "url": "https://myntra.com/checklist/content-marketing-checklist",
+                  "title": "Lookbook Checklist (myntra.com)",
+                  "snippet": "Use this checklist to ship lookbook changes on myntra.com. Covers setup, QA, and rollout notes aligned with fabric care."
+                }
+              ]
+            },
+            {
+              "id": "k2",
+              "title": "size guide schema",
+              "used": 1,
+              "recommended": 3,
+              "sources": 12,
+              "type": "All Topics",
+              "mine": 1,
+              "avg": 4,
+              "results": 5,
+              "links": [
+                {
+                  "url": "https://myntra.com/guide/schema-markup-basics",
+                  "title": "Size Guide Schema: How It Works on myntra.com",
+                  "snippet": "A focused guide to size guide schema for myntra.com, with examples tied to lookbooks. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://myntra.com/playbook/schema-markup-tips",
+                  "title": "Improving Size Guide Schema — Tactics for myntra.com",
+                  "snippet": "Step‑by‑step instructions to improve size guide schema on myntra.com. Aligns execution with size guides and measurement tips."
+                },
+                {
+                  "url": "https://myntra.com/checklist/schema-markup-checklist",
+                  "title": "Size Guide Schema Checklist (myntra.com)",
+                  "snippet": "Use this checklist to ship size guide schema changes on myntra.com. Covers setup, QA, and rollout notes aligned with fabric care."
+                }
+              ]
+            },
+            {
+              "id": "k3",
+              "title": "fabric care",
+              "used": 2,
+              "recommended": 4,
+              "sources": 9,
+              "type": "Clusters",
+              "mine": 2,
+              "avg": 3,
+              "results": 4,
+              "links": [
+                {
+                  "url": "https://myntra.com/guide/internal-linking-basics",
+                  "title": "Fabric Care: How It Works on myntra.com",
+                  "snippet": "A focused guide to fabric care for myntra.com, with examples tied to lookbooks. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://myntra.com/playbook/internal-linking-tips",
+                  "title": "Improving Fabric Care — Tactics for myntra.com",
+                  "snippet": "Step‑by‑step instructions to improve fabric care on myntra.com. Aligns execution with size guides and measurement tips."
+                },
+                {
+                  "url": "https://myntra.com/checklist/internal-linking-checklist",
+                  "title": "Fabric Care Checklist (myntra.com)",
+                  "snippet": "Use this checklist to ship fabric care changes on myntra.com. Covers setup, QA, and rollout notes aligned with fabric care."
+                }
+              ]
+            },
+            {
+              "id": "k4",
+              "title": "trend collections",
+              "used": 3,
+              "recommended": 3,
+              "sources": 18,
+              "type": "Long Tail",
+              "mine": 3,
+              "avg": 4,
+              "results": 6,
+              "links": [
+                {
+                  "url": "https://myntra.com/guide/page-speed-basics",
+                  "title": "Trend Collections: How It Works on myntra.com",
+                  "snippet": "A focused guide to trend collections for myntra.com, with examples tied to lookbooks. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://myntra.com/playbook/page-speed-tips",
+                  "title": "Improving Trend Collections — Tactics for myntra.com",
+                  "snippet": "Step‑by‑step instructions to improve trend collections on myntra.com. Aligns execution with size guides and measurement tips."
+                },
+                {
+                  "url": "https://myntra.com/checklist/page-speed-checklist",
+                  "title": "Trend Collections Checklist (myntra.com)",
+                  "snippet": "Use this checklist to ship trend collections changes on myntra.com. Covers setup, QA, and rollout notes aligned with fabric care."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "blog-seo-basics",
+          "url": "https://myntra.com/blog/seo-basics",
+          "title": "SEO Basics for Growth",
+          "pageType": "blog",
+          "kpis": {
+            "headings": 2,
+            "links": 5,
+            "images": 3
+          },
+          "keywords": [
+            {
+              "id": "k5",
+              "title": "lookbook",
+              "used": 3,
+              "recommended": 3,
+              "sources": 10,
+              "type": "Clusters",
+              "mine": 3,
+              "avg": 4,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://myntra.com/guide/title-readability-basics",
+                  "title": "Lookbook: How It Works on myntra.com",
+                  "snippet": "A focused guide to lookbook for myntra.com, with examples tied to lookbooks. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://myntra.com/playbook/title-readability-tips",
+                  "title": "Improving Lookbook — Tactics for myntra.com",
+                  "snippet": "Step‑by‑step instructions to improve lookbook on myntra.com. Aligns execution with size guides and measurement tips."
+                },
+                {
+                  "url": "https://myntra.com/checklist/title-readability-checklist",
+                  "title": "Lookbook Checklist (myntra.com)",
+                  "snippet": "Use this checklist to ship lookbook changes on myntra.com. Covers setup, QA, and rollout notes aligned with fabric care."
+                }
+              ]
+            },
+            {
+              "id": "k6",
+              "title": "size guide schema",
+              "used": 2,
+              "recommended": 4,
+              "sources": 8,
+              "type": "All Topics",
+              "mine": 2,
+              "avg": 3,
+              "results": 4,
+              "links": [
+                {
+                  "url": "https://myntra.com/guide/meta-description-basics",
+                  "title": "Size Guide Schema: How It Works on myntra.com",
+                  "snippet": "A focused guide to size guide schema for myntra.com, with examples tied to lookbooks. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://myntra.com/playbook/meta-description-tips",
+                  "title": "Improving Size Guide Schema — Tactics for myntra.com",
+                  "snippet": "Step‑by‑step instructions to improve size guide schema on myntra.com. Aligns execution with size guides and measurement tips."
+                },
+                {
+                  "url": "https://myntra.com/checklist/meta-description-checklist",
+                  "title": "Size Guide Schema Checklist (myntra.com)",
+                  "snippet": "Use this checklist to ship size guide schema changes on myntra.com. Covers setup, QA, and rollout notes aligned with fabric care."
+                }
+              ]
+            },
+            {
+              "id": "k7",
+              "title": "fabric care",
+              "used": 1,
+              "recommended": 3,
+              "sources": 7,
+              "type": "Long Tail",
+              "mine": 1,
+              "avg": 3,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://myntra.com/guide/keyword-clusters-basics",
+                  "title": "Fabric Care: How It Works on myntra.com",
+                  "snippet": "A focused guide to fabric care for myntra.com, with examples tied to lookbooks. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://myntra.com/playbook/keyword-clusters-tips",
+                  "title": "Improving Fabric Care — Tactics for myntra.com",
+                  "snippet": "Step‑by‑step instructions to improve fabric care on myntra.com. Aligns execution with size guides and measurement tips."
+                },
+                {
+                  "url": "https://myntra.com/checklist/keyword-clusters-checklist",
+                  "title": "Fabric Care Checklist (myntra.com)",
+                  "snippet": "Use this checklist to ship fabric care changes on myntra.com. Covers setup, QA, and rollout notes aligned with fabric care."
+                }
+              ]
+            },
+            {
+              "id": "k8",
+              "title": "trend collections",
+              "used": 1,
+              "recommended": 3,
+              "sources": 5,
+              "type": "All Topics",
+              "mine": 1,
+              "avg": 2,
+              "results": 2,
+              "links": [
+                {
+                  "url": "https://myntra.com/guide/link-readability-basics",
+                  "title": "Trend Collections: How It Works on myntra.com",
+                  "snippet": "A focused guide to trend collections for myntra.com, with examples tied to lookbooks. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://myntra.com/playbook/link-readability-tips",
+                  "title": "Improving Trend Collections — Tactics for myntra.com",
+                  "snippet": "Step‑by‑step instructions to improve trend collections on myntra.com. Aligns execution with size guides and measurement tips."
+                },
+                {
+                  "url": "https://myntra.com/checklist/link-readability-checklist",
+                  "title": "Trend Collections Checklist (myntra.com)",
+                  "snippet": "Use this checklist to ship trend collections changes on myntra.com. Covers setup, QA, and rollout notes aligned with fabric care."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domain": "meesho.com",
+      "displayName": "Meesho",
+      "meta": {
+        "industry": "General",
+        "country": "IN",
+        "language": "en"
+      },
+      "updatedAt": "2025-11-02T14:36:10Z",
+      "pages": [
+        {
+          "id": "category-tech-overview",
+          "url": "https://meesho.com/category/technology",
+          "title": "Technology Category Overview",
+          "pageType": "category",
+          "kpis": {
+            "headings": 2,
+            "links": 5,
+            "images": 3
+          },
+          "keywords": [
+            {
+              "id": "k1",
+              "title": "reseller margin",
+              "used": 4,
+              "recommended": 3,
+              "sources": 15,
+              "type": "Long Tail",
+              "mine": 2,
+              "avg": 5,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://meesho.com/guide/content-marketing-basics",
+                  "title": "Reseller Margin: How It Works on meesho.com",
+                  "snippet": "A focused guide to reseller margin for meesho.com, with examples tied to reseller workflows. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://meesho.com/playbook/content-marketing-tips",
+                  "title": "Improving Reseller Margin — Tactics for meesho.com",
+                  "snippet": "Step‑by‑step instructions to improve reseller margin on meesho.com. Aligns execution with WhatsApp share and measurement tips."
+                },
+                {
+                  "url": "https://meesho.com/checklist/content-marketing-checklist",
+                  "title": "Reseller Margin Checklist (meesho.com)",
+                  "snippet": "Use this checklist to ship reseller margin changes on meesho.com. Covers setup, QA, and rollout notes aligned with low-price positioning."
+                }
+              ]
+            },
+            {
+              "id": "k2",
+              "title": "whatsapp share",
+              "used": 1,
+              "recommended": 3,
+              "sources": 12,
+              "type": "All Topics",
+              "mine": 1,
+              "avg": 4,
+              "results": 5,
+              "links": [
+                {
+                  "url": "https://meesho.com/guide/schema-markup-basics",
+                  "title": "Whatsapp Share: How It Works on meesho.com",
+                  "snippet": "A focused guide to whatsapp share for meesho.com, with examples tied to reseller workflows. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://meesho.com/playbook/schema-markup-tips",
+                  "title": "Improving Whatsapp Share — Tactics for meesho.com",
+                  "snippet": "Step‑by‑step instructions to improve whatsapp share on meesho.com. Aligns execution with WhatsApp share and measurement tips."
+                },
+                {
+                  "url": "https://meesho.com/checklist/schema-markup-checklist",
+                  "title": "Whatsapp Share Checklist (meesho.com)",
+                  "snippet": "Use this checklist to ship whatsapp share changes on meesho.com. Covers setup, QA, and rollout notes aligned with low-price positioning."
+                }
+              ]
+            },
+            {
+              "id": "k3",
+              "title": "low price guarantee",
+              "used": 2,
+              "recommended": 4,
+              "sources": 9,
+              "type": "Clusters",
+              "mine": 2,
+              "avg": 3,
+              "results": 4,
+              "links": [
+                {
+                  "url": "https://meesho.com/guide/internal-linking-basics",
+                  "title": "Low Price Guarantee: How It Works on meesho.com",
+                  "snippet": "A focused guide to low price guarantee for meesho.com, with examples tied to reseller workflows. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://meesho.com/playbook/internal-linking-tips",
+                  "title": "Improving Low Price Guarantee — Tactics for meesho.com",
+                  "snippet": "Step‑by‑step instructions to improve low price guarantee on meesho.com. Aligns execution with WhatsApp share and measurement tips."
+                },
+                {
+                  "url": "https://meesho.com/checklist/internal-linking-checklist",
+                  "title": "Low Price Guarantee Checklist (meesho.com)",
+                  "snippet": "Use this checklist to ship low price guarantee changes on meesho.com. Covers setup, QA, and rollout notes aligned with low-price positioning."
+                }
+              ]
+            },
+            {
+              "id": "k4",
+              "title": "cod messaging",
+              "used": 3,
+              "recommended": 3,
+              "sources": 18,
+              "type": "Long Tail",
+              "mine": 3,
+              "avg": 4,
+              "results": 6,
+              "links": [
+                {
+                  "url": "https://meesho.com/guide/page-speed-basics",
+                  "title": "Cod Messaging: How It Works on meesho.com",
+                  "snippet": "A focused guide to cod messaging for meesho.com, with examples tied to reseller workflows. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://meesho.com/playbook/page-speed-tips",
+                  "title": "Improving Cod Messaging — Tactics for meesho.com",
+                  "snippet": "Step‑by‑step instructions to improve cod messaging on meesho.com. Aligns execution with WhatsApp share and measurement tips."
+                },
+                {
+                  "url": "https://meesho.com/checklist/page-speed-checklist",
+                  "title": "Cod Messaging Checklist (meesho.com)",
+                  "snippet": "Use this checklist to ship cod messaging changes on meesho.com. Covers setup, QA, and rollout notes aligned with low-price positioning."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "blog-seo-basics",
+          "url": "https://meesho.com/blog/seo-basics",
+          "title": "SEO Basics for Growth",
+          "pageType": "blog",
+          "kpis": {
+            "headings": 2,
+            "links": 5,
+            "images": 3
+          },
+          "keywords": [
+            {
+              "id": "k5",
+              "title": "reseller margin",
+              "used": 3,
+              "recommended": 3,
+              "sources": 10,
+              "type": "Clusters",
+              "mine": 3,
+              "avg": 4,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://meesho.com/guide/title-readability-basics",
+                  "title": "Reseller Margin: How It Works on meesho.com",
+                  "snippet": "A focused guide to reseller margin for meesho.com, with examples tied to reseller workflows. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://meesho.com/playbook/title-readability-tips",
+                  "title": "Improving Reseller Margin — Tactics for meesho.com",
+                  "snippet": "Step‑by‑step instructions to improve reseller margin on meesho.com. Aligns execution with WhatsApp share and measurement tips."
+                },
+                {
+                  "url": "https://meesho.com/checklist/title-readability-checklist",
+                  "title": "Reseller Margin Checklist (meesho.com)",
+                  "snippet": "Use this checklist to ship reseller margin changes on meesho.com. Covers setup, QA, and rollout notes aligned with low-price positioning."
+                }
+              ]
+            },
+            {
+              "id": "k6",
+              "title": "whatsapp share",
+              "used": 2,
+              "recommended": 4,
+              "sources": 8,
+              "type": "All Topics",
+              "mine": 2,
+              "avg": 3,
+              "results": 4,
+              "links": [
+                {
+                  "url": "https://meesho.com/guide/meta-description-basics",
+                  "title": "Whatsapp Share: How It Works on meesho.com",
+                  "snippet": "A focused guide to whatsapp share for meesho.com, with examples tied to reseller workflows. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://meesho.com/playbook/meta-description-tips",
+                  "title": "Improving Whatsapp Share — Tactics for meesho.com",
+                  "snippet": "Step‑by‑step instructions to improve whatsapp share on meesho.com. Aligns execution with WhatsApp share and measurement tips."
+                },
+                {
+                  "url": "https://meesho.com/checklist/meta-description-checklist",
+                  "title": "Whatsapp Share Checklist (meesho.com)",
+                  "snippet": "Use this checklist to ship whatsapp share changes on meesho.com. Covers setup, QA, and rollout notes aligned with low-price positioning."
+                }
+              ]
+            },
+            {
+              "id": "k7",
+              "title": "low price guarantee",
+              "used": 1,
+              "recommended": 3,
+              "sources": 7,
+              "type": "Long Tail",
+              "mine": 1,
+              "avg": 3,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://meesho.com/guide/keyword-clusters-basics",
+                  "title": "Low Price Guarantee: How It Works on meesho.com",
+                  "snippet": "A focused guide to low price guarantee for meesho.com, with examples tied to reseller workflows. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://meesho.com/playbook/keyword-clusters-tips",
+                  "title": "Improving Low Price Guarantee — Tactics for meesho.com",
+                  "snippet": "Step‑by‑step instructions to improve low price guarantee on meesho.com. Aligns execution with WhatsApp share and measurement tips."
+                },
+                {
+                  "url": "https://meesho.com/checklist/keyword-clusters-checklist",
+                  "title": "Low Price Guarantee Checklist (meesho.com)",
+                  "snippet": "Use this checklist to ship low price guarantee changes on meesho.com. Covers setup, QA, and rollout notes aligned with low-price positioning."
+                }
+              ]
+            },
+            {
+              "id": "k8",
+              "title": "cod messaging",
+              "used": 1,
+              "recommended": 3,
+              "sources": 5,
+              "type": "All Topics",
+              "mine": 1,
+              "avg": 2,
+              "results": 2,
+              "links": [
+                {
+                  "url": "https://meesho.com/guide/link-readability-basics",
+                  "title": "Cod Messaging: How It Works on meesho.com",
+                  "snippet": "A focused guide to cod messaging for meesho.com, with examples tied to reseller workflows. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://meesho.com/playbook/link-readability-tips",
+                  "title": "Improving Cod Messaging — Tactics for meesho.com",
+                  "snippet": "Step‑by‑step instructions to improve cod messaging on meesho.com. Aligns execution with WhatsApp share and measurement tips."
+                },
+                {
+                  "url": "https://meesho.com/checklist/link-readability-checklist",
+                  "title": "Cod Messaging Checklist (meesho.com)",
+                  "snippet": "Use this checklist to ship cod messaging changes on meesho.com. Covers setup, QA, and rollout notes aligned with low-price positioning."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domain": "itzfizz.com",
+      "displayName": "ItzFIZZ",
+      "meta": {
+        "industry": "General",
+        "country": "IN",
+        "language": "en"
+      },
+      "updatedAt": "2025-11-02T14:36:10Z",
+      "pages": [
+        {
+          "id": "category-tech-overview",
+          "url": "https://itzfizz.com/category/technology",
+          "title": "Technology Category Overview",
+          "pageType": "category",
+          "kpis": {
+            "headings": 2,
+            "links": 5,
+            "images": 3
+          },
+          "keywords": [
+            {
+              "id": "k1",
+              "title": "digital marketing",
+              "used": 4,
+              "recommended": 3,
+              "sources": 15,
+              "type": "Long Tail",
+              "mine": 2,
+              "avg": 5,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://itzfizz.com/guide/content-marketing-basics",
+                  "title": "Digital Marketing: How It Works on itzfizz.com",
+                  "snippet": "A focused guide to digital marketing for itzfizz.com, with examples tied to agency case studies. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://itzfizz.com/playbook/content-marketing-tips",
+                  "title": "Improving Digital Marketing — Tactics for itzfizz.com",
+                  "snippet": "Step‑by‑step instructions to improve digital marketing on itzfizz.com. Aligns execution with SEO deliverables and measurement tips."
+                },
+                {
+                  "url": "https://itzfizz.com/checklist/content-marketing-checklist",
+                  "title": "Digital Marketing Checklist (itzfizz.com)",
+                  "snippet": "Use this checklist to ship digital marketing changes on itzfizz.com. Covers setup, QA, and rollout notes aligned with content briefs."
+                }
+              ]
+            },
+            {
+              "id": "k2",
+              "title": "seo services",
+              "used": 1,
+              "recommended": 3,
+              "sources": 12,
+              "type": "All Topics",
+              "mine": 1,
+              "avg": 4,
+              "results": 5,
+              "links": [
+                {
+                  "url": "https://itzfizz.com/guide/schema-markup-basics",
+                  "title": "Seo Services: How It Works on itzfizz.com",
+                  "snippet": "A focused guide to seo services for itzfizz.com, with examples tied to agency case studies. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://itzfizz.com/playbook/schema-markup-tips",
+                  "title": "Improving Seo Services — Tactics for itzfizz.com",
+                  "snippet": "Step‑by‑step instructions to improve seo services on itzfizz.com. Aligns execution with SEO deliverables and measurement tips."
+                },
+                {
+                  "url": "https://itzfizz.com/checklist/schema-markup-checklist",
+                  "title": "Seo Services Checklist (itzfizz.com)",
+                  "snippet": "Use this checklist to ship seo services changes on itzfizz.com. Covers setup, QA, and rollout notes aligned with content briefs."
+                }
+              ]
+            },
+            {
+              "id": "k3",
+              "title": "ppc management",
+              "used": 2,
+              "recommended": 4,
+              "sources": 9,
+              "type": "Clusters",
+              "mine": 2,
+              "avg": 3,
+              "results": 4,
+              "links": [
+                {
+                  "url": "https://itzfizz.com/guide/internal-linking-basics",
+                  "title": "Ppc Management: How It Works on itzfizz.com",
+                  "snippet": "A focused guide to ppc management for itzfizz.com, with examples tied to agency case studies. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://itzfizz.com/playbook/internal-linking-tips",
+                  "title": "Improving Ppc Management — Tactics for itzfizz.com",
+                  "snippet": "Step‑by‑step instructions to improve ppc management on itzfizz.com. Aligns execution with SEO deliverables and measurement tips."
+                },
+                {
+                  "url": "https://itzfizz.com/checklist/internal-linking-checklist",
+                  "title": "Ppc Management Checklist (itzfizz.com)",
+                  "snippet": "Use this checklist to ship ppc management changes on itzfizz.com. Covers setup, QA, and rollout notes aligned with content briefs."
+                }
+              ]
+            },
+            {
+              "id": "k4",
+              "title": "social media marketing",
+              "used": 3,
+              "recommended": 3,
+              "sources": 18,
+              "type": "Long Tail",
+              "mine": 3,
+              "avg": 4,
+              "results": 6,
+              "links": [
+                {
+                  "url": "https://itzfizz.com/guide/page-speed-basics",
+                  "title": "Social Media Marketing: How It Works on itzfizz.com",
+                  "snippet": "A focused guide to social media marketing for itzfizz.com, with examples tied to agency case studies. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://itzfizz.com/playbook/page-speed-tips",
+                  "title": "Improving Social Media Marketing — Tactics for itzfizz.com",
+                  "snippet": "Step‑by‑step instructions to improve social media marketing on itzfizz.com. Aligns execution with SEO deliverables and measurement tips."
+                },
+                {
+                  "url": "https://itzfizz.com/checklist/page-speed-checklist",
+                  "title": "Social Media Marketing Checklist (itzfizz.com)",
+                  "snippet": "Use this checklist to ship social media marketing changes on itzfizz.com. Covers setup, QA, and rollout notes aligned with content briefs."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "blog-seo-basics",
+          "url": "https://itzfizz.com/blog/seo-basics",
+          "title": "SEO Basics for Growth",
+          "pageType": "blog",
+          "kpis": {
+            "headings": 2,
+            "links": 5,
+            "images": 3
+          },
+          "keywords": [
+            {
+              "id": "k5",
+              "title": "digital marketing",
+              "used": 3,
+              "recommended": 3,
+              "sources": 10,
+              "type": "Clusters",
+              "mine": 3,
+              "avg": 4,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://itzfizz.com/guide/title-readability-basics",
+                  "title": "Digital Marketing: How It Works on itzfizz.com",
+                  "snippet": "A focused guide to digital marketing for itzfizz.com, with examples tied to agency case studies. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://itzfizz.com/playbook/title-readability-tips",
+                  "title": "Improving Digital Marketing — Tactics for itzfizz.com",
+                  "snippet": "Step‑by‑step instructions to improve digital marketing on itzfizz.com. Aligns execution with SEO deliverables and measurement tips."
+                },
+                {
+                  "url": "https://itzfizz.com/checklist/title-readability-checklist",
+                  "title": "Digital Marketing Checklist (itzfizz.com)",
+                  "snippet": "Use this checklist to ship digital marketing changes on itzfizz.com. Covers setup, QA, and rollout notes aligned with content briefs."
+                }
+              ]
+            },
+            {
+              "id": "k6",
+              "title": "seo services",
+              "used": 2,
+              "recommended": 4,
+              "sources": 8,
+              "type": "All Topics",
+              "mine": 2,
+              "avg": 3,
+              "results": 4,
+              "links": [
+                {
+                  "url": "https://itzfizz.com/guide/meta-description-basics",
+                  "title": "Seo Services: How It Works on itzfizz.com",
+                  "snippet": "A focused guide to seo services for itzfizz.com, with examples tied to agency case studies. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://itzfizz.com/playbook/meta-description-tips",
+                  "title": "Improving Seo Services — Tactics for itzfizz.com",
+                  "snippet": "Step‑by‑step instructions to improve seo services on itzfizz.com. Aligns execution with SEO deliverables and measurement tips."
+                },
+                {
+                  "url": "https://itzfizz.com/checklist/meta-description-checklist",
+                  "title": "Seo Services Checklist (itzfizz.com)",
+                  "snippet": "Use this checklist to ship seo services changes on itzfizz.com. Covers setup, QA, and rollout notes aligned with content briefs."
+                }
+              ]
+            },
+            {
+              "id": "k7",
+              "title": "ppc management",
+              "used": 1,
+              "recommended": 3,
+              "sources": 7,
+              "type": "Long Tail",
+              "mine": 1,
+              "avg": 3,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://itzfizz.com/guide/keyword-clusters-basics",
+                  "title": "Ppc Management: How It Works on itzfizz.com",
+                  "snippet": "A focused guide to ppc management for itzfizz.com, with examples tied to agency case studies. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://itzfizz.com/playbook/keyword-clusters-tips",
+                  "title": "Improving Ppc Management — Tactics for itzfizz.com",
+                  "snippet": "Step‑by‑step instructions to improve ppc management on itzfizz.com. Aligns execution with SEO deliverables and measurement tips."
+                },
+                {
+                  "url": "https://itzfizz.com/checklist/keyword-clusters-checklist",
+                  "title": "Ppc Management Checklist (itzfizz.com)",
+                  "snippet": "Use this checklist to ship ppc management changes on itzfizz.com. Covers setup, QA, and rollout notes aligned with content briefs."
+                }
+              ]
+            },
+            {
+              "id": "k8",
+              "title": "social media marketing",
+              "used": 1,
+              "recommended": 3,
+              "sources": 5,
+              "type": "All Topics",
+              "mine": 1,
+              "avg": 2,
+              "results": 2,
+              "links": [
+                {
+                  "url": "https://itzfizz.com/guide/link-readability-basics",
+                  "title": "Social Media Marketing: How It Works on itzfizz.com",
+                  "snippet": "A focused guide to social media marketing for itzfizz.com, with examples tied to agency case studies. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://itzfizz.com/playbook/link-readability-tips",
+                  "title": "Improving Social Media Marketing — Tactics for itzfizz.com",
+                  "snippet": "Step‑by‑step instructions to improve social media marketing on itzfizz.com. Aligns execution with SEO deliverables and measurement tips."
+                },
+                {
+                  "url": "https://itzfizz.com/checklist/link-readability-checklist",
+                  "title": "Social Media Marketing Checklist (itzfizz.com)",
+                  "snippet": "Use this checklist to ship social media marketing changes on itzfizz.com. Covers setup, QA, and rollout notes aligned with content briefs."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domain": "loyora.com",
+      "displayName": "Loyora",
+      "meta": {
+        "industry": "General",
+        "country": "IN",
+        "language": "en"
+      },
+      "updatedAt": "2025-11-02T14:36:10Z",
+      "pages": [
+        {
+          "id": "category-tech-overview",
+          "url": "https://loyora.com/category/technology",
+          "title": "Technology Category Overview",
+          "pageType": "category",
+          "kpis": {
+            "headings": 2,
+            "links": 5,
+            "images": 3
+          },
+          "keywords": [
+            {
+              "id": "k1",
+              "title": "interior design",
+              "used": 4,
+              "recommended": 3,
+              "sources": 15,
+              "type": "Long Tail",
+              "mine": 2,
+              "avg": 5,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://loyora.com/guide/content-marketing-basics",
+                  "title": "Interior Design: How It Works on loyora.com",
+                  "snippet": "A focused guide to interior design for loyora.com, with examples tied to interior lookbooks. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://loyora.com/playbook/content-marketing-tips",
+                  "title": "Improving Interior Design — Tactics for loyora.com",
+                  "snippet": "Step‑by‑step instructions to improve interior design on loyora.com. Aligns execution with modular kitchen designs and measurement tips."
+                },
+                {
+                  "url": "https://loyora.com/checklist/content-marketing-checklist",
+                  "title": "Interior Design Checklist (loyora.com)",
+                  "snippet": "Use this checklist to ship interior design changes on loyora.com. Covers setup, QA, and rollout notes aligned with wardrobe design."
+                }
+              ]
+            },
+            {
+              "id": "k2",
+              "title": "modular kitchen",
+              "used": 1,
+              "recommended": 3,
+              "sources": 12,
+              "type": "All Topics",
+              "mine": 1,
+              "avg": 4,
+              "results": 5,
+              "links": [
+                {
+                  "url": "https://loyora.com/guide/schema-markup-basics",
+                  "title": "Modular Kitchen: How It Works on loyora.com",
+                  "snippet": "A focused guide to modular kitchen for loyora.com, with examples tied to interior lookbooks. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://loyora.com/playbook/schema-markup-tips",
+                  "title": "Improving Modular Kitchen — Tactics for loyora.com",
+                  "snippet": "Step‑by‑step instructions to improve modular kitchen on loyora.com. Aligns execution with modular kitchen designs and measurement tips."
+                },
+                {
+                  "url": "https://loyora.com/checklist/schema-markup-checklist",
+                  "title": "Modular Kitchen Checklist (loyora.com)",
+                  "snippet": "Use this checklist to ship modular kitchen changes on loyora.com. Covers setup, QA, and rollout notes aligned with wardrobe design."
+                }
+              ]
+            },
+            {
+              "id": "k3",
+              "title": "wardrobe design",
+              "used": 2,
+              "recommended": 4,
+              "sources": 9,
+              "type": "Clusters",
+              "mine": 2,
+              "avg": 3,
+              "results": 4,
+              "links": [
+                {
+                  "url": "https://loyora.com/guide/internal-linking-basics",
+                  "title": "Wardrobe Design: How It Works on loyora.com",
+                  "snippet": "A focused guide to wardrobe design for loyora.com, with examples tied to interior lookbooks. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://loyora.com/playbook/internal-linking-tips",
+                  "title": "Improving Wardrobe Design — Tactics for loyora.com",
+                  "snippet": "Step‑by‑step instructions to improve wardrobe design on loyora.com. Aligns execution with modular kitchen designs and measurement tips."
+                },
+                {
+                  "url": "https://loyora.com/checklist/internal-linking-checklist",
+                  "title": "Wardrobe Design Checklist (loyora.com)",
+                  "snippet": "Use this checklist to ship wardrobe design changes on loyora.com. Covers setup, QA, and rollout notes aligned with wardrobe design."
+                }
+              ]
+            },
+            {
+              "id": "k4",
+              "title": "furniture lookbook",
+              "used": 3,
+              "recommended": 3,
+              "sources": 18,
+              "type": "Long Tail",
+              "mine": 3,
+              "avg": 4,
+              "results": 6,
+              "links": [
+                {
+                  "url": "https://loyora.com/guide/page-speed-basics",
+                  "title": "Furniture Lookbook: How It Works on loyora.com",
+                  "snippet": "A focused guide to furniture lookbook for loyora.com, with examples tied to interior lookbooks. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://loyora.com/playbook/page-speed-tips",
+                  "title": "Improving Furniture Lookbook — Tactics for loyora.com",
+                  "snippet": "Step‑by‑step instructions to improve furniture lookbook on loyora.com. Aligns execution with modular kitchen designs and measurement tips."
+                },
+                {
+                  "url": "https://loyora.com/checklist/page-speed-checklist",
+                  "title": "Furniture Lookbook Checklist (loyora.com)",
+                  "snippet": "Use this checklist to ship furniture lookbook changes on loyora.com. Covers setup, QA, and rollout notes aligned with wardrobe design."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "blog-seo-basics",
+          "url": "https://loyora.com/blog/seo-basics",
+          "title": "SEO Basics for Growth",
+          "pageType": "blog",
+          "kpis": {
+            "headings": 2,
+            "links": 5,
+            "images": 3
+          },
+          "keywords": [
+            {
+              "id": "k5",
+              "title": "interior design",
+              "used": 3,
+              "recommended": 3,
+              "sources": 10,
+              "type": "Clusters",
+              "mine": 3,
+              "avg": 4,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://loyora.com/guide/title-readability-basics",
+                  "title": "Interior Design: How It Works on loyora.com",
+                  "snippet": "A focused guide to interior design for loyora.com, with examples tied to interior lookbooks. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://loyora.com/playbook/title-readability-tips",
+                  "title": "Improving Interior Design — Tactics for loyora.com",
+                  "snippet": "Step‑by‑step instructions to improve interior design on loyora.com. Aligns execution with modular kitchen designs and measurement tips."
+                },
+                {
+                  "url": "https://loyora.com/checklist/title-readability-checklist",
+                  "title": "Interior Design Checklist (loyora.com)",
+                  "snippet": "Use this checklist to ship interior design changes on loyora.com. Covers setup, QA, and rollout notes aligned with wardrobe design."
+                }
+              ]
+            },
+            {
+              "id": "k6",
+              "title": "modular kitchen",
+              "used": 2,
+              "recommended": 4,
+              "sources": 8,
+              "type": "All Topics",
+              "mine": 2,
+              "avg": 3,
+              "results": 4,
+              "links": [
+                {
+                  "url": "https://loyora.com/guide/meta-description-basics",
+                  "title": "Modular Kitchen: How It Works on loyora.com",
+                  "snippet": "A focused guide to modular kitchen for loyora.com, with examples tied to interior lookbooks. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://loyora.com/playbook/meta-description-tips",
+                  "title": "Improving Modular Kitchen — Tactics for loyora.com",
+                  "snippet": "Step‑by‑step instructions to improve modular kitchen on loyora.com. Aligns execution with modular kitchen designs and measurement tips."
+                },
+                {
+                  "url": "https://loyora.com/checklist/meta-description-checklist",
+                  "title": "Modular Kitchen Checklist (loyora.com)",
+                  "snippet": "Use this checklist to ship modular kitchen changes on loyora.com. Covers setup, QA, and rollout notes aligned with wardrobe design."
+                }
+              ]
+            },
+            {
+              "id": "k7",
+              "title": "wardrobe design",
+              "used": 1,
+              "recommended": 3,
+              "sources": 7,
+              "type": "Long Tail",
+              "mine": 1,
+              "avg": 3,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://loyora.com/guide/keyword-clusters-basics",
+                  "title": "Wardrobe Design: How It Works on loyora.com",
+                  "snippet": "A focused guide to wardrobe design for loyora.com, with examples tied to interior lookbooks. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://loyora.com/playbook/keyword-clusters-tips",
+                  "title": "Improving Wardrobe Design — Tactics for loyora.com",
+                  "snippet": "Step‑by‑step instructions to improve wardrobe design on loyora.com. Aligns execution with modular kitchen designs and measurement tips."
+                },
+                {
+                  "url": "https://loyora.com/checklist/keyword-clusters-checklist",
+                  "title": "Wardrobe Design Checklist (loyora.com)",
+                  "snippet": "Use this checklist to ship wardrobe design changes on loyora.com. Covers setup, QA, and rollout notes aligned with wardrobe design."
+                }
+              ]
+            },
+            {
+              "id": "k8",
+              "title": "furniture lookbook",
+              "used": 1,
+              "recommended": 3,
+              "sources": 5,
+              "type": "All Topics",
+              "mine": 1,
+              "avg": 2,
+              "results": 2,
+              "links": [
+                {
+                  "url": "https://loyora.com/guide/link-readability-basics",
+                  "title": "Furniture Lookbook: How It Works on loyora.com",
+                  "snippet": "A focused guide to furniture lookbook for loyora.com, with examples tied to interior lookbooks. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://loyora.com/playbook/link-readability-tips",
+                  "title": "Improving Furniture Lookbook — Tactics for loyora.com",
+                  "snippet": "Step‑by‑step instructions to improve furniture lookbook on loyora.com. Aligns execution with modular kitchen designs and measurement tips."
+                },
+                {
+                  "url": "https://loyora.com/checklist/link-readability-checklist",
+                  "title": "Furniture Lookbook Checklist (loyora.com)",
+                  "snippet": "Use this checklist to ship furniture lookbook changes on loyora.com. Covers setup, QA, and rollout notes aligned with wardrobe design."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domain": "waterstonindia.com",
+      "displayName": "Waterston India",
+      "meta": {
+        "industry": "General",
+        "country": "IN",
+        "language": "en"
+      },
+      "updatedAt": "2025-11-02T14:36:10Z",
+      "pages": [
+        {
+          "id": "category-tech-overview",
+          "url": "https://waterstonindia.com/category/technology",
+          "title": "Technology Category Overview",
+          "pageType": "category",
+          "kpis": {
+            "headings": 2,
+            "links": 5,
+            "images": 3
+          },
+          "keywords": [
+            {
+              "id": "k1",
+              "title": "erp implementation",
+              "used": 4,
+              "recommended": 3,
+              "sources": 15,
+              "type": "Long Tail",
+              "mine": 2,
+              "avg": 5,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://waterstonindia.com/guide/content-marketing-basics",
+                  "title": "Erp Implementation: How It Works on waterstonindia.com",
+                  "snippet": "A focused guide to erp implementation for waterstonindia.com, with examples tied to process re-engineering. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://waterstonindia.com/playbook/content-marketing-tips",
+                  "title": "Improving Erp Implementation — Tactics for waterstonindia.com",
+                  "snippet": "Step‑by‑step instructions to improve erp implementation on waterstonindia.com. Aligns execution with risk & compliance and measurement tips."
+                },
+                {
+                  "url": "https://waterstonindia.com/checklist/content-marketing-checklist",
+                  "title": "Erp Implementation Checklist (waterstonindia.com)",
+                  "snippet": "Use this checklist to ship erp implementation changes on waterstonindia.com. Covers setup, QA, and rollout notes aligned with finance transformation."
+                }
+              ]
+            },
+            {
+              "id": "k2",
+              "title": "risk and compliance",
+              "used": 1,
+              "recommended": 3,
+              "sources": 12,
+              "type": "All Topics",
+              "mine": 1,
+              "avg": 4,
+              "results": 5,
+              "links": [
+                {
+                  "url": "https://waterstonindia.com/guide/schema-markup-basics",
+                  "title": "Risk And Compliance: How It Works on waterstonindia.com",
+                  "snippet": "A focused guide to risk and compliance for waterstonindia.com, with examples tied to process re-engineering. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://waterstonindia.com/playbook/schema-markup-tips",
+                  "title": "Improving Risk And Compliance — Tactics for waterstonindia.com",
+                  "snippet": "Step‑by‑step instructions to improve risk and compliance on waterstonindia.com. Aligns execution with risk & compliance and measurement tips."
+                },
+                {
+                  "url": "https://waterstonindia.com/checklist/schema-markup-checklist",
+                  "title": "Risk And Compliance Checklist (waterstonindia.com)",
+                  "snippet": "Use this checklist to ship risk and compliance changes on waterstonindia.com. Covers setup, QA, and rollout notes aligned with finance transformation."
+                }
+              ]
+            },
+            {
+              "id": "k3",
+              "title": "finance transformation",
+              "used": 2,
+              "recommended": 4,
+              "sources": 9,
+              "type": "Clusters",
+              "mine": 2,
+              "avg": 3,
+              "results": 4,
+              "links": [
+                {
+                  "url": "https://waterstonindia.com/guide/internal-linking-basics",
+                  "title": "Finance Transformation: How It Works on waterstonindia.com",
+                  "snippet": "A focused guide to finance transformation for waterstonindia.com, with examples tied to process re-engineering. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://waterstonindia.com/playbook/internal-linking-tips",
+                  "title": "Improving Finance Transformation — Tactics for waterstonindia.com",
+                  "snippet": "Step‑by‑step instructions to improve finance transformation on waterstonindia.com. Aligns execution with risk & compliance and measurement tips."
+                },
+                {
+                  "url": "https://waterstonindia.com/checklist/internal-linking-checklist",
+                  "title": "Finance Transformation Checklist (waterstonindia.com)",
+                  "snippet": "Use this checklist to ship finance transformation changes on waterstonindia.com. Covers setup, QA, and rollout notes aligned with finance transformation."
+                }
+              ]
+            },
+            {
+              "id": "k4",
+              "title": "process re-engineering",
+              "used": 3,
+              "recommended": 3,
+              "sources": 18,
+              "type": "Long Tail",
+              "mine": 3,
+              "avg": 4,
+              "results": 6,
+              "links": [
+                {
+                  "url": "https://waterstonindia.com/guide/page-speed-basics",
+                  "title": "Process Re-Engineering: How It Works on waterstonindia.com",
+                  "snippet": "A focused guide to process re-engineering for waterstonindia.com, with examples tied to process re-engineering. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://waterstonindia.com/playbook/page-speed-tips",
+                  "title": "Improving Process Re-Engineering — Tactics for waterstonindia.com",
+                  "snippet": "Step‑by‑step instructions to improve process re-engineering on waterstonindia.com. Aligns execution with risk & compliance and measurement tips."
+                },
+                {
+                  "url": "https://waterstonindia.com/checklist/page-speed-checklist",
+                  "title": "Process Re-Engineering Checklist (waterstonindia.com)",
+                  "snippet": "Use this checklist to ship process re-engineering changes on waterstonindia.com. Covers setup, QA, and rollout notes aligned with finance transformation."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "blog-seo-basics",
+          "url": "https://waterstonindia.com/blog/seo-basics",
+          "title": "SEO Basics for Growth",
+          "pageType": "blog",
+          "kpis": {
+            "headings": 2,
+            "links": 5,
+            "images": 3
+          },
+          "keywords": [
+            {
+              "id": "k5",
+              "title": "erp implementation",
+              "used": 3,
+              "recommended": 3,
+              "sources": 10,
+              "type": "Clusters",
+              "mine": 3,
+              "avg": 4,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://waterstonindia.com/guide/title-readability-basics",
+                  "title": "Erp Implementation: How It Works on waterstonindia.com",
+                  "snippet": "A focused guide to erp implementation for waterstonindia.com, with examples tied to process re-engineering. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://waterstonindia.com/playbook/title-readability-tips",
+                  "title": "Improving Erp Implementation — Tactics for waterstonindia.com",
+                  "snippet": "Step‑by‑step instructions to improve erp implementation on waterstonindia.com. Aligns execution with risk & compliance and measurement tips."
+                },
+                {
+                  "url": "https://waterstonindia.com/checklist/title-readability-checklist",
+                  "title": "Erp Implementation Checklist (waterstonindia.com)",
+                  "snippet": "Use this checklist to ship erp implementation changes on waterstonindia.com. Covers setup, QA, and rollout notes aligned with finance transformation."
+                }
+              ]
+            },
+            {
+              "id": "k6",
+              "title": "risk and compliance",
+              "used": 2,
+              "recommended": 4,
+              "sources": 8,
+              "type": "All Topics",
+              "mine": 2,
+              "avg": 3,
+              "results": 4,
+              "links": [
+                {
+                  "url": "https://waterstonindia.com/guide/meta-description-basics",
+                  "title": "Risk And Compliance: How It Works on waterstonindia.com",
+                  "snippet": "A focused guide to risk and compliance for waterstonindia.com, with examples tied to process re-engineering. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://waterstonindia.com/playbook/meta-description-tips",
+                  "title": "Improving Risk And Compliance — Tactics for waterstonindia.com",
+                  "snippet": "Step‑by‑step instructions to improve risk and compliance on waterstonindia.com. Aligns execution with risk & compliance and measurement tips."
+                },
+                {
+                  "url": "https://waterstonindia.com/checklist/meta-description-checklist",
+                  "title": "Risk And Compliance Checklist (waterstonindia.com)",
+                  "snippet": "Use this checklist to ship risk and compliance changes on waterstonindia.com. Covers setup, QA, and rollout notes aligned with finance transformation."
+                }
+              ]
+            },
+            {
+              "id": "k7",
+              "title": "finance transformation",
+              "used": 1,
+              "recommended": 3,
+              "sources": 7,
+              "type": "Long Tail",
+              "mine": 1,
+              "avg": 3,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://waterstonindia.com/guide/keyword-clusters-basics",
+                  "title": "Finance Transformation: How It Works on waterstonindia.com",
+                  "snippet": "A focused guide to finance transformation for waterstonindia.com, with examples tied to process re-engineering. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://waterstonindia.com/playbook/keyword-clusters-tips",
+                  "title": "Improving Finance Transformation — Tactics for waterstonindia.com",
+                  "snippet": "Step‑by‑step instructions to improve finance transformation on waterstonindia.com. Aligns execution with risk & compliance and measurement tips."
+                },
+                {
+                  "url": "https://waterstonindia.com/checklist/keyword-clusters-checklist",
+                  "title": "Finance Transformation Checklist (waterstonindia.com)",
+                  "snippet": "Use this checklist to ship finance transformation changes on waterstonindia.com. Covers setup, QA, and rollout notes aligned with finance transformation."
+                }
+              ]
+            },
+            {
+              "id": "k8",
+              "title": "process re-engineering",
+              "used": 1,
+              "recommended": 3,
+              "sources": 5,
+              "type": "All Topics",
+              "mine": 1,
+              "avg": 2,
+              "results": 2,
+              "links": [
+                {
+                  "url": "https://waterstonindia.com/guide/link-readability-basics",
+                  "title": "Process Re-Engineering: How It Works on waterstonindia.com",
+                  "snippet": "A focused guide to process re-engineering for waterstonindia.com, with examples tied to process re-engineering. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://waterstonindia.com/playbook/link-readability-tips",
+                  "title": "Improving Process Re-Engineering — Tactics for waterstonindia.com",
+                  "snippet": "Step‑by‑step instructions to improve process re-engineering on waterstonindia.com. Aligns execution with risk & compliance and measurement tips."
+                },
+                {
+                  "url": "https://waterstonindia.com/checklist/link-readability-checklist",
+                  "title": "Process Re-Engineering Checklist (waterstonindia.com)",
+                  "snippet": "Use this checklist to ship process re-engineering changes on waterstonindia.com. Covers setup, QA, and rollout notes aligned with finance transformation."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domain": "paakashala.com",
+      "displayName": "Paakashala",
+      "meta": {
+        "industry": "General",
+        "country": "IN",
+        "language": "en"
+      },
+      "updatedAt": "2025-11-02T14:36:10Z",
+      "pages": [
+        {
+          "id": "category-tech-overview",
+          "url": "https://paakashala.com/category/technology",
+          "title": "Technology Category Overview",
+          "pageType": "category",
+          "kpis": {
+            "headings": 2,
+            "links": 5,
+            "images": 3
+          },
+          "keywords": [
+            {
+              "id": "k1",
+              "title": "Content Marketing",
+              "used": 4,
+              "recommended": 3,
+              "sources": 15,
+              "type": "Long Tail",
+              "mine": 2,
+              "avg": 5,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://paakashala.com/guide/content-marketing-basics",
+                  "title": "Content Marketing: How It Works on paakashala.com",
+                  "snippet": "A focused guide to Content Marketing for paakashala.com, with examples tied to site UX. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://paakashala.com/playbook/content-marketing-tips",
+                  "title": "Improving Content Marketing — Tactics for paakashala.com",
+                  "snippet": "Step‑by‑step instructions to improve Content Marketing on paakashala.com. Aligns execution with content quality and measurement tips."
+                },
+                {
+                  "url": "https://paakashala.com/checklist/content-marketing-checklist",
+                  "title": "Content Marketing Checklist (paakashala.com)",
+                  "snippet": "Use this checklist to ship Content Marketing changes on paakashala.com. Covers setup, QA, and rollout notes aligned with internal linking."
+                }
+              ]
+            },
+            {
+              "id": "k2",
+              "title": "Schema Markup",
+              "used": 1,
+              "recommended": 3,
+              "sources": 12,
+              "type": "All Topics",
+              "mine": 1,
+              "avg": 4,
+              "results": 5,
+              "links": [
+                {
+                  "url": "https://paakashala.com/guide/schema-markup-basics",
+                  "title": "Schema Markup: How It Works on paakashala.com",
+                  "snippet": "A focused guide to Schema Markup for paakashala.com, with examples tied to site UX. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://paakashala.com/playbook/schema-markup-tips",
+                  "title": "Improving Schema Markup — Tactics for paakashala.com",
+                  "snippet": "Step‑by‑step instructions to improve Schema Markup on paakashala.com. Aligns execution with content quality and measurement tips."
+                },
+                {
+                  "url": "https://paakashala.com/checklist/schema-markup-checklist",
+                  "title": "Schema Markup Checklist (paakashala.com)",
+                  "snippet": "Use this checklist to ship Schema Markup changes on paakashala.com. Covers setup, QA, and rollout notes aligned with internal linking."
+                }
+              ]
+            },
+            {
+              "id": "k3",
+              "title": "Internal Linking",
+              "used": 2,
+              "recommended": 4,
+              "sources": 9,
+              "type": "Clusters",
+              "mine": 2,
+              "avg": 3,
+              "results": 4,
+              "links": [
+                {
+                  "url": "https://paakashala.com/guide/internal-linking-basics",
+                  "title": "Internal Linking: How It Works on paakashala.com",
+                  "snippet": "A focused guide to Internal Linking for paakashala.com, with examples tied to site UX. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://paakashala.com/playbook/internal-linking-tips",
+                  "title": "Improving Internal Linking — Tactics for paakashala.com",
+                  "snippet": "Step‑by‑step instructions to improve Internal Linking on paakashala.com. Aligns execution with content quality and measurement tips."
+                },
+                {
+                  "url": "https://paakashala.com/checklist/internal-linking-checklist",
+                  "title": "Internal Linking Checklist (paakashala.com)",
+                  "snippet": "Use this checklist to ship Internal Linking changes on paakashala.com. Covers setup, QA, and rollout notes aligned with internal linking."
+                }
+              ]
+            },
+            {
+              "id": "k4",
+              "title": "Page Speed",
+              "used": 3,
+              "recommended": 3,
+              "sources": 18,
+              "type": "Long Tail",
+              "mine": 3,
+              "avg": 4,
+              "results": 6,
+              "links": [
+                {
+                  "url": "https://paakashala.com/guide/page-speed-basics",
+                  "title": "Page Speed: How It Works on paakashala.com",
+                  "snippet": "A focused guide to Page Speed for paakashala.com, with examples tied to site UX. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://paakashala.com/playbook/page-speed-tips",
+                  "title": "Improving Page Speed — Tactics for paakashala.com",
+                  "snippet": "Step‑by‑step instructions to improve Page Speed on paakashala.com. Aligns execution with content quality and measurement tips."
+                },
+                {
+                  "url": "https://paakashala.com/checklist/page-speed-checklist",
+                  "title": "Page Speed Checklist (paakashala.com)",
+                  "snippet": "Use this checklist to ship Page Speed changes on paakashala.com. Covers setup, QA, and rollout notes aligned with internal linking."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "blog-seo-basics",
+          "url": "https://paakashala.com/blog/seo-basics",
+          "title": "SEO Basics for Growth",
+          "pageType": "blog",
+          "kpis": {
+            "headings": 2,
+            "links": 5,
+            "images": 3
+          },
+          "keywords": [
+            {
+              "id": "k5",
+              "title": "Title Readability",
+              "used": 3,
+              "recommended": 3,
+              "sources": 10,
+              "type": "Clusters",
+              "mine": 3,
+              "avg": 4,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://paakashala.com/guide/title-readability-basics",
+                  "title": "Title Readability: How It Works on paakashala.com",
+                  "snippet": "A focused guide to Title Readability for paakashala.com, with examples tied to site UX. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://paakashala.com/playbook/title-readability-tips",
+                  "title": "Improving Title Readability — Tactics for paakashala.com",
+                  "snippet": "Step‑by‑step instructions to improve Title Readability on paakashala.com. Aligns execution with content quality and measurement tips."
+                },
+                {
+                  "url": "https://paakashala.com/checklist/title-readability-checklist",
+                  "title": "Title Readability Checklist (paakashala.com)",
+                  "snippet": "Use this checklist to ship Title Readability changes on paakashala.com. Covers setup, QA, and rollout notes aligned with internal linking."
+                }
+              ]
+            },
+            {
+              "id": "k6",
+              "title": "Meta Description",
+              "used": 2,
+              "recommended": 4,
+              "sources": 8,
+              "type": "All Topics",
+              "mine": 2,
+              "avg": 3,
+              "results": 4,
+              "links": [
+                {
+                  "url": "https://paakashala.com/guide/meta-description-basics",
+                  "title": "Meta Description: How It Works on paakashala.com",
+                  "snippet": "A focused guide to Meta Description for paakashala.com, with examples tied to site UX. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://paakashala.com/playbook/meta-description-tips",
+                  "title": "Improving Meta Description — Tactics for paakashala.com",
+                  "snippet": "Step‑by‑step instructions to improve Meta Description on paakashala.com. Aligns execution with content quality and measurement tips."
+                },
+                {
+                  "url": "https://paakashala.com/checklist/meta-description-checklist",
+                  "title": "Meta Description Checklist (paakashala.com)",
+                  "snippet": "Use this checklist to ship Meta Description changes on paakashala.com. Covers setup, QA, and rollout notes aligned with internal linking."
+                }
+              ]
+            },
+            {
+              "id": "k7",
+              "title": "Keyword Clusters",
+              "used": 1,
+              "recommended": 3,
+              "sources": 7,
+              "type": "Long Tail",
+              "mine": 1,
+              "avg": 3,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://paakashala.com/guide/keyword-clusters-basics",
+                  "title": "Keyword Clusters: How It Works on paakashala.com",
+                  "snippet": "A focused guide to Keyword Clusters for paakashala.com, with examples tied to site UX. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://paakashala.com/playbook/keyword-clusters-tips",
+                  "title": "Improving Keyword Clusters — Tactics for paakashala.com",
+                  "snippet": "Step‑by‑step instructions to improve Keyword Clusters on paakashala.com. Aligns execution with content quality and measurement tips."
+                },
+                {
+                  "url": "https://paakashala.com/checklist/keyword-clusters-checklist",
+                  "title": "Keyword Clusters Checklist (paakashala.com)",
+                  "snippet": "Use this checklist to ship Keyword Clusters changes on paakashala.com. Covers setup, QA, and rollout notes aligned with internal linking."
+                }
+              ]
+            },
+            {
+              "id": "k8",
+              "title": "Link Readability",
+              "used": 1,
+              "recommended": 3,
+              "sources": 5,
+              "type": "All Topics",
+              "mine": 1,
+              "avg": 2,
+              "results": 2,
+              "links": [
+                {
+                  "url": "https://paakashala.com/guide/link-readability-basics",
+                  "title": "Link Readability: How It Works on paakashala.com",
+                  "snippet": "A focused guide to Link Readability for paakashala.com, with examples tied to site UX. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://paakashala.com/playbook/link-readability-tips",
+                  "title": "Improving Link Readability — Tactics for paakashala.com",
+                  "snippet": "Step‑by‑step instructions to improve Link Readability on paakashala.com. Aligns execution with content quality and measurement tips."
+                },
+                {
+                  "url": "https://paakashala.com/checklist/link-readability-checklist",
+                  "title": "Link Readability Checklist (paakashala.com)",
+                  "snippet": "Use this checklist to ship Link Readability changes on paakashala.com. Covers setup, QA, and rollout notes aligned with internal linking."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "domain": "bigbasket.com",
+      "displayName": "BigBasket",
+      "meta": {
+        "industry": "General",
+        "country": "IN",
+        "language": "en"
+      },
+      "updatedAt": "2025-11-02T14:36:10Z",
+      "pages": [
+        {
+          "id": "category-tech-overview",
+          "url": "https://bigbasket.com/category/technology",
+          "title": "Technology Category Overview",
+          "pageType": "category",
+          "kpis": {
+            "headings": 2,
+            "links": 5,
+            "images": 3
+          },
+          "keywords": [
+            {
+              "id": "k1",
+              "title": "Content Marketing",
+              "used": 4,
+              "recommended": 3,
+              "sources": 15,
+              "type": "Long Tail",
+              "mine": 2,
+              "avg": 5,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://bigbasket.com/guide/content-marketing-basics",
+                  "title": "Content Marketing: How It Works on bigbasket.com",
+                  "snippet": "A focused guide to Content Marketing for bigbasket.com, with examples tied to site UX. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://bigbasket.com/playbook/content-marketing-tips",
+                  "title": "Improving Content Marketing — Tactics for bigbasket.com",
+                  "snippet": "Step‑by‑step instructions to improve Content Marketing on bigbasket.com. Aligns execution with content quality and measurement tips."
+                },
+                {
+                  "url": "https://bigbasket.com/checklist/content-marketing-checklist",
+                  "title": "Content Marketing Checklist (bigbasket.com)",
+                  "snippet": "Use this checklist to ship Content Marketing changes on bigbasket.com. Covers setup, QA, and rollout notes aligned with internal linking."
+                }
+              ]
+            },
+            {
+              "id": "k2",
+              "title": "Schema Markup",
+              "used": 1,
+              "recommended": 3,
+              "sources": 12,
+              "type": "All Topics",
+              "mine": 1,
+              "avg": 4,
+              "results": 5,
+              "links": [
+                {
+                  "url": "https://bigbasket.com/guide/schema-markup-basics",
+                  "title": "Schema Markup: How It Works on bigbasket.com",
+                  "snippet": "A focused guide to Schema Markup for bigbasket.com, with examples tied to site UX. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://bigbasket.com/playbook/schema-markup-tips",
+                  "title": "Improving Schema Markup — Tactics for bigbasket.com",
+                  "snippet": "Step‑by‑step instructions to improve Schema Markup on bigbasket.com. Aligns execution with content quality and measurement tips."
+                },
+                {
+                  "url": "https://bigbasket.com/checklist/schema-markup-checklist",
+                  "title": "Schema Markup Checklist (bigbasket.com)",
+                  "snippet": "Use this checklist to ship Schema Markup changes on bigbasket.com. Covers setup, QA, and rollout notes aligned with internal linking."
+                }
+              ]
+            },
+            {
+              "id": "k3",
+              "title": "Internal Linking",
+              "used": 2,
+              "recommended": 4,
+              "sources": 9,
+              "type": "Clusters",
+              "mine": 2,
+              "avg": 3,
+              "results": 4,
+              "links": [
+                {
+                  "url": "https://bigbasket.com/guide/internal-linking-basics",
+                  "title": "Internal Linking: How It Works on bigbasket.com",
+                  "snippet": "A focused guide to Internal Linking for bigbasket.com, with examples tied to site UX. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://bigbasket.com/playbook/internal-linking-tips",
+                  "title": "Improving Internal Linking — Tactics for bigbasket.com",
+                  "snippet": "Step‑by‑step instructions to improve Internal Linking on bigbasket.com. Aligns execution with content quality and measurement tips."
+                },
+                {
+                  "url": "https://bigbasket.com/checklist/internal-linking-checklist",
+                  "title": "Internal Linking Checklist (bigbasket.com)",
+                  "snippet": "Use this checklist to ship Internal Linking changes on bigbasket.com. Covers setup, QA, and rollout notes aligned with internal linking."
+                }
+              ]
+            },
+            {
+              "id": "k4",
+              "title": "Page Speed",
+              "used": 3,
+              "recommended": 3,
+              "sources": 18,
+              "type": "Long Tail",
+              "mine": 3,
+              "avg": 4,
+              "results": 6,
+              "links": [
+                {
+                  "url": "https://bigbasket.com/guide/page-speed-basics",
+                  "title": "Page Speed: How It Works on bigbasket.com",
+                  "snippet": "A focused guide to Page Speed for bigbasket.com, with examples tied to site UX. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://bigbasket.com/playbook/page-speed-tips",
+                  "title": "Improving Page Speed — Tactics for bigbasket.com",
+                  "snippet": "Step‑by‑step instructions to improve Page Speed on bigbasket.com. Aligns execution with content quality and measurement tips."
+                },
+                {
+                  "url": "https://bigbasket.com/checklist/page-speed-checklist",
+                  "title": "Page Speed Checklist (bigbasket.com)",
+                  "snippet": "Use this checklist to ship Page Speed changes on bigbasket.com. Covers setup, QA, and rollout notes aligned with internal linking."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "blog-seo-basics",
+          "url": "https://bigbasket.com/blog/seo-basics",
+          "title": "SEO Basics for Growth",
+          "pageType": "blog",
+          "kpis": {
+            "headings": 2,
+            "links": 5,
+            "images": 3
+          },
+          "keywords": [
+            {
+              "id": "k5",
+              "title": "Title Readability",
+              "used": 3,
+              "recommended": 3,
+              "sources": 10,
+              "type": "Clusters",
+              "mine": 3,
+              "avg": 4,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://bigbasket.com/guide/title-readability-basics",
+                  "title": "Title Readability: How It Works on bigbasket.com",
+                  "snippet": "A focused guide to Title Readability for bigbasket.com, with examples tied to site UX. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://bigbasket.com/playbook/title-readability-tips",
+                  "title": "Improving Title Readability — Tactics for bigbasket.com",
+                  "snippet": "Step‑by‑step instructions to improve Title Readability on bigbasket.com. Aligns execution with content quality and measurement tips."
+                },
+                {
+                  "url": "https://bigbasket.com/checklist/title-readability-checklist",
+                  "title": "Title Readability Checklist (bigbasket.com)",
+                  "snippet": "Use this checklist to ship Title Readability changes on bigbasket.com. Covers setup, QA, and rollout notes aligned with internal linking."
+                }
+              ]
+            },
+            {
+              "id": "k6",
+              "title": "Meta Description",
+              "used": 2,
+              "recommended": 4,
+              "sources": 8,
+              "type": "All Topics",
+              "mine": 2,
+              "avg": 3,
+              "results": 4,
+              "links": [
+                {
+                  "url": "https://bigbasket.com/guide/meta-description-basics",
+                  "title": "Meta Description: How It Works on bigbasket.com",
+                  "snippet": "A focused guide to Meta Description for bigbasket.com, with examples tied to site UX. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://bigbasket.com/playbook/meta-description-tips",
+                  "title": "Improving Meta Description — Tactics for bigbasket.com",
+                  "snippet": "Step‑by‑step instructions to improve Meta Description on bigbasket.com. Aligns execution with content quality and measurement tips."
+                },
+                {
+                  "url": "https://bigbasket.com/checklist/meta-description-checklist",
+                  "title": "Meta Description Checklist (bigbasket.com)",
+                  "snippet": "Use this checklist to ship Meta Description changes on bigbasket.com. Covers setup, QA, and rollout notes aligned with internal linking."
+                }
+              ]
+            },
+            {
+              "id": "k7",
+              "title": "Keyword Clusters",
+              "used": 1,
+              "recommended": 3,
+              "sources": 7,
+              "type": "Long Tail",
+              "mine": 1,
+              "avg": 3,
+              "results": 3,
+              "links": [
+                {
+                  "url": "https://bigbasket.com/guide/keyword-clusters-basics",
+                  "title": "Keyword Clusters: How It Works on bigbasket.com",
+                  "snippet": "A focused guide to Keyword Clusters for bigbasket.com, with examples tied to site UX. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://bigbasket.com/playbook/keyword-clusters-tips",
+                  "title": "Improving Keyword Clusters — Tactics for bigbasket.com",
+                  "snippet": "Step‑by‑step instructions to improve Keyword Clusters on bigbasket.com. Aligns execution with content quality and measurement tips."
+                },
+                {
+                  "url": "https://bigbasket.com/checklist/keyword-clusters-checklist",
+                  "title": "Keyword Clusters Checklist (bigbasket.com)",
+                  "snippet": "Use this checklist to ship Keyword Clusters changes on bigbasket.com. Covers setup, QA, and rollout notes aligned with internal linking."
+                }
+              ]
+            },
+            {
+              "id": "k8",
+              "title": "Link Readability",
+              "used": 1,
+              "recommended": 3,
+              "sources": 5,
+              "type": "All Topics",
+              "mine": 1,
+              "avg": 2,
+              "results": 2,
+              "links": [
+                {
+                  "url": "https://bigbasket.com/guide/link-readability-basics",
+                  "title": "Link Readability: How It Works on bigbasket.com",
+                  "snippet": "A focused guide to Link Readability for bigbasket.com, with examples tied to site UX. Includes quick wins and common pitfalls for teams."
+                },
+                {
+                  "url": "https://bigbasket.com/playbook/link-readability-tips",
+                  "title": "Improving Link Readability — Tactics for bigbasket.com",
+                  "snippet": "Step‑by‑step instructions to improve Link Readability on bigbasket.com. Aligns execution with content quality and measurement tips."
+                },
+                {
+                  "url": "https://bigbasket.com/checklist/link-readability-checklist",
+                  "title": "Link Readability Checklist (bigbasket.com)",
+                  "snippet": "Use this checklist to ship Link Readability changes on bigbasket.com. Covers setup, QA, and rollout notes aligned with internal linking."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
